@@ -7,11 +7,13 @@ export const PAGES = [
     name: "Home",
     element: <Home name={"Home"} />,
     url: "/",
+    index: true,
   },
   {
     name: "About",
     element: null,
     url: "/about",
+    index: false,
   },
 ];
 
@@ -24,7 +26,7 @@ export const router = createBrowserRouter([
         children: PAGES.map((page) => {
           return {
             path: page.url,
-            children: [{ index: true, element: page.element }],
+            children: [{ index: page.index, element: page.element }],
           };
         }),
       },

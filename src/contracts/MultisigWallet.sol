@@ -12,6 +12,7 @@ import "./Owner.sol";
 contract MultisigWallet is Owner {
     uint256 public addressLimit;
     uint public signaturesRequired;
+    uint public contractBalance = address(this).balance;
 
     struct Transfer {
         uint id;
@@ -52,9 +53,8 @@ contract MultisigWallet is Owner {
     }
 
     // Deposit to contract function
-    function depositToContract() public payable returns(uint) {
+    function depositToContract() public payable {
         emit depositComplete(msg.value, address(this));
-        return address(this).balance;
     }
 
     // Request transfer function
