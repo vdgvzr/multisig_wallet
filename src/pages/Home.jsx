@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../layouts/RootLayout";
-import { Button } from "react-bootstrap";
+import DepositToContractForm from "../components/forms/depositToContractForm/DepositToContractForm";
 
 export default function Home({ name }) {
-  const { contract } = useContext(RootContext);
+  const { account, contract, depositToContract } = useContext(RootContext);
 
   const [address, setAddress] = useState("Contract not lodaded");
 
@@ -12,15 +12,16 @@ export default function Home({ name }) {
     setAddress(contract._address);
   }, [contract._address, contract._methods]);
 
-  console.log(contract);
-
   return (
     <>
       <h1>{name}</h1>
       <div>
         <p>Contract address: {address}</p>
         <p>Contract balance: </p>
-        <Button>Deposit to Contract</Button>
+        <DepositToContractForm
+          account={account}
+          depositToContract={depositToContract}
+        />
       </div>
     </>
   );

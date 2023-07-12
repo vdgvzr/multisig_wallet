@@ -2,9 +2,9 @@ import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { RootContext } from "../../layouts/RootLayout";
-import { PAGES } from "../../router";
-import { Button } from "react-bootstrap";
+import { RootContext } from "../../../layouts/RootLayout";
+import { PAGES } from "../../../router";
+import CustomButton from "../../content/CustomButton/CustomButton";
 
 export default function MainNav() {
   const { siteName, account, loading } = useContext(RootContext);
@@ -29,9 +29,10 @@ export default function MainNav() {
               }
             })}
           </Nav>
-          <Button className="ms-auto">
-            {loading ? "Loading" : account ? account : "Connect Wallet"}
-          </Button>
+          <CustomButton
+            text={loading ? "Loading" : account ? account : "Connect Wallet"}
+            classes="ms-auto"
+          />
         </Navbar.Collapse>
       </Container>
     </Navbar>

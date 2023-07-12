@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Web3 from "web3";
 import { Outlet, ScrollRestoration } from "react-router-dom";
-import MainNav from "../components/global/MainNav";
+import MainNav from "../components/global/MainNav/MainNav";
 import MultisigWallet from "../abis/MultisigWallet.json";
 
 export const RootContext = React.createContext(null);
@@ -53,6 +53,16 @@ export default function RootLayout() {
     setAccount(accounts[0]);
   }
 
+  function depositToContract(from, value) {
+    contract.methods
+      .depositToContract()
+      .send({ from, value })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+      });
+  }
+
   return (
     <RootContext.Provider
       value={{
@@ -62,6 +72,7 @@ export default function RootLayout() {
         contract,
         loadEthError,
         loadContractError,
+        depositToContract,
       }}
     >
       <MainNav />
