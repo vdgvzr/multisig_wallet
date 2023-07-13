@@ -83,6 +83,16 @@ export default function RootLayout() {
       });
   }
 
+  function addOwner(from, newOwner) {
+    contract.methods
+      .addOwner(newOwner)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+      });
+  }
+
   return (
     <RootContext.Provider
       value={{
@@ -97,6 +107,7 @@ export default function RootLayout() {
         loadEthError,
         loadContractError,
         depositToContract,
+        addOwner,
       }}
     >
       <MainNav />

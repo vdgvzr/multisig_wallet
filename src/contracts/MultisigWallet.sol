@@ -35,7 +35,6 @@ contract MultisigWallet is Owner {
 
     // Events
     event addOwnerComplete(address owner, string message);
-    event tooManyOwners(string message);
     event depositComplete(uint amount, address indexed depositedTo);
     event transferRequestComplete(address to, uint amount, string message);
     event requestApproved(uint transferId, bool approved);
@@ -44,12 +43,21 @@ contract MultisigWallet is Owner {
 
     // Add owner function
     function addOwner(address newOwner) public isOwner {
-        if (owners.length <= addressLimit) {
-            owners.push(newOwner); 
-            emit addOwnerComplete(newOwner, "Successfully added owner"); 
-        } else {
-            emit tooManyOwners("Limit of owners has been reached");
+        require(owners.length < addressLimit, "Limit of owners has been reached");
+        for (uint256 i=0; i<owners.length; i++) {
+            require(owners[i] != newOwner, "Owner already exists");
         }
+        owners.push(newOwner); 
+        emit addOwnerComplete(newOwner, "Successfully added owner"); 
+    }
+
+    // Delete owner
+    function deleteOwner(uint index) public {
+        if (index >= owners.length) return;
+        for (uint i = index; i<owners.length-1; i++){
+            owners[i] = owners[i+1];
+        }
+        owners.pop();
     }
 
     // Deposit to contract function

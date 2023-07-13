@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../layouts/RootLayout";
 import DepositToContractForm from "../components/forms/depositToContractForm/DepositToContractForm";
+import AddOwnerForm from "../components/forms/AddOwnerForm/AddOwnerForm";
 
 export default function Home({ name }) {
   const {
@@ -12,6 +13,7 @@ export default function Home({ name }) {
     signaturesRequired,
     contract,
     depositToContract,
+    addOwner,
   } = useContext(RootContext);
 
   const [address, setAddress] = useState("Contract not lodaded");
@@ -31,23 +33,24 @@ export default function Home({ name }) {
         <div>
           <p>Owners:</p>
           <ul>
-            {owners ??
-              owners.map((owner, index) => {
-                return (
-                  <li
-                    className={account === owner ? "text-success" : ""}
-                    key={index}
-                  >
-                    {owner}
-                  </li>
-                );
-              })}
+            {owners.map((owner, index) => {
+              return (
+                <li
+                  className={account === owner ? "text-success" : ""}
+                  key={index}
+                >
+                  <span></span>
+                  {owner}
+                </li>
+              );
+            })}
           </ul>
         </div>
         <DepositToContractForm
           account={account}
           depositToContract={depositToContract}
         />
+        <AddOwnerForm account={account} addOwner={addOwner} />
       </div>
     </>
   );
