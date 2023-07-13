@@ -10,7 +10,7 @@ export default function RootLayout() {
   const siteName = import.meta.env.VITE_SITE_NAME;
 
   const [loading, setLoading] = useState(true);
-  const [account, setAccount] = useState("0x0");
+  const [account, setAccount] = useState("Connect Wallet");
   const [balance, setBalance] = useState("0");
   const [contract, setContract] = useState([]);
   const [owner, setOwner] = useState("0x0");
@@ -21,24 +21,26 @@ export default function RootLayout() {
   const [loadEthError, setLoadEthError] = useState("");
   const [loadContractError, setLoadContractError] = useState("");
 
-  window.ethereum.on("accountsChanged", function (account) {
-    // Time to reload your interface with accounts[0]!
-  });
-
   const isOwner = account === owner;
   const isSignatory = owners.includes(account);
 
   useState(() => {
-    loadWeb3();
-    loadBlockchainData();
+    setLoading(false);
+    if (account) {
+      loadWeb3();
+    }
   }, []);
+
+  window.ethereum.on("accountsChanged", loadWeb3);
 
   async function loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
+      loadBlockchainData();
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
+      loadBlockchainData();
     } else {
       setLoadEthError(
         "Non-Ethereum browser detected. You should consider trying MetaMask!"
@@ -97,6 +99,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
+        window.location.reload();
       });
   }
 
@@ -107,6 +110,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
+        window.location.reload();
       });
   }
 
@@ -117,6 +121,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
+        window.location.reload();
       });
   }
 
@@ -127,6 +132,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
+        window.location.reload();
       });
   }
 
@@ -137,6 +143,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
+        window.location.reload();
       });
   }
 
@@ -156,6 +163,7 @@ export default function RootLayout() {
         transferRequests,
         loadEthError,
         loadContractError,
+        loadWeb3,
         depositToContract,
         addOwner,
         deleteOwner,

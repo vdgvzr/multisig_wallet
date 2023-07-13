@@ -7,7 +7,8 @@ import { PAGES } from "../../../router";
 import CustomButton from "../../content/CustomButton/CustomButton";
 
 export default function MainNav() {
-  const { siteName, account, loading, isOwner } = useContext(RootContext);
+  const { siteName, account, loading, isOwner, loadWeb3 } =
+    useContext(RootContext);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -34,6 +35,9 @@ export default function MainNav() {
           <CustomButton
             text={loading ? "Loading" : account ? account : "Connect Wallet"}
             classes="ms-auto"
+            action={() => {
+              loadWeb3();
+            }}
           />
         </Navbar.Collapse>
       </Container>
