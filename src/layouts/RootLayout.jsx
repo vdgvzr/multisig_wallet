@@ -17,6 +17,7 @@ export default function RootLayout() {
   const [owners, setOwners] = useState([]);
   const [addressLimit, setAddressLimit] = useState("0");
   const [signaturesRequired, setSignaturesRequired] = useState("0");
+  const [transferRequests, setTransferRequests] = useState([]);
   const [loadEthError, setLoadEthError] = useState("");
   const [loadContractError, setLoadContractError] = useState("");
 
@@ -63,6 +64,9 @@ export default function RootLayout() {
       const contractSignaturesRequired = await multisigWallet.methods
         .signaturesRequired()
         .call();
+      const contractTransferRequests = await multisigWallet.methods
+        .getTransferRequests()
+        .call();
 
       ////// Set state
       setContract(multisigWallet);
@@ -73,6 +77,7 @@ export default function RootLayout() {
       );
       setAddressLimit(contractAddressLimit.toString());
       setSignaturesRequired(contractSignaturesRequired.toString());
+      setTransferRequests(contractTransferRequests);
     } else {
       setLoadContractError("Contract not deployed to detected network");
     }
@@ -121,6 +126,18 @@ export default function RootLayout() {
       });
   }
 
+  function approveRequest(from, id, approved) {
+    contract.methods
+      .approveRequest(id, approved)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+      });
+  }
+
+  console.log(contract);
+
   return (
     <RootContext.Provider
       value={{
@@ -134,12 +151,14 @@ export default function RootLayout() {
         signaturesRequired,
         loading,
         contract,
+        transferRequests,
         loadEthError,
         loadContractError,
         depositToContract,
         addOwner,
         deleteOwner,
         requestTransfer,
+        approveRequest,
       }}
     >
       <MainNav />

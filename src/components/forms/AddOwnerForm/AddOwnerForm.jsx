@@ -11,9 +11,9 @@ export default function AddOwnerForm({ account, addOwner }) {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          const value = addOwnerRef.current.value;
-          if (window.web3.utils.isAddress(value)) {
-            addOwner(account, window.web3.utils.toChecksumAddress(value));
+          const address = addOwnerRef.current.value;
+          if (window.web3.utils.isAddress(address)) {
+            addOwner(account, window.web3.utils.toChecksumAddress(address));
           }
         }}
       >
@@ -22,7 +22,7 @@ export default function AddOwnerForm({ account, addOwner }) {
           <Form.Control type="text" placeholder="address" ref={addOwnerRef} />
           <Form.Text>Enter new signatory</Form.Text>
         </Form.Group>
-        <CustomButton text="Submit" type="submit" />
+        <CustomButton text="Add Signatory" type="submit" />
       </Form>
     </>
   );

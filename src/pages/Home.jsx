@@ -4,6 +4,7 @@ import { RootContext } from "../layouts/RootLayout";
 import DepositToContractForm from "../components/forms/depositToContractForm/DepositToContractForm";
 import AddOwnerForm from "../components/forms/AddOwnerForm/AddOwnerForm";
 import CustomButton from "../components/content/CustomButton/CustomButton";
+import TransferRequestForm from "../components/forms/TransferRequestForm/TransferRequestForm";
 
 export default function Home({ name }) {
   const {
@@ -17,7 +18,10 @@ export default function Home({ name }) {
     contract,
     depositToContract,
     addOwner,
+    transferRequests,
     deleteOwner,
+    requestTransfer,
+    approveRequest,
   } = useContext(RootContext);
 
   const [address, setAddress] = useState("Contract not lodaded");
@@ -45,7 +49,7 @@ export default function Home({ name }) {
                   key={index}
                 >
                   <span>{owner}</span>
-                  {isOwner ? (
+                  {isOwner && owner !== account ? (
                     <CustomButton
                       text="Remove Owner"
                       classes="ms-2"
@@ -66,6 +70,41 @@ export default function Home({ name }) {
         {isOwner && owners.length <= addressLimit ? (
           <AddOwnerForm account={account} addOwner={addOwner} />
         ) : null}
+        <TransferRequestForm
+          account={account}
+          requestTransfer={requestTransfer}
+        />
+        <ul>
+          {transferRequests.map((transfer) => {
+            const id = transfer.id.toString();
+            const recipient = transfer.recipient.toString();
+            const amount = window.web3.utils.fromWei(
+              transfer.amount.toString(),
+              "ether"
+            );
+            const approvalCount = transfer.approvalCount.toString();
+
+            return (
+              <li className="my-2" key={id}>
+                transfer no: {id} - recipient: {recipient} - amount: {amount}{" "}
+                ETH - approvals: {approvalCount}{" "}
+                {approvalCount < signaturesRequired ? (
+                  account != recipient ? (
+                    <CustomButton
+                      text="Approve"
+                      classes="ms-2"
+                      action={() => {
+                        approveRequest(account, id, true);
+                      }}
+                    />
+                  ) : null
+                ) : (
+                  <p className="text-success">Transfer Complete</p>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </>
   );

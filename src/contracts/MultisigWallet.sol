@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENCED
 
 pragma solidity >=0.5.0 <0.9.0;
-// pragma experimental ABIEncoderV2;
+pragma experimental ABIEncoderV2;
 
 import "./Owner.sol";
 
@@ -21,8 +21,8 @@ contract MultisigWallet is Owner {
         uint approvalCount;
     }
 
-    Transfer[] transferRequests;
-    mapping(address => mapping(uint => bool)) approvals;
+    Transfer[] public transferRequests;
+    mapping(address => mapping(uint => bool)) public approvals;
 
     constructor() public {
         // owners[] defaults to containing msg.sender
@@ -93,5 +93,9 @@ contract MultisigWallet is Owner {
         recipient.transfer(amount);
         emit transferComplete(address(this), recipient, amount);
         assert(address(this).balance == previousContractBalance - amount);
+    }
+
+    function getTransferRequests() public view returns(Transfer[] memory) {
+        return transferRequests;
     }
 }

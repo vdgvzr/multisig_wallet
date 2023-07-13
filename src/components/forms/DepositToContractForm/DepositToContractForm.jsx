@@ -30,7 +30,7 @@ export default function DepositToContractForm({ account, depositToContract }) {
             Enter amount you would like to deposit to contract
           </Form.Text>
         </Form.Group>
-        <CustomButton text="Submit" type="submit" />
+        <CustomButton text="Deposit" type="submit" />
       </Form>
     </>
   );
