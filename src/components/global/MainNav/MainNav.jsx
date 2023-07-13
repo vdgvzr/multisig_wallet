@@ -7,7 +7,7 @@ import { PAGES } from "../../../router";
 import CustomButton from "../../content/CustomButton/CustomButton";
 
 export default function MainNav() {
-  const { siteName, account, loading } = useContext(RootContext);
+  const { siteName, account, loading, isOwner } = useContext(RootContext);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -21,11 +21,13 @@ export default function MainNav() {
           <Nav className="me-auto">
             {PAGES.map((page, index) => {
               if (page.name !== "Home") {
-                return (
-                  <Nav.Link key={index} href={page.url}>
-                    {page.name}
-                  </Nav.Link>
-                );
+                if (page.name !== "Manage Owners" || isOwner) {
+                  return (
+                    <Nav.Link key={index} href={page.url}>
+                      {page.name}
+                    </Nav.Link>
+                  );
+                }
               }
             })}
           </Nav>

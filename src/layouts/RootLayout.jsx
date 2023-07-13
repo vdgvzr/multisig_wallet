@@ -21,6 +21,10 @@ export default function RootLayout() {
   const [loadEthError, setLoadEthError] = useState("");
   const [loadContractError, setLoadContractError] = useState("");
 
+  window.ethereum.on("accountsChanged", function (account) {
+    // Time to reload your interface with accounts[0]!
+  });
+
   const isOwner = account === owner;
   const isSignatory = owners.includes(account);
 
@@ -135,8 +139,6 @@ export default function RootLayout() {
         console.log(receipt);
       });
   }
-
-  console.log(contract);
 
   return (
     <RootContext.Provider

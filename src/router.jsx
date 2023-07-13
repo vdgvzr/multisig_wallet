@@ -10,6 +10,12 @@ export const PAGES = [
     index: true,
   },
   {
+    name: "Manage Owners",
+    element: null,
+    url: "/manage-owners",
+    index: false,
+  },
+  {
     name: "About",
     element: null,
     url: "/about",
