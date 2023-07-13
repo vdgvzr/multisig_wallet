@@ -11,7 +11,11 @@ export default function RootLayout() {
 
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState("");
+  const [balance, setBalance] = useState("0");
   const [contract, setContract] = useState([]);
+  const [owners, setOwners] = useState([]);
+  const [addressLimit, setAddressLimit] = useState("0");
+  const [signaturesRequired, setSignaturesRequired] = useState("0");
   const [loadEthError, setLoadEthError] = useState("");
   const [loadContractError, setLoadContractError] = useState("");
 
@@ -44,7 +48,23 @@ export default function RootLayout() {
         MultisigWallet.abi,
         networkData.address
       );
+      const contractOwners = await multisigWallet.methods.getOwners().call();
+      const contractBalance = await multisigWallet.methods
+        .contractBalance()
+        .call();
+      const contractAddressLimit = await multisigWallet.methods
+        .addressLimit()
+        .call();
+      const contractSignaturesRequired = await multisigWallet.methods
+        .signaturesRequired()
+        .call();
       setContract(multisigWallet);
+      setOwners(contractOwners);
+      setBalance(
+        window.web3.utils.fromWei(contractBalance.toString(), "ether")
+      );
+      setAddressLimit(contractAddressLimit.toString());
+      setSignaturesRequired(contractSignaturesRequired.toString());
     } else {
       setLoadContractError("Contract not deployed to detected network");
     }
@@ -68,6 +88,10 @@ export default function RootLayout() {
       value={{
         siteName,
         account,
+        balance,
+        owners,
+        addressLimit,
+        signaturesRequired,
         loading,
         contract,
         loadEthError,

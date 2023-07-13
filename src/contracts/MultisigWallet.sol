@@ -12,7 +12,7 @@ import "./Owner.sol";
 contract MultisigWallet is Owner {
     uint256 public addressLimit;
     uint public signaturesRequired;
-    uint public contractBalance = address(this).balance;
+    uint public contractBalance = 0;
 
     struct Transfer {
         uint id;
@@ -54,17 +54,18 @@ contract MultisigWallet is Owner {
 
     // Deposit to contract function
     function depositToContract() public payable {
+        contractBalance += msg.value;
         emit depositComplete(msg.value, address(this));
     }
 
     // Request transfer function
-    function requestTransfer(address payable recipient, uint amount) public {
+    function requestTransfer(address payable recipient, uint amount) public onlyOwners {
         transferRequests.push(Transfer(transferRequests.length, recipient, amount, 0));
         emit transferRequestComplete(recipient, amount, "Transfer request successful");
     }
 
     // Approve request function
-    function approveRequest(uint transferId, bool approved) public {
+    function approveRequest(uint transferId, bool approved) public onlyOwners {
         approvals[msg.sender][transferId] = approved;
         transferRequests[transferId].approvalCount++;
 
@@ -79,9 +80,14 @@ contract MultisigWallet is Owner {
     // Transfer function
     function _transfer(address payable recipient, uint amount) private {
         require(address(this).balance >= amount, "Insufficient balance");
+        contractBalance -= amount;
         uint previousContractBalance = address(this).balance;
         recipient.transfer(amount);
         emit transferComplete(address(this), recipient, amount);
         assert(address(this).balance == previousContractBalance - amount);
+    }
+
+    function getAddressLimit() external view returns (uint) {
+        return addressLimit;
     }
 }

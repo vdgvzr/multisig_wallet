@@ -4,7 +4,15 @@ import { RootContext } from "../layouts/RootLayout";
 import DepositToContractForm from "../components/forms/depositToContractForm/DepositToContractForm";
 
 export default function Home({ name }) {
-  const { account, contract, depositToContract } = useContext(RootContext);
+  const {
+    account,
+    balance,
+    owners,
+    addressLimit,
+    signaturesRequired,
+    contract,
+    depositToContract,
+  } = useContext(RootContext);
 
   const [address, setAddress] = useState("Contract not lodaded");
 
@@ -17,7 +25,25 @@ export default function Home({ name }) {
       <h1>{name}</h1>
       <div>
         <p>Contract address: {address}</p>
-        <p>Contract balance: </p>
+        <p>Contract balance: {balance} ETH</p>
+        <p>Address Limit: {addressLimit}</p>
+        <p>Signatures Required: {signaturesRequired}</p>
+        <div>
+          <p>Owners:</p>
+          <ul>
+            {owners ??
+              owners.map((owner, index) => {
+                return (
+                  <li
+                    className={account === owner ? "text-success" : ""}
+                    key={index}
+                  >
+                    {owner}
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
         <DepositToContractForm
           account={account}
           depositToContract={depositToContract}
