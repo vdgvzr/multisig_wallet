@@ -94,8 +94,4 @@ contract MultisigWallet is Owner {
         emit transferComplete(address(this), recipient, amount);
         assert(address(this).balance == previousContractBalance - amount);
     }
-
-    function getAddressLimit() external view returns (uint) {
-        return addressLimit;
-    }
 }

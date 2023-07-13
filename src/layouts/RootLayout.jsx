@@ -10,14 +10,18 @@ export default function RootLayout() {
   const siteName = import.meta.env.VITE_SITE_NAME;
 
   const [loading, setLoading] = useState(true);
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState("0x0");
   const [balance, setBalance] = useState("0");
   const [contract, setContract] = useState([]);
+  const [owner, setOwner] = useState("0x0");
   const [owners, setOwners] = useState([]);
   const [addressLimit, setAddressLimit] = useState("0");
   const [signaturesRequired, setSignaturesRequired] = useState("0");
   const [loadEthError, setLoadEthError] = useState("");
   const [loadContractError, setLoadContractError] = useState("");
+
+  const isOwner = account === owner;
+  const isSignatory = owners.includes(account);
 
   useState(() => {
     loadWeb3();
@@ -48,6 +52,7 @@ export default function RootLayout() {
         MultisigWallet.abi,
         networkData.address
       );
+      const contractOwner = await multisigWallet.methods.getOwner().call();
       const contractOwners = await multisigWallet.methods.getOwners().call();
       const contractBalance = await multisigWallet.methods
         .contractBalance()
@@ -58,7 +63,10 @@ export default function RootLayout() {
       const contractSignaturesRequired = await multisigWallet.methods
         .signaturesRequired()
         .call();
+
+      ////// Set state
       setContract(multisigWallet);
+      setOwner(contractOwner);
       setOwners(contractOwners);
       setBalance(
         window.web3.utils.fromWei(contractBalance.toString(), "ether")
@@ -93,12 +101,34 @@ export default function RootLayout() {
       });
   }
 
+  function deleteOwner(from, index) {
+    contract.methods
+      .deleteOwner(index)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+      });
+  }
+
+  function requestTransfer(from, to, value) {
+    contract.methods
+      .requestTransfer(to, value)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+      });
+  }
+
   return (
     <RootContext.Provider
       value={{
         siteName,
+        isOwner,
         account,
         balance,
+        owner,
         owners,
         addressLimit,
         signaturesRequired,
@@ -108,12 +138,20 @@ export default function RootLayout() {
         loadContractError,
         depositToContract,
         addOwner,
+        deleteOwner,
+        requestTransfer,
       }}
     >
       <MainNav />
       <ScrollRestoration />
       <div className="container">
-        <Outlet />
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : isSignatory ? (
+          <Outlet />
+        ) : (
+          <h1>Access Denied</h1>
+        )}
       </div>
     </RootContext.Provider>
   );

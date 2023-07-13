@@ -22,7 +22,7 @@ export default function DepositToContractForm({ account, depositToContract }) {
           <Form.Label>Amount</Form.Label>
           <Form.Control
             type="number"
-            placeholder="amount"
+            placeholder="value"
             step="0.000000000000000001"
             ref={depositToContractRef}
           />

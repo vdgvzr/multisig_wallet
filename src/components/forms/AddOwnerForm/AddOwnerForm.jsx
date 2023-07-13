@@ -18,9 +18,9 @@ export default function AddOwnerForm({ account, addOwner }) {
         }}
       >
         <Form.Group className="mb-3" controlId="addOwnerValue">
-          <Form.Label>New Owner</Form.Label>
+          <Form.Label>New Signatory</Form.Label>
           <Form.Control type="text" placeholder="address" ref={addOwnerRef} />
-          <Form.Text>Enter new contract owner</Form.Text>
+          <Form.Text>Enter new signatory</Form.Text>
         </Form.Group>
         <CustomButton text="Submit" type="submit" />
       </Form>
