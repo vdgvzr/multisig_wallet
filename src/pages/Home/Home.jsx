@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
-import { RootContext } from "../layouts/RootLayout";
-import DepositToContractForm from "../components/forms/depositToContractForm/DepositToContractForm";
-import AddOwnerForm from "../components/forms/AddOwnerForm/AddOwnerForm";
-import CustomButton from "../components/content/CustomButton/CustomButton";
-import TransferRequestForm from "../components/forms/TransferRequestForm/TransferRequestForm";
+import { RootContext } from "../../layouts/RootLayout";
+import DepositToContractForm from "../../components/forms/depositToContractForm/DepositToContractForm";
+import AddOwnerForm from "../../components/forms/AddOwnerForm/AddOwnerForm";
+import CustomButton from "../../components/content/CustomButton/CustomButton";
+import TransferRequestForm from "../../components/forms/TransferRequestForm/TransferRequestForm";
 
 export default function Home({ name }) {
   const {
@@ -68,9 +68,6 @@ export default function Home({ name }) {
           account={account}
           depositToContract={depositToContract}
         />
-        {isOwner && owners.length <= addressLimit ? (
-          <AddOwnerForm account={account} addOwner={addOwner} />
-        ) : null}
         <TransferRequestForm
           account={account}
           requestTransfer={requestTransfer}

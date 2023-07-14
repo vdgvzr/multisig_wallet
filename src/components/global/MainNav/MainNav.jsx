@@ -32,13 +32,18 @@ export default function MainNav() {
               }
             })}
           </Nav>
-          <CustomButton
-            text={loading ? "Loading" : account ? account : "Connect Wallet"}
-            classes="ms-auto"
-            action={() => {
-              loadWeb3();
-            }}
-          />
+          {/* Add another action to change account if account */}
+          {account ? (
+            <Nav.Link disabled={true}>{account}</Nav.Link>
+          ) : (
+            <CustomButton
+              text={"Connect Wallet"}
+              classes="ms-auto"
+              action={() => {
+                loadWeb3();
+              }}
+            />
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

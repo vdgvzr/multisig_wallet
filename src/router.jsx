@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
+import ManageOwners from "./pages/ManageOwners/ManageOwners";
 
 export const PAGES = [
   {
@@ -11,15 +12,15 @@ export const PAGES = [
   },
   {
     name: "Manage Owners",
-    element: null,
+    element: <ManageOwners name="Manage Owners" />,
     url: "/manage-owners",
-    index: false,
+    index: true,
   },
   {
     name: "About",
     element: null,
     url: "/about",
-    index: false,
+    index: true,
   },
 ];
 
