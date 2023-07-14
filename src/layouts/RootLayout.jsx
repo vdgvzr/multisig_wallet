@@ -18,6 +18,7 @@ export default function RootLayout() {
   const [addressLimit, setAddressLimit] = useState("0");
   const [signaturesRequired, setSignaturesRequired] = useState("0");
   const [transferRequests, setTransferRequests] = useState([]);
+  const [approvals, setApprovals] = useState(false);
   const [loadEthError, setLoadEthError] = useState("");
   const [loadContractError, setLoadContractError] = useState("");
 
@@ -59,6 +60,7 @@ export default function RootLayout() {
         MultisigWallet.abi,
         networkData.address
       );
+
       const contractOwner = await multisigWallet.methods.getOwner().call();
       const contractOwners = await multisigWallet.methods.getOwners().call();
       const contractBalance = await multisigWallet.methods
@@ -74,6 +76,13 @@ export default function RootLayout() {
         .getTransferRequests()
         .call();
 
+      let contractApprovals = [];
+      for (let i = 0; i < contractTransferRequests.length; i++) {
+        contractApprovals.push(
+          await multisigWallet.methods.approvals(accounts[0], i).call()
+        );
+      }
+
       ////// Set state
       setContract(multisigWallet);
       setOwner(contractOwner);
@@ -84,6 +93,7 @@ export default function RootLayout() {
       setAddressLimit(contractAddressLimit.toString());
       setSignaturesRequired(contractSignaturesRequired.toString());
       setTransferRequests(contractTransferRequests);
+      setApprovals(contractApprovals);
     } else {
       setLoadContractError("Contract not deployed to detected network");
     }
@@ -99,7 +109,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
-        window.location.reload();
+        loadBlockchainData();
       });
   }
 
@@ -110,7 +120,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
-        window.location.reload();
+        loadBlockchainData();
       });
   }
 
@@ -121,7 +131,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
-        window.location.reload();
+        loadBlockchainData();
       });
   }
 
@@ -132,7 +142,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
-        window.location.reload();
+        loadBlockchainData();
       });
   }
 
@@ -143,7 +153,7 @@ export default function RootLayout() {
       .once("receipt", (receipt) => {
         // Logging for now, will change
         console.log(receipt);
-        window.location.reload();
+        loadBlockchainData();
       });
   }
 
@@ -161,6 +171,7 @@ export default function RootLayout() {
         loading,
         contract,
         transferRequests,
+        approvals,
         loadEthError,
         loadContractError,
         loadWeb3,

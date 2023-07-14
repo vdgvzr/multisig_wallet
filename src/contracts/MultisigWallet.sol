@@ -74,6 +74,7 @@ contract MultisigWallet is Owner {
 
     // Approve request function
     function approveRequest(uint transferId, bool approved) public onlyOwners {
+        require(approvals[msg.sender][transferId] != true, "Can't approve same transaction twice");
         approvals[msg.sender][transferId] = approved;
         transferRequests[transferId].approvalCount++;
 
@@ -97,5 +98,9 @@ contract MultisigWallet is Owner {
 
     function getTransferRequests() public view returns(Transfer[] memory) {
         return transferRequests;
+    }
+
+    function getApproval(address account,uint transferId) public view returns(bool) {
+        return approvals[account][transferId];
     }
 }

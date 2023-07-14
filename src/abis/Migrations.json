@@ -202,7 +202,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 522,
+                        "referencedDeclaration": 550,
                         "src": "249:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -286,7 +286,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 522,
+                        "referencedDeclaration": 550,
                         "src": "300:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -906,7 +906,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 522,
+                                  "referencedDeclaration": 550,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -997,7 +997,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 522,
+                                  "referencedDeclaration": 550,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -1475,12 +1475,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x813DDA590D829211D69979Bdc15a092aCbb4fDd9",
-      "transactionHash": "0x3f136222df4f7ff6bfadb6fe9432c938bd252df63a0095c547f85e0e8a47eced"
+      "address": "0x71696cE9925bb511299859f96f8BE35811917A1A",
+      "transactionHash": "0x2b8979b75e9930a551a9cc0f58f7144b502bd9e9508746b0c77c00f07031b2f2"
     }
   },
   "schemaVersion": "3.4.14",
-  "updatedAt": "2023-07-13T17:32:18.338Z",
+  "updatedAt": "2023-07-14T16:15:50.877Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "Shaun Lindsley",

@@ -19,6 +19,7 @@ export default function Home({ name }) {
     depositToContract,
     addOwner,
     transferRequests,
+    approvals,
     deleteOwner,
     requestTransfer,
     approveRequest,
@@ -90,13 +91,15 @@ export default function Home({ name }) {
                 ETH - approvals: {approvalCount}{" "}
                 {approvalCount < signaturesRequired ? (
                   account != recipient ? (
-                    <CustomButton
-                      text="Approve"
-                      classes="ms-2"
-                      action={() => {
-                        approveRequest(account, id, true);
-                      }}
-                    />
+                    approvals[id].toString() !== "true" ? (
+                      <CustomButton
+                        text="Approve"
+                        classes="ms-2"
+                        action={() => {
+                          approveRequest(account, id, true);
+                        }}
+                      />
+                    ) : null
                   ) : null
                 ) : (
                   <p className="text-success">Transfer Complete</p>
