@@ -2,8 +2,9 @@ import { Form } from "react-bootstrap";
 import CustomButton from "../../content/CustomButton/CustomButton";
 import PropTypes from "prop-types";
 import { useRef } from "react";
+import { contractMethods } from "../../../assets/js/contractMethods";
 
-export default function DepositToContractForm({ account, depositToContract }) {
+export default function DepositToContractForm({ account, contract }) {
   const depositToContractRef = useRef();
 
   return (
@@ -15,7 +16,7 @@ export default function DepositToContractForm({ account, depositToContract }) {
             depositToContractRef.current.value.toString(),
             "ether"
           );
-          depositToContract(account, value);
+          contractMethods.depositToContract(contract, account, value);
         }}
       >
         <Form.Group className="mb-3" controlId="depositToContractValue">
@@ -38,5 +39,5 @@ export default function DepositToContractForm({ account, depositToContract }) {
 
 DepositToContractForm.propTypes = {
   account: PropTypes.string,
-  depositToContract: PropTypes.any,
+  contract: PropTypes.any,
 };

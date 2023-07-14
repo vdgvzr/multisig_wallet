@@ -2,8 +2,9 @@ import { Form } from "react-bootstrap";
 import CustomButton from "../../content/CustomButton/CustomButton";
 import PropTypes from "prop-types";
 import { useRef } from "react";
+import { contractMethods } from "../../../assets/js/contractMethods";
 
-export default function TransferRequestForm({ account, requestTransfer }) {
+export default function TransferRequestForm({ account, contract }) {
   const transferRequestAddressRef = useRef();
   const transferRequestValueRef = useRef();
 
@@ -18,7 +19,8 @@ export default function TransferRequestForm({ account, requestTransfer }) {
             "ether"
           );
           if (window.web3.utils.isAddress(to)) {
-            requestTransfer(
+            contractMethods.requestTransfer(
+              contract,
               account,
               window.web3.utils.toChecksumAddress(to),
               value
@@ -53,5 +55,5 @@ export default function TransferRequestForm({ account, requestTransfer }) {
 
 TransferRequestForm.propTypes = {
   account: PropTypes.string,
-  requestTransfer: PropTypes.any,
+  contract: PropTypes.any,
 };

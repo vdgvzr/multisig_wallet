@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../../layouts/RootLayout";
 import DepositToContractForm from "../../components/forms/depositToContractForm/DepositToContractForm";
-import AddOwnerForm from "../../components/forms/AddOwnerForm/AddOwnerForm";
 import CustomButton from "../../components/content/CustomButton/CustomButton";
 import TransferRequestForm from "../../components/forms/TransferRequestForm/TransferRequestForm";
+import { contractMethods } from "../../assets/js/contractMethods";
 
 export default function Home({ name }) {
   const {
@@ -16,13 +16,8 @@ export default function Home({ name }) {
     addressLimit,
     signaturesRequired,
     contract,
-    depositToContract,
-    addOwner,
     transferRequests,
     approvals,
-    deleteOwner,
-    requestTransfer,
-    approveRequest,
   } = useContext(RootContext);
 
   const [address, setAddress] = useState("Contract not lodaded");
@@ -50,28 +45,13 @@ export default function Home({ name }) {
                   key={index}
                 >
                   <span>{owner}</span>
-                  {isOwner && owner !== account ? (
-                    <CustomButton
-                      text="Remove Owner"
-                      classes="ms-2"
-                      action={() => {
-                        deleteOwner(account, index);
-                      }}
-                    />
-                  ) : null}
                 </li>
               );
             })}
           </ul>
         </div>
-        <DepositToContractForm
-          account={account}
-          depositToContract={depositToContract}
-        />
-        <TransferRequestForm
-          account={account}
-          requestTransfer={requestTransfer}
-        />
+        <DepositToContractForm account={account} contract={contract} />
+        <TransferRequestForm account={account} contract={contract} />
         <ul>
           {transferRequests.map((transfer) => {
             const id = transfer.id.toString();
@@ -93,7 +73,7 @@ export default function Home({ name }) {
                         text="Approve"
                         classes="ms-2"
                         action={() => {
-                          approveRequest(account, id, true);
+                          contractMethods.approveRequest(contract, account, id, true);
                         }}
                       />
                     ) : null

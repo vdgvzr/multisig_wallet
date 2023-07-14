@@ -2,8 +2,9 @@ import { Form } from "react-bootstrap";
 import CustomButton from "../../content/CustomButton/CustomButton";
 import PropTypes from "prop-types";
 import { useRef } from "react";
+import { contractMethods } from "../../../assets/js/contractMethods";
 
-export default function AddOwnerForm({ account, addOwner }) {
+export default function AddOwnerForm({ account, contract }) {
   const addOwnerRef = useRef();
 
   return (
@@ -13,7 +14,11 @@ export default function AddOwnerForm({ account, addOwner }) {
           e.preventDefault();
           const address = addOwnerRef.current.value;
           if (window.web3.utils.isAddress(address)) {
-            addOwner(account, window.web3.utils.toChecksumAddress(address));
+            contractMethods.addOwner(
+              contract,
+              account,
+              window.web3.utils.toChecksumAddress(address)
+            );
           }
         }}
       >
@@ -30,5 +35,5 @@ export default function AddOwnerForm({ account, addOwner }) {
 
 AddOwnerForm.propTypes = {
   account: PropTypes.string,
-  addOwner: PropTypes.any,
+  contract: PropTypes.any,
 };

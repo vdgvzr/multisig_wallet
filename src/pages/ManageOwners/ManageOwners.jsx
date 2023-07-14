@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../../layouts/RootLayout";
 import CustomButton from "../../components/content/CustomButton/CustomButton";
 import AddOwnerForm from "../../components/forms/AddOwnerForm/AddOwnerForm";
+import { contractMethods } from "../../assets/js/contractMethods";
 
 export default function ManageOwners({ name }) {
   const {
@@ -14,8 +15,6 @@ export default function ManageOwners({ name }) {
     addressLimit,
     signaturesRequired,
     contract,
-    deleteOwner,
-    addOwner,
   } = useContext(RootContext);
 
   const [address, setAddress] = useState("Contract not lodaded");
@@ -48,7 +47,7 @@ export default function ManageOwners({ name }) {
                       text="Remove Owner"
                       classes="ms-2"
                       action={() => {
-                        deleteOwner(account, index);
+                        contractMethods.deleteOwner(contract, account, index);
                       }}
                     />
                   ) : null}
@@ -57,7 +56,7 @@ export default function ManageOwners({ name }) {
             })}
           </ul>
         </div>
-        <AddOwnerForm account={account} addOwner={addOwner} />
+        <AddOwnerForm account={account} contract={contract} />
       </div>
     </>
   );

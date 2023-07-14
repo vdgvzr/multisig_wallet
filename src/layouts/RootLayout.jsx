@@ -102,61 +102,6 @@ export default function RootLayout() {
     setAccount(accounts[0]);
   }
 
-  function depositToContract(from, value) {
-    contract.methods
-      .depositToContract()
-      .send({ from, value })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
-        loadBlockchainData();
-      });
-  }
-
-  function addOwner(from, newOwner) {
-    contract.methods
-      .addOwner(newOwner)
-      .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
-        loadBlockchainData();
-      });
-  }
-
-  function deleteOwner(from, index) {
-    contract.methods
-      .deleteOwner(index)
-      .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
-        loadBlockchainData();
-      });
-  }
-
-  function requestTransfer(from, to, value) {
-    contract.methods
-      .requestTransfer(to, value)
-      .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
-        loadBlockchainData();
-      });
-  }
-
-  function approveRequest(from, id, approved) {
-    contract.methods
-      .approveRequest(id, approved)
-      .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
-        loadBlockchainData();
-      });
-  }
-
   return (
     <RootContext.Provider
       value={{
@@ -175,11 +120,6 @@ export default function RootLayout() {
         loadEthError,
         loadContractError,
         loadWeb3,
-        depositToContract,
-        addOwner,
-        deleteOwner,
-        requestTransfer,
-        approveRequest,
       }}
     >
       <MainNav />
