@@ -4,10 +4,9 @@ pragma solidity >=0.5.0 <0.9.0;
 pragma experimental ABIEncoderV2;
 
 import "./Owner.sol";
-
 /**
  * @title MultisigWallet
- * @dev Shaun Lindsley
+ * dev: @vdgvzr
  */
 contract MultisigWallet is Owner {
     uint256 public addressLimit;
