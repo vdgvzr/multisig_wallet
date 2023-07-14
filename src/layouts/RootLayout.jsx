@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Web3 from "web3";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import MainNav from "../components/global/MainNav/MainNav";
-import MultisigWallet from "../abis/MultisigWallet.json";
+import MultisigWallet from "/abis/MultisigWallet.json";
 
 export const RootContext = React.createContext(null);
 
