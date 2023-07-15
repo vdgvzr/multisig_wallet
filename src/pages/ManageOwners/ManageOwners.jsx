@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
-import { RootContext } from "../../layouts/RootLayout";
+import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import CustomButton from "../../components/content/CustomButton/CustomButton";
 import AddOwnerForm from "../../components/forms/AddOwnerForm/AddOwnerForm";
+import Address from "../../components/content/Address/Address";
 
 export default function ManageOwners({ name }) {
   const {
@@ -28,8 +29,12 @@ export default function ManageOwners({ name }) {
     <>
       <h1>{name}</h1>
       <div>
-        <p>Contract address: {address}</p>
-        <p>Contract Owner: {owner}</p>
+        <p>
+          Contract address: <Address address={address} />
+        </p>
+        <p>
+          Contract Owner: <Address address={owner} />
+        </p>
         <p>Contract balance: {balance} ETH</p>
         <p>Address Limit: {addressLimit}</p>
         <p>Signatures Required: {signaturesRequired}</p>
@@ -38,11 +43,11 @@ export default function ManageOwners({ name }) {
           <ul>
             {owners.map((owner, index) => {
               return (
-                <li
-                  className={account === owner ? "text-success my-2" : " my-2"}
-                  key={index}
-                >
-                  <span>{owner}</span>
+                <li className="my-2" key={index}>
+                  <Address
+                    address={owner}
+                    variant={account === owner && "active"}
+                  />
                   {isOwner && owner !== account ? (
                     <CustomButton
                       text="Remove Owner"

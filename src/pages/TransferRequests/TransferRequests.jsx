@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import TransferRequestForm from "../../components/forms/TransferRequestForm/TransferRequestForm";
-import { RootContext } from "../../layouts/RootLayout";
+import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import CustomButton from "../../components/content/CustomButton/CustomButton";
+import Address from "../../components/content/Address/Address";
 
 export default function TransferRequests() {
   const {
@@ -32,23 +33,11 @@ export default function TransferRequests() {
           return (
             <li className="my-2" key={id}>
               <a href={`/transfer-requests/${id}`}>
-                transfer no: {id} - recipient: {recipient} - amount: {amount}{" "}
-                ETH - approvals: {approvalCount}{" "}
-                {approvalCount < signaturesRequired ? (
-                  account != recipient ? (
-                    approvals[id].toString() !== "true" ? (
-                      <CustomButton
-                        text="Approve"
-                        classes="ms-2"
-                        action={() => {
-                          approveRequest(account, id, true);
-                        }}
-                      />
-                    ) : null
-                  ) : null
-                ) : (
+                transfer no: {id} - recipient: <Address address={recipient} /> -
+                amount: {amount} ETH - approvals: {approvalCount}{" "}
+                {approvalCount >= signaturesRequired ? (
                   <p className="text-success">Transfer Complete</p>
-                )}
+                ) : null}
               </a>
             </li>
           );

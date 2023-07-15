@@ -1,0 +1,22 @@
+// Main Nav
+
+.main-nav {
+  .navbar-brand {
+    color: var(--color-primary-orange);
+  }
+
+  .nav-link {
+    color: var(--color-text-muted);
+    border: var(--border-default-grey);
+    border-radius: var(--border-radius-default);
+
+    .acvtive {
+      color: var(--color-text-default) !important;
+    }
+  }
+
+  &__account {
+    color: var(--color-primary-orange) !important;
+    border-color: var(--color-primary-orange) !important;
+  }
+}

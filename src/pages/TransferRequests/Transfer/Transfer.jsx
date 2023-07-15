@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
-import { RootContext } from "../../../layouts/RootLayout";
+import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import CustomButton from "../../../components/content/CustomButton/CustomButton";
+import Address from "../../../components/content/Address/Address";
 
 function Transfer() {
   const { transferId } = useLoaderData();
@@ -25,7 +26,7 @@ function Transfer() {
     <>
       <h1>Transfer</h1>
       <p>{id}</p>
-      <p>{recipient}</p>
+      <Address address={recipient} />
       <p>{amount} ETH</p>
       <p>{approvalCount}</p>
       {approvalCount < signaturesRequired ? (

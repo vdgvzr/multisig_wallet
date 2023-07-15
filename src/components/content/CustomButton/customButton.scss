@@ -1,0 +1,14 @@
+// Custom Button
+
+.custom-button {
+  text-transform: uppercase;
+  color: var(--color-primary-orange);
+  background-color: black;
+  border-color: var(--color-primary-orange);
+
+  &:hover {
+    color: black;
+    background-color: var(--color-primary-orange);
+    border-color: var(--color-primary-orange);
+  }
+}

@@ -13,7 +13,7 @@ export default function CustomButton({
     <>
       <Button
         type={type ? type : "button"}
-        className={classes ? classes : ""}
+        className={classes ? classes + " custom-button" : "custom-button"}
         onClick={action ? action : null}
         variant={variant ? variant : "primary"}
         disabled={disabled}

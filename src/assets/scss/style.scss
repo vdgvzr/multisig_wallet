@@ -1,0 +1,16 @@
+// Bootstrap
+@import "./bootstrap/bootstrap.scss";
+
+// Layouts
+@import "../../layouts/RootLayout/rootLayout.scss";
+
+// Variables
+@import "../scss/variables/colorVariables.scss";
+@import "../scss/variables/theme.scss";
+
+// Components
+// Content
+@import "../../components/content/CustomButton/customButton.scss";
+
+// Global
+@import "../../components/global/MainNav/mainNav.scss";
