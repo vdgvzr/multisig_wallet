@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { Outlet, ScrollRestoration } from "react-router-dom";
@@ -25,16 +25,23 @@ export default function RootLayout() {
   const isSignatory = owners.includes(account);
 
   useEffect(() => {
-    loadWeb3();
+    async function load() {
+      if ((await window.ethereum.request({ method: "eth_accounts" })).length) {
+        loadWeb3();
+      } else {
+        console.log("Please connect your wallet");
+        setAccountLoading(false);
+        setLoading(false);
+      }
+    }
+    load();
   });
 
   async function loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
-      if (await window.ethereum.request({ method: "eth_accounts" })) {
-        getAccount();
-      }
+      getAccount();
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
@@ -47,7 +54,6 @@ export default function RootLayout() {
   detectEthereumProvider().then((provider) => {
     if (provider && provider.isMetaMask) {
       provider.on("accountsChanged", handleAccountsChanged);
-      getAccount();
     } else {
       console.log("Please install MetaMask!");
     }
@@ -62,6 +68,7 @@ export default function RootLayout() {
   function handleAccountsChanged(accounts) {
     if (accounts.length === 0) {
       console.log("You're not connected to MetaMask");
+      window.location.reload();
     } else if (accounts[0] !== account) {
       setAccount(accounts[0]);
       loadBlockchainData(accounts);
@@ -80,7 +87,7 @@ export default function RootLayout() {
         MultisigWallet.abi,
         networkData.address
       );
-        
+
       // Contract variable methods
       const contractOwner = await multisigWallet.methods.getOwner().call();
       const contractOwners = await multisigWallet.methods.getOwners().call();
@@ -193,7 +200,7 @@ export default function RootLayout() {
         transferRequests,
         approvals,
         loadContractError,
-        getAccount,
+        loadWeb3,
         depositToContract,
         addOwner,
         deleteOwner,
@@ -208,6 +215,8 @@ export default function RootLayout() {
           <h1>Loading...</h1>
         ) : isSignatory ? (
           <Outlet />
+        ) : !account ? (
+          <h1>Welcome</h1>
         ) : (
           <h1>Access Denied</h1>
         )}

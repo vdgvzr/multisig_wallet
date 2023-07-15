@@ -7,7 +7,7 @@ import { PAGES } from "../../../router";
 import CustomButton from "../../content/CustomButton/CustomButton";
 
 export default function MainNav() {
-  const { siteName, account, isOwner, getAccount, accountLoading } =
+  const { siteName, account, isOwner, loadWeb3, accountLoading } =
     useContext(RootContext);
 
   return (
@@ -34,13 +34,15 @@ export default function MainNav() {
           </Nav>
           {/* Add another action to change account if account */}
           {account ? (
-            <Nav.Link disabled={true}>{accountLoading ? "Loading" : account}</Nav.Link>
+            <Nav.Link disabled={true}>
+              {accountLoading ? "Loading" : account}
+            </Nav.Link>
           ) : (
             <CustomButton
               text={accountLoading ? "Loading" : "Connect Wallet"}
               classes="ms-auto"
               action={() => {
-                getAccount();
+                loadWeb3();
               }}
             />
           )}
