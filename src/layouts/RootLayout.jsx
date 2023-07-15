@@ -80,7 +80,8 @@ export default function RootLayout() {
         MultisigWallet.abi,
         networkData.address
       );
-
+        
+      // Contract variable methods
       const contractOwner = await multisigWallet.methods.getOwner().call();
       const contractOwners = await multisigWallet.methods.getOwners().call();
       const contractBalance = await multisigWallet.methods
@@ -103,7 +104,7 @@ export default function RootLayout() {
         );
       }
 
-      ////// Set state
+      // Set state
       setContract(multisigWallet);
       setOwner(contractOwner);
       setOwners(contractOwners);
@@ -120,6 +121,7 @@ export default function RootLayout() {
     }
   }
 
+  // Invoke contract methods
   function depositToContract(from, value) {
     contract.methods
       .depositToContract()

@@ -1,11 +1,16 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/CustomButton/CustomButton";
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function TransferRequestForm({ account, requestTransfer }) {
   const transferRequestAddressRef = useRef();
   const transferRequestValueRef = useRef();
+
+  useEffect(() => {
+    transferRequestAddressRef.current.value = null;
+    transferRequestValueRef.current.value = null;
+  });
 
   return (
     <>

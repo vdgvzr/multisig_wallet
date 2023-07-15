@@ -1,10 +1,14 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/CustomButton/CustomButton";
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function DepositToContractForm({ account, depositToContract }) {
   const depositToContractRef = useRef();
+
+  useEffect(() => {
+    depositToContractRef.current.value = null;
+  });
 
   return (
     <>

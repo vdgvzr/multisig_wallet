@@ -1,10 +1,14 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/CustomButton/CustomButton";
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function AddOwnerForm({ account, addOwner }) {
   const addOwnerRef = useRef();
+
+  useEffect(() => {
+    addOwnerRef.current.value = null;
+  });
 
   return (
     <>
@@ -13,10 +17,7 @@ export default function AddOwnerForm({ account, addOwner }) {
           e.preventDefault();
           const address = addOwnerRef.current.value;
           if (window.web3.utils.isAddress(address)) {
-            addOwner(
-              account,
-              window.web3.utils.toChecksumAddress(address)
-            );
+            addOwner(account, window.web3.utils.toChecksumAddress(address));
           }
         }}
       >
