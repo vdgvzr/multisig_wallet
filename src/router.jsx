@@ -3,7 +3,7 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home/Home";
 import ManageOwners from "./pages/ManageOwners/ManageOwners";
 import TransferRequests from "./pages/TransferRequests/TransferRequests";
-import Transfer from "./pages/TransferRequests/Transfer/Transfer";
+import { transferRoute } from "./pages/TransferRequests/Transfer/Transfer";
 import ErrorPage from "./pages/staticPages/ErrorPage/ErrorPage";
 import PageNotFoundPage from "./pages/staticPages/PageNotFoundPage/PageNotFoundPage";
 
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
             path: "transfer-requests",
             children: [
               { index: true, element: <TransferRequests /> },
-              { path: ":transferId", element: <Transfer /> },
+              { path: ":transferId", ...transferRoute },
             ],
           },
           { path: "*", element: <PageNotFoundPage /> },
