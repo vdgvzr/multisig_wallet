@@ -71,23 +71,25 @@ export default function Home({ name }) {
 
             return (
               <li className="my-2" key={id}>
-                transfer no: {id} - recipient: {recipient} - amount: {amount}{" "}
-                ETH - approvals: {approvalCount}{" "}
-                {approvalCount < signaturesRequired ? (
-                  account != recipient ? (
-                    approvals[id].toString() !== "true" ? (
-                      <CustomButton
-                        text="Approve"
-                        classes="ms-2"
-                        action={() => {
-                          approveRequest(account, id, true);
-                        }}
-                      />
+                <a href={`/transfer-requests/${id}`}>
+                  transfer no: {id} - recipient: {recipient} - amount: {amount}{" "}
+                  ETH - approvals: {approvalCount}{" "}
+                  {approvalCount < signaturesRequired ? (
+                    account != recipient ? (
+                      approvals[id].toString() !== "true" ? (
+                        <CustomButton
+                          text="Approve"
+                          classes="ms-2"
+                          action={() => {
+                            approveRequest(account, id, true);
+                          }}
+                        />
+                      ) : null
                     ) : null
-                  ) : null
-                ) : (
-                  <p className="text-success">Transfer Complete</p>
-                )}
+                  ) : (
+                    <p className="text-success">Transfer Complete</p>
+                  )}
+                </a>
               </li>
             );
           })}

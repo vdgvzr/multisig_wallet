@@ -1,9 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import MainNav from "../components/global/MainNav/MainNav";
 import MultisigWallet from "/abis/MultisigWallet.json";
+import LoadingPage from "../pages/staticPages/LoadingPage/LoadingPage";
+import WelcomePage from "../pages/staticPages/WelcomePage/WelcomePage";
+import AccessDeniedPage from "../pages/staticPages/AccessDeniedPage/AccessDeniedPage";
 
 export const RootContext = React.createContext(null);
 
@@ -212,13 +215,13 @@ export default function RootLayout() {
       <ScrollRestoration />
       <div className="container">
         {loading ? (
-          <h1>Loading...</h1>
+          <LoadingPage />
         ) : isSignatory ? (
           <Outlet />
         ) : !account ? (
-          <h1>Welcome</h1>
+          <WelcomePage />
         ) : (
-          <h1>Access Denied</h1>
+          <AccessDeniedPage />
         )}
       </div>
     </RootContext.Provider>
