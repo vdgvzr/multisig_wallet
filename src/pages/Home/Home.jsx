@@ -73,7 +73,12 @@ export default function Home({ name }) {
                         text="Approve"
                         classes="ms-2"
                         action={() => {
-                          contractMethods.approveRequest(contract, account, id, true);
+                          contractMethods.approveRequest(
+                            contract,
+                            account,
+                            id,
+                            true
+                          );
                         }}
                       />
                     ) : null
