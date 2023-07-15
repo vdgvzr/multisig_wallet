@@ -4,12 +4,10 @@ import { RootContext } from "../../layouts/RootLayout";
 import DepositToContractForm from "../../components/forms/depositToContractForm/DepositToContractForm";
 import CustomButton from "../../components/content/CustomButton/CustomButton";
 import TransferRequestForm from "../../components/forms/TransferRequestForm/TransferRequestForm";
-import { contractMethods } from "../../assets/js/contractMethods";
 
 export default function Home({ name }) {
   const {
     account,
-    isOwner,
     balance,
     owner,
     owners,
@@ -18,6 +16,9 @@ export default function Home({ name }) {
     contract,
     transferRequests,
     approvals,
+    depositToContract,
+    requestTransfer,
+    approveRequest,
   } = useContext(RootContext);
 
   const [address, setAddress] = useState("Contract not lodaded");
@@ -50,8 +51,14 @@ export default function Home({ name }) {
             })}
           </ul>
         </div>
-        <DepositToContractForm account={account} contract={contract} />
-        <TransferRequestForm account={account} contract={contract} />
+        <DepositToContractForm
+          account={account}
+          depositToContract={depositToContract}
+        />
+        <TransferRequestForm
+          account={account}
+          requestTransfer={requestTransfer}
+        />
         <ul>
           {transferRequests.map((transfer) => {
             const id = transfer.id.toString();
@@ -73,12 +80,7 @@ export default function Home({ name }) {
                         text="Approve"
                         classes="ms-2"
                         action={() => {
-                          contractMethods.approveRequest(
-                            contract,
-                            account,
-                            id,
-                            true
-                          );
+                          approveRequest(account, id, true);
                         }}
                       />
                     ) : null

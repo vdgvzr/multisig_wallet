@@ -68,7 +68,10 @@ export default function RootLayout() {
     }
   }
 
-  async function loadBlockchainData(accounts) {
+  async function loadBlockchainData() {
+    const web3 = window.web3;
+    // Load account
+    const accounts = await web3.eth.getAccounts();
     const networkId = await window.web3.eth.net.getId();
     const networkData = MultisigWallet.networks[networkId];
 
@@ -117,6 +120,61 @@ export default function RootLayout() {
     }
   }
 
+  function depositToContract(from, value) {
+    contract.methods
+      .depositToContract()
+      .send({ from, value })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+        loadBlockchainData();
+      });
+  }
+
+  function addOwner(from, newOwner) {
+    contract.methods
+      .addOwner(newOwner)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+        loadBlockchainData();
+      });
+  }
+
+  function deleteOwner(from, index) {
+    contract.methods
+      .deleteOwner(index)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+        loadBlockchainData();
+      });
+  }
+
+  function requestTransfer(from, to, value) {
+    contract.methods
+      .requestTransfer(to, value)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+        loadBlockchainData();
+      });
+  }
+
+  function approveRequest(from, id, approved) {
+    contract.methods
+      .approveRequest(id, approved)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+        loadBlockchainData();
+      });
+  }
+
   return (
     <RootContext.Provider
       value={{
@@ -134,6 +192,11 @@ export default function RootLayout() {
         approvals,
         loadContractError,
         getAccount,
+        depositToContract,
+        addOwner,
+        deleteOwner,
+        requestTransfer,
+        approveRequest,
       }}
     >
       <MainNav />
