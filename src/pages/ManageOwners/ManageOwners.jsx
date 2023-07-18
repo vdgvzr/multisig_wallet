@@ -30,9 +30,9 @@ export default function ManageOwners({ name }) {
     <>
       <h1>{name}</h1>
       <div>
-        <p>
+        <div>
           Contract address: <Address address={address} />
-        </p>
+        </div>
         <div>
           Contract Owner: <Address address={owner} />
         </div>

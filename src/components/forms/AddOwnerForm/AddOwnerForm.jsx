@@ -2,6 +2,7 @@ import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
 import { useContext, useEffect, useRef } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
+import Input from "../Input";
 
 export default function AddOwnerForm() {
   const { account, addOwner } = useContext(RootContext);
@@ -22,11 +23,14 @@ export default function AddOwnerForm() {
           }
         }}
       >
-        <Form.Group className="mb-3" controlId="addOwnerValue">
-          <Form.Label>New Owner</Form.Label>
-          <Form.Control type="text" placeholder="address" ref={addOwnerRef} />
-          <Form.Text>Enter new owner</Form.Text>
-        </Form.Group>
+        <Input
+          type="text"
+          placeholder="address"
+          label="New Owner"
+          text="Enter new owner"
+          controlId="addOwnerValue"
+          innerRef={addOwnerRef}
+        />
         <CustomButton text="Add owner" type="submit" />
       </Form>
     </>

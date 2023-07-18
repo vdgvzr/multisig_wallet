@@ -2,6 +2,7 @@ import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
 import { useContext, useEffect, useRef } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
+import Input from "../Input";
 
 export default function TransferRequestForm() {
   const { account, requestTransfer } = useContext(RootContext);
@@ -32,25 +33,23 @@ export default function TransferRequestForm() {
           }
         }}
       >
-        <Form.Group className="mb-3" controlId="addOwnerValue">
-          <Form.Label>Transfer to</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="address"
-            ref={transferRequestAddressRef}
-          />
-          <Form.Text>Enter address to transfer to</Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="requestTransferValue">
-          <Form.Label>Value</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="value"
-            step="0.000000000000000001"
-            ref={transferRequestValueRef}
-          />
-          <Form.Text>Enter amount to transfer</Form.Text>
-        </Form.Group>
+        <Input
+          type="text"
+          placeholder="address"
+          label="Transfer to"
+          text="Enter address to transfer to"
+          controlId="addOwnerValue"
+          innerRef={transferRequestAddressRef}
+        />
+        <Input
+          type="number"
+          placeholder="amount"
+          step="0.000000000000000001"
+          label="Amount"
+          text="Enter amount to transfer"
+          controlId="requestTransferValue"
+          innerRef={transferRequestValueRef}
+        />
         <CustomButton text="Request Transfer" type="submit" />
       </Form>
     </>

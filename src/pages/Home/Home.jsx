@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <div>
-        <Form type="deposit" />
+        <Form title="Deposit to Contract" type="deposit" col="6" />
       </div>
     </>
   );
