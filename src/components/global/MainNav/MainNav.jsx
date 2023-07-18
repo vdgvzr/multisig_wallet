@@ -4,8 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import { PAGES } from "../../../router";
-import CustomButton from "../../content/CustomButton/CustomButton";
-import Address from "../../content/Address/Address";
+import CustomButton from "../../content/components/CustomButton/CustomButton";
+import Address from "../../content/components/Address/Address";
 
 export default function MainNav() {
   const { siteName, account, isOwner, loadWeb3, accountLoading, isSignatory } =
@@ -41,7 +41,11 @@ export default function MainNav() {
                 })}
               {account ? (
                 <Nav.Link className="ms-auto main-nav__account" disabled={true}>
-                  {accountLoading ? "Loading" : <Address address={account} />}
+                  {accountLoading ? (
+                    "Loading"
+                  ) : (
+                    <Address address={account} format={true} />
+                  )}
                 </Nav.Link>
               ) : (
                 <CustomButton

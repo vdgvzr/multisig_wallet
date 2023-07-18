@@ -3,7 +3,7 @@
 .main-nav {
   &__navbar {
     background-color: color(brand, oxford-blue);
-    height: 75px;
+    height: 100px;
   }
   .navbar-brand {
     color: color(brand, orange);
@@ -26,6 +26,5 @@
     color: color(brand, platinum) !important;
     border: 1px solid color(brand, platinum);
     padding: 12px 40px;
-    font-style: normal;
   }
 }

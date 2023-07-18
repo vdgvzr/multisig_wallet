@@ -7,6 +7,7 @@ import MultisigWallet from "/abis/MultisigWallet.json";
 import LoadingPage from "../../pages/staticPages/LoadingPage/LoadingPage";
 import WelcomePage from "../../pages/staticPages/WelcomePage/WelcomePage";
 import AccessDeniedPage from "../../pages/staticPages/AccessDeniedPage/AccessDeniedPage";
+import ContractBanner from "../../components/content/mainContent/ContractBanner/ContractBanner";
 
 export const RootContext = React.createContext(null);
 
@@ -213,6 +214,7 @@ export default function RootLayout() {
       }}
     >
       <MainNav />
+      {!loading && isSignatory && account ? <ContractBanner /> : null}
       <ScrollRestoration />
       <div className="container">
         {loading ? (

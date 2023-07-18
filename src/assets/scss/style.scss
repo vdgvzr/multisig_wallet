@@ -13,8 +13,10 @@
 
 // Components
 // Content
-@import "../../components/content/CustomButton/customButton.scss";
-@import "../../components/content/Address/Address.scss";
+@import "../../components/content/components/CustomButton/customButton.scss";
+@import "../../components/content/components/Address/Address.scss";
+// Main Content
+@import "../../components/content/mainContent/ContractBanner/ContractBanner.scss";
 
 // Layouts
 @import "../../layouts/RootLayout/rootLayout.scss";

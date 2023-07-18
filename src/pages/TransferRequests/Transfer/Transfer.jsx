@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
-import CustomButton from "../../../components/content/CustomButton/CustomButton";
-import Address from "../../../components/content/Address/Address";
+import CustomButton from "../../../components/content/components/CustomButton/CustomButton";
+import Address from "../../../components/content/components/Address/Address";
 
 function Transfer() {
   const { transferId } = useLoaderData();

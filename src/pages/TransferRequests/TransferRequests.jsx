@@ -1,18 +1,11 @@
 import { useContext } from "react";
 import TransferRequestForm from "../../components/forms/TransferRequestForm/TransferRequestForm";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
-import CustomButton from "../../components/content/CustomButton/CustomButton";
-import Address from "../../components/content/Address/Address";
+import Address from "../../components/content/components/Address/Address";
 
 export default function TransferRequests() {
-  const {
-    account,
-    requestTransfer,
-    transferRequests,
-    signaturesRequired,
-    approvals,
-    approveRequest,
-  } = useContext(RootContext);
+  const { account, requestTransfer, transferRequests, signaturesRequired } =
+    useContext(RootContext);
 
   return (
     <>

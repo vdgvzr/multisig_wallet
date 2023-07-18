@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
-import Icon from "../Icon/Icon";
+import Icon from "../../Icon/Icon";
 
 export default function CustomButton({
   text,

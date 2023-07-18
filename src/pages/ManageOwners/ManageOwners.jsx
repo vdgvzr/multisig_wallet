@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
-import CustomButton from "../../components/content/CustomButton/CustomButton";
+import CustomButton from "../../components/content/components/CustomButton/CustomButton";
 import AddOwnerForm from "../../components/forms/AddOwnerForm/AddOwnerForm";
-import Address from "../../components/content/Address/Address";
+import Address from "../../components/content/components/Address/Address";
 
 export default function ManageOwners({ name }) {
   const {

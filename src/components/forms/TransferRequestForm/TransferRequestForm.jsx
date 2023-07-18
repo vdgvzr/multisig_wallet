@@ -1,5 +1,5 @@
 import { Form } from "react-bootstrap";
-import CustomButton from "../../content/CustomButton/CustomButton";
+import CustomButton from "../../content/components/CustomButton/CustomButton";
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 

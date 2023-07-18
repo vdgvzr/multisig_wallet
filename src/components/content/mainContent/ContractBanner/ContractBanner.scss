@@ -1,0 +1,22 @@
+// Contract Banner
+
+.contract-banner {
+  background-color: color(grey, mist);
+
+  &__balance {
+    color: color(brand, ylmn-blue);
+    @include spaced(1px);
+    font-size: rem(14);
+    font-weight: bold;
+  }
+
+  .icon {
+    display: inline-block;
+    fill: color(brand, silver-lake-blue);
+    height: 20px;
+    pointer-events: none;
+    width: 20px;
+    position: absolute;
+    margin-left: 6px;
+  }
+}
