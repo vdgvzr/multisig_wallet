@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import Address from "../../components/content/components/Address/Address";
-import Form from "../../components/forms/Form";
+import Form from "../../components/forms/Form/Form";
 
 export default function TransferRequests() {
   const { transferRequests, signaturesRequired } = useContext(RootContext);

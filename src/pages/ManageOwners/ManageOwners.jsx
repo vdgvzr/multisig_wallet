@@ -4,7 +4,7 @@ import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import CustomButton from "../../components/content/components/CustomButton/CustomButton";
 import AddOwnerForm from "../../components/forms/AddOwnerForm/AddOwnerForm";
 import Address from "../../components/content/components/Address/Address";
-import Form from "../../components/forms/Form";
+import Form from "../../components/forms/Form/Form";
 
 export default function ManageOwners({ name }) {
   const {

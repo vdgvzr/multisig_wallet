@@ -4,7 +4,7 @@ import Icons from "../../../assets/svg/icons.svg";
 export default function Icon({ icon, classes }) {
   return (
     <>
-      <svg aria-hidden="true" className={`icon ${classes && classes}`}>
+      <svg aria-hidden="true" className={`icon ${classes ? classes : ""}`}>
         <use xlinkHref={`${Icons}#icon-${icon}`} />
       </svg>
     </>

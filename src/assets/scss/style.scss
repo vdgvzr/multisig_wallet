@@ -17,6 +17,7 @@
 @import "../../components/content/components/Address/Address.scss";
 // Main Content
 @import "../../components/content/mainContent/ContractBanner/ContractBanner.scss";
+@import "../../components/content/mainContent/IconHero/IconHero.scss";
 
 // Layouts
 @import "../../layouts/RootLayout/rootLayout.scss";
@@ -26,4 +27,5 @@
 
 // Forms
 // Input
+@import "../../components/forms/Form/Form.scss";
 @import "../../components/forms/Input/Input.scss";
