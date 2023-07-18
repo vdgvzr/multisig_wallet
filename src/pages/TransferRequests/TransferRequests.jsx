@@ -8,7 +8,7 @@ export default function TransferRequests() {
 
   return (
     <>
-      <Form type="transfer" />
+      <Form title="Request a transfer" type="transfer" col="6" />
       <ul>
         {transferRequests.map((transfer) => {
           const id = transfer.id.toString();

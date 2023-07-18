@@ -1,18 +1,15 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
-import Input from "../Input";
+import Input from "../Input/Input";
 
 export default function TransferRequestForm() {
   const { account, requestTransfer } = useContext(RootContext);
   const transferRequestAddressRef = useRef();
   const transferRequestValueRef = useRef();
-
-  useEffect(() => {
-    transferRequestAddressRef.current.value = null;
-    transferRequestValueRef.current.value = null;
-  });
+  const [input, setInput] = useState("");
+  const [input2, setInput2] = useState("");
 
   return (
     <>
@@ -31,6 +28,8 @@ export default function TransferRequestForm() {
               value
             );
           }
+          transferRequestAddressRef.current.value = null;
+          transferRequestValueRef.current.value = null;
         }}
       >
         <Input
@@ -40,6 +39,7 @@ export default function TransferRequestForm() {
           text="Enter address to transfer to"
           controlId="addOwnerValue"
           innerRef={transferRequestAddressRef}
+          setInput={setInput}
         />
         <Input
           type="number"
@@ -49,8 +49,14 @@ export default function TransferRequestForm() {
           text="Enter amount to transfer"
           controlId="requestTransferValue"
           innerRef={transferRequestValueRef}
+          setInput={setInput2}
         />
-        <CustomButton text="Request Transfer" type="submit" />
+        <CustomButton
+          text="Request Transfer"
+          type="submit"
+          icon="chevron-right"
+          disabled={!input || !input2}
+        />
       </Form>
     </>
   );

@@ -59,6 +59,11 @@
       width: 40px;
     }
   }
+
+  &:disabled {
+    background-color: color(brand, orange) !important;
+    color: color(brand, rich-black);
+  }
 }
 
 // Button - animations

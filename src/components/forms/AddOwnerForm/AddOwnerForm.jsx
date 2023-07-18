@@ -1,16 +1,13 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
-import Input from "../Input";
+import Input from "../Input/Input";
 
 export default function AddOwnerForm() {
   const { account, addOwner } = useContext(RootContext);
   const addOwnerRef = useRef();
-
-  useEffect(() => {
-    addOwnerRef.current.value = null;
-  });
+  const [input, setInput] = useState("");
 
   return (
     <>
@@ -21,6 +18,7 @@ export default function AddOwnerForm() {
           if (window.web3.utils.isAddress(address)) {
             addOwner(account, window.web3.utils.toChecksumAddress(address));
           }
+          addOwnerRef.current.value = null;
         }}
       >
         <Input
@@ -30,8 +28,14 @@ export default function AddOwnerForm() {
           text="Enter new owner"
           controlId="addOwnerValue"
           innerRef={addOwnerRef}
+          setInput={setInput}
         />
-        <CustomButton text="Add owner" type="submit" />
+        <CustomButton
+          text="Add owner"
+          type="submit"
+          icon="plus"
+          disabled={!input}
+        />
       </Form>
     </>
   );

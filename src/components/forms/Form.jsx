@@ -8,7 +8,7 @@ export default function Form({ title, type, col }) {
     <>
       <div className="row justify-content-center my-5">
         <div className={`col-${col}`}>
-          {title ? <h1 className="mb-3">{title}</h1> : null}{" "}
+          {title ? <h2 className="mb-3">{title}</h2> : null}{" "}
           {type === "add" ? <AddOwnerForm /> : null}
           {type === "deposit" ? <DepositToContractForm /> : null}
           {type === "transfer" ? <TransferRequestForm /> : null}

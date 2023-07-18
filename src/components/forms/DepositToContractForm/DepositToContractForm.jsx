@@ -1,16 +1,13 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
-import Input from "../Input";
+import Input from "../Input/Input";
 
 export default function DepositToContractForm() {
   const { account, depositToContract } = useContext(RootContext);
   const depositToContractRef = useRef();
-
-  useEffect(() => {
-    depositToContractRef.current.value = null;
-  });
+  const [input, setInput] = useState("");
 
   return (
     <>
@@ -22,6 +19,7 @@ export default function DepositToContractForm() {
             "ether"
           );
           depositToContract(account, value);
+          depositToContractRef.current.value = null;
         }}
       >
         <Input
@@ -32,8 +30,14 @@ export default function DepositToContractForm() {
           text="Enter amount you would like to deposit to contract"
           controlId="depositToContractValue"
           innerRef={depositToContractRef}
+          setInput={setInput}
         />
-        <CustomButton text="Deposit" type="submit" icon="chevron-right" />
+        <CustomButton
+          text="Deposit"
+          type="submit"
+          icon="chevron-right"
+          disabled={!input}
+        />
       </Form>
     </>
   );

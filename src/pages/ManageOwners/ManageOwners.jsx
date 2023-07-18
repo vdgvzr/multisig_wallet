@@ -53,6 +53,7 @@ export default function ManageOwners({ name }) {
                     <CustomButton
                       text="Remove Owner"
                       classes="ms-2"
+                      icon="delete"
                       action={() => {
                         deleteOwner(account, index);
                       }}
@@ -63,7 +64,7 @@ export default function ManageOwners({ name }) {
             })}
           </ul>
         </div>
-        <Form type="add" />
+        <Form title="Add a new owner" type="add" col="6" />
       </div>
     </>
   );
