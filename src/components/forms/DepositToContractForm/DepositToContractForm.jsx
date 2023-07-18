@@ -1,9 +1,10 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import PropTypes from "prop-types";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 
-export default function DepositToContractForm({ account, depositToContract }) {
+export default function DepositToContractForm() {
+  const { account, depositToContract } = useContext(RootContext);
   const depositToContractRef = useRef();
 
   useEffect(() => {
@@ -39,8 +40,3 @@ export default function DepositToContractForm({ account, depositToContract }) {
     </>
   );
 }
-
-DepositToContractForm.propTypes = {
-  account: PropTypes.string,
-  depositToContract: PropTypes.any,
-};

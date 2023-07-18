@@ -1,9 +1,10 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import PropTypes from "prop-types";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 
-export default function AddOwnerForm({ account, addOwner }) {
+export default function AddOwnerForm() {
+  const { account, addOwner } = useContext(RootContext);
   const addOwnerRef = useRef();
 
   useEffect(() => {
@@ -22,17 +23,12 @@ export default function AddOwnerForm({ account, addOwner }) {
         }}
       >
         <Form.Group className="mb-3" controlId="addOwnerValue">
-          <Form.Label>New Signatory</Form.Label>
+          <Form.Label>New Owner</Form.Label>
           <Form.Control type="text" placeholder="address" ref={addOwnerRef} />
-          <Form.Text>Enter new signatory</Form.Text>
+          <Form.Text>Enter new owner</Form.Text>
         </Form.Group>
-        <CustomButton text="Add Signatory" type="submit" />
+        <CustomButton text="Add owner" type="submit" />
       </Form>
     </>
   );
 }
-
-AddOwnerForm.propTypes = {
-  account: PropTypes.string,
-  addOwner: PropTypes.any,
-};

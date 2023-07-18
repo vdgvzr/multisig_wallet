@@ -1,18 +1,14 @@
 import { useContext } from "react";
-import TransferRequestForm from "../../components/forms/TransferRequestForm/TransferRequestForm";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import Address from "../../components/content/components/Address/Address";
+import Form from "../../components/forms/Form";
 
 export default function TransferRequests() {
-  const { account, requestTransfer, transferRequests, signaturesRequired } =
-    useContext(RootContext);
+  const { transferRequests, signaturesRequired } = useContext(RootContext);
 
   return (
     <>
-      <TransferRequestForm
-        account={account}
-        requestTransfer={requestTransfer}
-      />
+      <Form type="transfer" />
       <ul>
         {transferRequests.map((transfer) => {
           const id = transfer.id.toString();

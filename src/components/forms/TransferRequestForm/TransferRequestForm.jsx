@@ -1,9 +1,10 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import PropTypes from "prop-types";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 
-export default function TransferRequestForm({ account, requestTransfer }) {
+export default function TransferRequestForm() {
+  const { account, requestTransfer } = useContext(RootContext);
   const transferRequestAddressRef = useRef();
   const transferRequestValueRef = useRef();
 
@@ -55,8 +56,3 @@ export default function TransferRequestForm({ account, requestTransfer }) {
     </>
   );
 }
-
-TransferRequestForm.propTypes = {
-  account: PropTypes.string,
-  requestTransfer: PropTypes.any,
-};
