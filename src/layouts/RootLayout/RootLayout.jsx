@@ -191,6 +191,7 @@ export default function RootLayout() {
     <RootContext.Provider
       value={{
         siteName,
+        isSignatory,
         isOwner,
         account,
         balance,

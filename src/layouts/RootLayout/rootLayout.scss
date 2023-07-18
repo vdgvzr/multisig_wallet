@@ -1,7 +1,8 @@
 // Root Layout
 
 body {
-  background-color: var(--color-background-color);
-  color: var(--color-text-default);
-  font-size: 14px;
+  background-color: color(grey, air);
+  color: color(brand, rich-black);
+  font-size: rem(15);
+  min-height: 100vh;
 }

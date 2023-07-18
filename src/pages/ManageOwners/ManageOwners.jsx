@@ -32,9 +32,9 @@ export default function ManageOwners({ name }) {
         <p>
           Contract address: <Address address={address} />
         </p>
-        <p>
+        <div>
           Contract Owner: <Address address={owner} />
-        </p>
+        </div>
         <p>Contract balance: {balance} ETH</p>
         <p>Address Limit: {addressLimit}</p>
         <p>Signatures Required: {signaturesRequired}</p>

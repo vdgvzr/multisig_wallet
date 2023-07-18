@@ -26,12 +26,12 @@ export default function Home({ name }) {
     <>
       <h1>{name}</h1>
       <div>
-        <p>
+        <div>
           Contract address: <Address address={address} />
-        </p>
-        <p>
+        </div>
+        <div>
           Contract Owner: <Address address={owner} />
-        </p>
+        </div>
         <p>Contract balance: {balance} ETH</p>
         <p>Address Limit: {addressLimit}</p>
         <p>Signatures Required: {signaturesRequired}</p>
@@ -41,10 +41,7 @@ export default function Home({ name }) {
             {owners.map((owner, index) => {
               return (
                 <li className="my-2" key={index}>
-                  <Address
-                    address={owner}
-                    variant={account === owner && "active"}
-                  />
+                  <Address address={owner} active={account === owner} />
                 </li>
               );
             })}

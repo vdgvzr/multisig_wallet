@@ -2,13 +2,72 @@
 
 .custom-button {
   text-transform: uppercase;
-  color: var(--color-primary-orange);
-  background-color: black;
-  border-color: var(--color-primary-orange);
+  background-color: color(brand, orange);
+  color: color(brand, rich-black);
+  border: none;
+  border-radius: 0%;
+  cursor: pointer;
+  display: inline-block;
+  font-size: rem(15);
+  line-height: 1.6;
+  padding: 12px 40px;
+  position: relative;
+  text-decoration: none;
+  @include spaced(1px);
 
-  &:hover {
-    color: black;
-    background-color: var(--color-primary-orange);
-    border-color: var(--color-primary-orange);
+  span {
+    display: inline-block;
+    pointer-events: none;
+    position: relative;
+    transition: all $transition-normal;
+  }
+
+  .icon {
+    display: inline-block;
+    fill: color(brand, orange);
+    height: 20px;
+    position: absolute;
+    pointer-events: none;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+  }
+
+  &:before {
+    background: color(brand, rich-black);
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: color(brand, orange);
+    color: color(brand, rich-black);
+
+    span {
+      transform: translateX(-20px);
+    }
+
+    &:before {
+      animation: slideInRight $transition-normal;
+      width: 40px;
+    }
+  }
+}
+
+// Button - animations
+@keyframes slideInRight {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 40px;
   }
 }

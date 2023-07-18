@@ -1,0 +1,13 @@
+// Address
+
+.address {
+  font-style: italic;
+  color: color(brand, ylmn-blue);
+  cursor: pointer;
+
+  &__active {
+    color: color(brand, orange);
+    font-style: normal;
+    font-weight: bold;
+  }
+}

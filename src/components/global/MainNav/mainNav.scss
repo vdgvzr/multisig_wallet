@@ -1,22 +1,31 @@
 // Main Nav
 
 .main-nav {
+  &__navbar {
+    background-color: color(brand, oxford-blue);
+    height: 75px;
+  }
   .navbar-brand {
-    color: var(--color-primary-orange);
+    color: color(brand, orange);
+    font-size: rem(27);
   }
 
   .nav-link {
-    color: var(--color-text-muted);
-    border: var(--border-default-grey);
-    border-radius: var(--border-radius-default);
+    color: color(brand, platinum);
 
     .acvtive {
-      color: var(--color-text-default) !important;
+      color: color(grey, mist) !important;
+    }
+
+    &:hover {
+      color: color(brand, silver-lake-blue);
     }
   }
 
-  &__account {
-    color: var(--color-primary-orange) !important;
-    border-color: var(--color-primary-orange) !important;
+  .address {
+    color: color(brand, platinum) !important;
+    border: 1px solid color(brand, platinum);
+    padding: 12px 40px;
+    font-style: normal;
   }
 }

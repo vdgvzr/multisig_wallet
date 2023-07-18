@@ -1,11 +1,24 @@
+import { useEffect, useRef, useState } from "react";
 import { formatAddress } from "../../../assets/js/utils";
 import PropTypes from "prop-types";
 
-export default function Address({ address, format, variant }) {
+export default function Address({ address, format = true, active }) {
+  const addressRef = useRef();
+  const [formatting, setFormatting] = useState(format);
+
+  useEffect(() => {
+    addressRef.current.addEventListener("click", () => {
+      setFormatting(!formatting);
+    });
+  });
+
   return (
     <>
-      <div className={variant === "active" && "address__active"}>
-        {format ? formatAddress(address) : address}
+      <div
+        className={`address ${active ? "address__active" : ""}`}
+        ref={addressRef}
+      >
+        {formatting ? formatAddress(address) : address}
       </div>
     </>
   );
@@ -14,5 +27,5 @@ export default function Address({ address, format, variant }) {
 Address.propTypes = {
   address: PropTypes.string,
   format: PropTypes.bool,
-  variant: PropTypes.string,
+  active: PropTypes.bool,
 };
