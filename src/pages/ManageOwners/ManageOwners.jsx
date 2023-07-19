@@ -64,7 +64,9 @@ export default function ManageOwners({ name }) {
             })}
           </ul>
         </div>
-        <Form title="Add a new owner" type="add" col="6" />
+        {owners.length >= addressLimit ? null : (
+          <Form title="Add a new owner" type="add" col="6" />
+        )}
       </div>
     </>
   );

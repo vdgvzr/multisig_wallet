@@ -49,7 +49,7 @@ export default function MainNav() {
                 </Nav.Link>
               ) : (
                 <CustomButton
-                  text={accountLoading ? "Loading" : "Connect Wallet"}
+                  text={accountLoading ? "Loading..." : "Connect Wallet"}
                   classes="ms-auto"
                   icon="eth"
                   action={() => {

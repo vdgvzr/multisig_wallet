@@ -27,6 +27,10 @@
     font-weight: bold;
     font-size: rem(70);
   }
+
+  &__copy {
+    font-size: rem(20);
+  }
 }
 
 @keyframes spin {

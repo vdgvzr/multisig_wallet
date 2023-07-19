@@ -8,7 +8,7 @@ export default function Home() {
   const { balance } = useContext(RootContext);
   return (
     <>
-      <IconHero text={`${balance} ETH`} icon="eth" />
+      <IconHero title={`${balance} ETH`} icon="eth" text="$200,000" />
       <Form title="Deposit to Contract" type="deposit" col="6" />
     </>
   );
