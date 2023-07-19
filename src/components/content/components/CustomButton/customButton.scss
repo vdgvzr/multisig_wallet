@@ -1,6 +1,7 @@
 // Custom Button
 
 .custom-button {
+  @extend %sourceCodePro;
   text-transform: uppercase;
   background-color: color(brand, orange);
   color: color(brand, rich-black);

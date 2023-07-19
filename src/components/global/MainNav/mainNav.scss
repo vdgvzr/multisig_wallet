@@ -6,6 +6,8 @@
     height: 100px;
   }
   .navbar-brand {
+    @extend %sourceCodePro;
+    text-transform: uppercase;
     color: color(brand, orange);
     font-size: rem(27);
   }
@@ -24,14 +26,18 @@
       transition: all $transition-normal;
     }
 
-    .acvtive {
-      color: color(grey, mist) !important;
-    }
-
     &:hover {
       span {
         width: 100%;
       }
+    }
+  }
+
+  .custom-active {
+    color: color(brand, orange) !important;
+
+    span {
+      background-color: color(brand, orange) !important;
     }
   }
 

@@ -5,7 +5,7 @@ export default function IconHero({ icon, title, text }) {
   return (
     <>
       <div className="row justify-content-center align-items-center my-5 icon-hero">
-        <div className="col-4 text-center">
+        <div className="col-6 text-center">
           <Icon icon={icon} classes={icon === "cog" ? "spin" : ""} />
           <h1 className="icon-hero__header">{title}</h1>
           <span className="icon-hero__copy">{text}</span>

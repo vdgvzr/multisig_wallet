@@ -5,8 +5,13 @@
 @import "../scss/config/variables.scss";
 
 // util
+@import "./util/fonts.scss";
+@import "./util/typography.scss";
 //functions
 @import "../scss/util/functions/functions.scss";
+
+// placeholders
+@import "./util/placeholders/fonts.scss";
 
 // Mixins
 @import "./util/mixins/spaced.scss";

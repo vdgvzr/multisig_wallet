@@ -15,7 +15,7 @@ export default function MainNav() {
     <div className="main-nav">
       <Navbar expand="lg" className="main-nav__navbar" variant="dark">
         <Container>
-          <Navbar.Brand href="/">{siteName ?? "Site Name"}</Navbar.Brand>
+          <Navbar.Brand className="me-5" href="/">{siteName ?? "Site Name"}</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
             id="basic-navbar-nav"
@@ -30,7 +30,9 @@ export default function MainNav() {
                       return (
                         <Nav.Link
                           className={
-                            path === page.url ? "active me-3 p-0 pb-1" : "me-3 p-0 pb-1"
+                            path === page.url
+                              ? "custom-active me-3 p-0 pb-1 mt-1"
+                              : "me-3 p-0 pb-1 mt-1"
                           }
                           key={index}
                           href={page.url}
