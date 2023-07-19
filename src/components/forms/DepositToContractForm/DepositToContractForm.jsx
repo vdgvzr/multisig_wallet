@@ -28,7 +28,7 @@ export default function DepositToContractForm() {
       >
         <Input
           type="number"
-          placeholder="value"
+          placeholder="amount"
           step="0.000000000000000001"
           label="Amount"
           text="Enter amount you would like to deposit to contract"

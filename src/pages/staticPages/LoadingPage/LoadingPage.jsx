@@ -1,7 +1,9 @@
+import IconHero from "../../../components/content/mainContent/IconHero/IconHero";
+
 export default function LoadingPage() {
   return (
     <>
-      <h1>Loading...</h1>
+      <IconHero text="Loading..." icon="cog" />
     </>
   );
 }

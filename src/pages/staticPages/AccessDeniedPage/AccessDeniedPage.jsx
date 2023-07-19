@@ -1,7 +1,9 @@
+import IconHero from "../../../components/content/mainContent/IconHero/IconHero";
+
 export default function AccessDeniedPage() {
   return (
     <>
-      <h1>Access Denied</h1>
+      <IconHero text="Access Denied" icon="lock" />
     </>
   );
 }

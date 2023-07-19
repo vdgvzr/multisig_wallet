@@ -1,7 +1,9 @@
+import IconHero from "../../../components/content/mainContent/IconHero/IconHero";
+
 export default function WelcomePage() {
   return (
     <>
-      <h1>Welcome</h1>
+      <IconHero text="Welcome" icon="eth" />
     </>
   );
 }

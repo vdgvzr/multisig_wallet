@@ -5,4 +5,12 @@ body {
   color: color(brand, rich-black);
   font-size: rem(15);
   min-height: 100vh;
+
+  .line {
+    position: absolute;
+    height: 100vh;
+    left: 50%;
+    width: 2px;
+    background-color: black;
+  }
 }

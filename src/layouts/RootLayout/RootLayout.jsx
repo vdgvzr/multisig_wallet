@@ -218,6 +218,7 @@ export default function RootLayout() {
       }}
     >
       <MainNav />
+      {/* <div className="line"></div> */}
       <ContractBanner />
       <ScrollRestoration />
       <div className="container">
