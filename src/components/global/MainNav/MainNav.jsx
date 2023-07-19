@@ -29,11 +29,14 @@ export default function MainNav() {
                       const path = window.location.pathname;
                       return (
                         <Nav.Link
-                          className={path === page.url ? "active me-2" : "me-2"}
+                          className={
+                            path === page.url ? "active me-3 p-0 pb-1" : "me-3 p-0 pb-1"
+                          }
                           key={index}
                           href={page.url}
                         >
                           {page.name}
+                          <span></span>
                         </Nav.Link>
                       );
                     }

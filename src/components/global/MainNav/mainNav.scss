@@ -12,13 +12,26 @@
 
   .nav-link {
     color: color(brand, platinum);
+    position: relative;
+
+    span {
+      width: 0;
+      height: 2px;
+      background-color: color(brand, platinum);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: all $transition-normal;
+    }
 
     .acvtive {
       color: color(grey, mist) !important;
     }
 
     &:hover {
-      color: color(brand, silver-lake-blue);
+      span {
+        width: 100%;
+      }
     }
   }
 

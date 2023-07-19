@@ -225,9 +225,7 @@ export default function RootLayout() {
         {loading ? (
           <LoadingPage />
         ) : isSignatory ? (
-          <>
-            <Outlet />
-          </>
+          <Outlet />
         ) : !account ? (
           <WelcomePage />
         ) : (
