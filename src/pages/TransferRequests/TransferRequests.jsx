@@ -8,7 +8,9 @@ export default function TransferRequests() {
 
   return (
     <>
-      <Form title="Request a transfer" type="transfer" col="6" />
+      <div className="row justify-content-center my-5">
+        <Form title="Request a transfer" type="transfer" col="10" />
+      </div>
       <ul>
         {transferRequests.map((transfer) => {
           const id = transfer.id.toString();

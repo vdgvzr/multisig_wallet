@@ -5,6 +5,7 @@ import OwnersList from "../../components/content/mainContent/OwnersList/OwnersLi
 
 export default function ManageOwners() {
   const { owners, addressLimit } = useContext(RootContext);
+  const disabled = owners.length >= addressLimit;
 
   return (
     <>
@@ -12,9 +13,12 @@ export default function ManageOwners() {
         <OwnersList col="8" />
       </div>
       <div className="row justify-content-center my-5">
-        {owners.length >= addressLimit ? null : (
-          <Form title="Add a new owner" type="add" col="8" />
-        )}
+        <Form
+          title={disabled ? "Owner limit reached" : "Add a new owner"}
+          type="add"
+          col="8"
+          disabled={disabled}
+        />
       </div>
     </>
   );

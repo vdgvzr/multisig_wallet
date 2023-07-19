@@ -3,8 +3,9 @@ import CustomButton from "../../content/components/CustomButton/CustomButton";
 import { useContext, useEffect, useRef, useState } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import Input from "../Input/Input";
+import PropTypes from "prop-types";
 
-export default function AddOwnerForm() {
+export default function AddOwnerForm({ disabled }) {
   const { account, addOwner } = useContext(RootContext);
   const addOwnerRef = useRef();
   const [input, setInput] = useState("");
@@ -34,6 +35,7 @@ export default function AddOwnerForm() {
           innerRef={addOwnerRef}
           setInput={setInput}
           transfer={false}
+          disabled={disabled}
         />
         <CustomButton
           text="Add owner"
@@ -45,3 +47,7 @@ export default function AddOwnerForm() {
     </>
   );
 }
+
+AddOwnerForm.propTypes = {
+  disabled: PropTypes.bool,
+};

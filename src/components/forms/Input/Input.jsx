@@ -14,6 +14,7 @@ export default function Input({
   controlId,
   setInput,
   transfer,
+  disabled = false,
 }) {
   const { account, balance, connectedBalance } = useContext(RootContext);
   const formatConnectedBalance = window.web3.utils.fromWei(
@@ -62,6 +63,7 @@ export default function Input({
           step={type && type === "number" ? (step != null ? step : null) : null}
           ref={innerRef && innerRef}
           onChange={() => setInput(true)}
+          disabled={disabled}
         />
         <Form.Text>{valueElement}</Form.Text>
       </Form.Group>
@@ -79,4 +81,5 @@ Input.propTypes = {
   controlId: PropTypes.string,
   setInput: PropTypes.func,
   transfer: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
