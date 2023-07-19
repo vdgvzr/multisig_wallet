@@ -218,13 +218,15 @@ export default function RootLayout() {
       }}
     >
       <MainNav />
-      {!loading && isSignatory && account ? <ContractBanner /> : null}
+      <ContractBanner />
       <ScrollRestoration />
       <div className="container">
         {loading ? (
           <LoadingPage />
         ) : isSignatory ? (
-          <Outlet />
+          <>
+            <Outlet />
+          </>
         ) : !account ? (
           <WelcomePage />
         ) : (

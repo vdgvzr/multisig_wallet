@@ -33,6 +33,7 @@ export default function AddOwnerForm() {
           controlId="addOwnerValue"
           innerRef={addOwnerRef}
           setInput={setInput}
+          transfer={false}
         />
         <CustomButton
           text="Add owner"

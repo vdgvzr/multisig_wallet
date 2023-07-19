@@ -33,7 +33,11 @@ export default function Input({
                   ? balance
                   : formatConnectedBalance)
               : null;
-            type === "text" ? (innerRef.current.value = account) : null;
+            type === "text"
+              ? transfer
+                ? (innerRef.current.value = account)
+                : null
+              : null;
             setInput(true);
           }}
         >
@@ -42,7 +46,7 @@ export default function Input({
               ? balance
               : formatConnectedBalance
             : null}
-          {type === "text" ? formatAddress(account) : null}
+          {type === "text" ? (transfer ? formatAddress(account) : null) : null}
         </div>
       </div>
     </>

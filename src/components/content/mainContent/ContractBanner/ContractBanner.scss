@@ -2,6 +2,7 @@
 
 .contract-banner {
   background-color: color(grey, mist);
+  height: 77px;
 
   &__balance {
     color: color(brand, ylmn-blue);
@@ -17,6 +18,5 @@
     pointer-events: none;
     width: 20px;
     position: absolute;
-    margin-left: 6px;
   }
 }
