@@ -46,4 +46,14 @@
     border: 1px solid color(brand, platinum);
     padding: 12px 40px;
   }
+
+  &__online {
+    height: 10px;
+    width: 10px;
+    background-color: color(online);
+    position: absolute;
+    top: calc(50% - 5px);
+    left: 25px;
+    border-radius: 50%;
+  }
 }

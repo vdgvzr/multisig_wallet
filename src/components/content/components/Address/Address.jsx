@@ -23,7 +23,12 @@ export default function Address({ address, format, active }) {
 
   return (
     <>
-      <div className={`address ${active ? "address__active" : ""}`}>
+      <div
+        className={`address ${active ? "address__active" : ""}`}
+        onClick={() => {
+          navigator.clipboard.writeText(address);
+        }}
+      >
         {format || responsiveFormat ? formatAddress(address) : address}
       </div>
     </>

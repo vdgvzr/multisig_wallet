@@ -15,7 +15,9 @@ export default function MainNav() {
     <div className="main-nav">
       <Navbar expand="lg" className="main-nav__navbar" variant="dark">
         <Container>
-          <Navbar.Brand className="me-5" href="/">{siteName ?? "Site Name"}</Navbar.Brand>
+          <Navbar.Brand className="me-5" href="/">
+            {siteName ?? "Site Name"}
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
             id="basic-navbar-nav"
@@ -49,7 +51,10 @@ export default function MainNav() {
                   {accountLoading ? (
                     "Loading"
                   ) : (
-                    <Address address={account} format={true} />
+                    <>
+                      <div className="main-nav__online"></div>
+                      <Address address={account} format={true} />
+                    </>
                   )}
                 </Nav.Link>
               ) : (
