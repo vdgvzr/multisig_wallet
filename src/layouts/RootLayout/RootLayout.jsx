@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLoaderData } from "react-router-dom";
 import MainNav from "../../components/global/MainNav/MainNav";
 import MultisigWallet from "/abis/MultisigWallet.json";
 import LoadingPage from "../../pages/staticPages/LoadingPage/LoadingPage";
 import WelcomePage from "../../pages/staticPages/WelcomePage/WelcomePage";
 import AccessDeniedPage from "../../pages/staticPages/AccessDeniedPage/AccessDeniedPage";
 import ContractBanner from "../../components/content/mainContent/ContractBanner/ContractBanner";
+import { getApi } from "../../api/api";
 
 export const RootContext = React.createContext(null);
 
-export default function RootLayout() {
+function RootLayout() {
   const siteName = import.meta.env.VITE_SITE_NAME;
+  const { getEth } = useLoaderData();
   const [accountLoading, setAccountLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState(null);
@@ -194,6 +196,7 @@ export default function RootLayout() {
   return (
     <RootContext.Provider
       value={{
+        getEth,
         siteName,
         isSignatory,
         isOwner,
@@ -235,3 +238,17 @@ export default function RootLayout() {
     </RootContext.Provider>
   );
 }
+
+async function loader({ request: { signal } }) {
+  const getEth = await getApi({
+    url: "tickers/eth-ethereum/",
+    options: { signal },
+  });
+
+  return { getEth };
+}
+
+export const rootRoute = {
+  loader,
+  element: <RootLayout />,
+};

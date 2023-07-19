@@ -5,10 +5,16 @@ import { useContext } from "react";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
 
 export default function Home() {
-  const { balance } = useContext(RootContext);
+  const { balance, getEth } = useContext(RootContext);
+  const value = parseInt(balance) * getEth.quotes.USD.price;
+
   return (
     <>
-      <IconHero title={`${balance} ETH`} icon="eth" text="$200,000" />
+      <IconHero
+        title={`${balance} ETH`}
+        icon="eth"
+        text={`$${value.toLocaleString()}`}
+      />
       <Form title="Deposit to Contract" type="deposit" col="6" />
     </>
   );
