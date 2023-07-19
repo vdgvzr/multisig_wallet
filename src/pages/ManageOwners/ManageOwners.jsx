@@ -5,22 +5,18 @@ import CustomButton from "../../components/content/components/CustomButton/Custo
 import Address from "../../components/content/components/Address/Address";
 import Form from "../../components/forms/Form/Form";
 
-export default function ManageOwners({ name }) {
+export default function ManageOwners() {
   const {
     account,
     isOwner,
     owners,
     addressLimit,
-    signaturesRequired,
     deleteOwner,
   } = useContext(RootContext);
 
   return (
     <>
-      <h1>{name}</h1>
       <div>
-        <p>Address Limit: {addressLimit}</p>
-        <p>Signatures Required: {signaturesRequired}</p>
         <div>
           <p>Owners:</p>
           <ul>
@@ -53,7 +49,3 @@ export default function ManageOwners({ name }) {
     </>
   );
 }
-
-ManageOwners.propTypes = {
-  name: PropTypes.string,
-};

@@ -5,8 +5,14 @@ import Icon from "../../Icon/Icon";
 import BannerItem from "./BannerItem/BannerItem";
 
 export default function ContractBanner() {
-  const { contract, owner, balance } = useContext(RootContext);
-
+  const {
+    contract,
+    owner,
+    balance,
+    addressLimit,
+    signaturesRequired,
+    isOwner,
+  } = useContext(RootContext);
   const [address, setAddress] = useState("Contract not lodaded");
 
   useEffect(() => {
@@ -19,12 +25,30 @@ export default function ContractBanner() {
         <div className="container">
           <div className="row">
             <BannerItem
-              type="address"
-              element={<Address address={address} />}
+              col={
+                isOwner && window.location.pathname === "/manage-owners"
+                  ? "3"
+                  : "4"
+              }
+              title="Contract address"
+              element={<Address address={address} format={true} />}
             />
-            <BannerItem type="owner" element={<Address address={owner} />} />
             <BannerItem
-              type="balance"
+              col={
+                isOwner && window.location.pathname === "/manage-owners"
+                  ? "3"
+                  : "4"
+              }
+              title="Contract owner"
+              element={<Address address={owner} format={true} />}
+            />
+            <BannerItem
+              col={
+                isOwner && window.location.pathname === "/manage-owners"
+                  ? "2"
+                  : "4"
+              }
+              title="Contract balance"
               element={
                 <div>
                   <span className="contract-banner__balance">{balance}</span>{" "}
@@ -32,6 +56,20 @@ export default function ContractBanner() {
                 </div>
               }
             />
+            {isOwner && window.location.pathname === "/manage-owners" ? (
+              <>
+                <BannerItem
+                  col="2"
+                  title="Address limit"
+                  element={<div>{addressLimit}</div>}
+                />
+                <BannerItem
+                  col="2"
+                  title="Signatures required"
+                  element={<div>{signaturesRequired}</div>}
+                />
+              </>
+            ) : null}
           </div>
         </div>
       </div>
