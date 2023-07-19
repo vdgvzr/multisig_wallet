@@ -1,5 +1,8 @@
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { RootContext } from "../../../layouts/RootLayout/RootLayout";
+import { formatAddress } from "../../../assets/js/utils";
 
 export default function Input({
   type,
@@ -10,7 +13,41 @@ export default function Input({
   text,
   controlId,
   setInput,
+  transfer,
 }) {
+  const { account, balance, connectedBalance } = useContext(RootContext);
+  const formatConnectedBalance = window.web3.utils.fromWei(
+    connectedBalance.toString(),
+    "ether"
+  );
+
+  const valueElement = (
+    <>
+      <div className="form-input__balance-element d-flex justify-content-between">
+        <div>{text}</div>
+        <div
+          className="form-input__balance-element-balance"
+          onClick={() => {
+            type === "number"
+              ? (innerRef.current.value = transfer
+                  ? balance
+                  : formatConnectedBalance)
+              : null;
+            type === "text" ? (innerRef.current.value = account) : null;
+            setInput(true);
+          }}
+        >
+          {type === "number"
+            ? transfer
+              ? balance
+              : formatConnectedBalance
+            : null}
+          {type === "text" ? formatAddress(account) : null}
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <>
       <Form.Group className="mb-3 form-input" controlId={controlId}>
@@ -20,9 +57,9 @@ export default function Input({
           placeholder={placeholder}
           step={type && type === "number" ? (step != null ? step : null) : null}
           ref={innerRef && innerRef}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={() => setInput(true)}
         />
-        <Form.Text>{text && text}</Form.Text>
+        <Form.Text>{valueElement}</Form.Text>
       </Form.Group>
     </>
   );
@@ -37,4 +74,5 @@ Input.propTypes = {
   text: PropTypes.string,
   controlId: PropTypes.string,
   setInput: PropTypes.func,
+  transfer: PropTypes.bool,
 };

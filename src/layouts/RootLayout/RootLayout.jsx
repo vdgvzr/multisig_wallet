@@ -17,6 +17,7 @@ export default function RootLayout() {
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState(null);
   const [balance, setBalance] = useState("0");
+  const [connectedBalance, setConnectedBalance] = useState("0");
   const [contract, setContract] = useState([]);
   const [owner, setOwner] = useState("0x0");
   const [owners, setOwners] = useState([]);
@@ -83,6 +84,7 @@ export default function RootLayout() {
     const web3 = window.web3;
     // Load account
     const accounts = await web3.eth.getAccounts();
+    const balance = await web3.eth.getBalance(accounts[0]);
     const networkId = await window.web3.eth.net.getId();
     const networkData = MultisigWallet.networks[networkId];
 
@@ -122,6 +124,7 @@ export default function RootLayout() {
       setBalance(
         window.web3.utils.fromWei(contractBalance.toString(), "ether")
       );
+      setConnectedBalance(balance);
       setAddressLimit(contractAddressLimit.toString());
       setSignaturesRequired(contractSignaturesRequired.toString());
       setTransferRequests(contractTransferRequests);
@@ -196,6 +199,7 @@ export default function RootLayout() {
         isOwner,
         account,
         balance,
+        connectedBalance,
         owner,
         owners,
         addressLimit,

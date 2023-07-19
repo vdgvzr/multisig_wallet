@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import Input from "../Input/Input";
 
@@ -8,6 +8,10 @@ export default function DepositToContractForm() {
   const { account, depositToContract } = useContext(RootContext);
   const depositToContractRef = useRef();
   const [input, setInput] = useState("");
+
+  useEffect(() => {
+    setInput("");
+  }, []);
 
   return (
     <>

@@ -6,4 +6,12 @@
     border: 1px solid color(brand, rich-black);
     padding: 12px 0.75rem;
   }
+
+  &__balance-element {
+    &-balance {
+      color: color(brand, rich-black);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }

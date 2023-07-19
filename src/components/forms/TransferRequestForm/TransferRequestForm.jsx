@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import Input from "../Input/Input";
 
@@ -10,6 +10,11 @@ export default function TransferRequestForm() {
   const transferRequestValueRef = useRef();
   const [input, setInput] = useState("");
   const [input2, setInput2] = useState("");
+
+  useEffect(() => {
+    setInput("");
+    setInput2("");
+  }, []);
 
   return (
     <>
@@ -50,6 +55,7 @@ export default function TransferRequestForm() {
           controlId="requestTransferValue"
           innerRef={transferRequestValueRef}
           setInput={setInput2}
+          transfer={true}
         />
         <CustomButton
           text="Request Transfer"
