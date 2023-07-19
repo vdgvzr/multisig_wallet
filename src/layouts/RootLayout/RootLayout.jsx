@@ -9,6 +9,7 @@ import WelcomePage from "../../pages/staticPages/WelcomePage/WelcomePage";
 import AccessDeniedPage from "../../pages/staticPages/AccessDeniedPage/AccessDeniedPage";
 import ContractBanner from "../../components/content/mainContent/ContractBanner/ContractBanner";
 import { getApi } from "../../api/api";
+import Footer from "../../components/global/Footer/Footer";
 
 export const RootContext = React.createContext(null);
 
@@ -220,21 +221,24 @@ function RootLayout() {
         approveRequest,
       }}
     >
-      <MainNav />
-      {/* <div className="line"></div> */}
-      <ContractBanner />
-      <ScrollRestoration />
-      <div className="container">
-        {loading ? (
-          <LoadingPage />
-        ) : isSignatory ? (
-          <Outlet />
-        ) : !account ? (
-          <WelcomePage />
-        ) : (
-          <AccessDeniedPage />
-        )}
-      </div>
+      <main className="main-content">
+        <MainNav />
+        {/* <div className="line"></div> */}
+        <ContractBanner />
+        <ScrollRestoration />
+        <div className="container">
+          {loading ? (
+            <LoadingPage />
+          ) : isSignatory ? (
+            <Outlet />
+          ) : !account ? (
+            <WelcomePage />
+          ) : (
+            <AccessDeniedPage />
+          )}
+        </div>
+      </main>
+      <Footer />
     </RootContext.Provider>
   );
 }

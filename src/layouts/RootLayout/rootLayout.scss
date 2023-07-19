@@ -4,7 +4,6 @@ body {
   background-color: color(grey, air);
   color: color(brand, rich-black);
   font-size: rem(15);
-  min-height: 100vh;
 
   .line {
     position: absolute;
@@ -13,4 +12,8 @@ body {
     width: 2px;
     background-color: black;
   }
+}
+
+.main-content {
+  min-height: calc(100vh - 100px);
 }

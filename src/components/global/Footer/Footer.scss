@@ -1,0 +1,14 @@
+// Footer
+
+.footer {
+  background-color: color(brand, oxford-blue);
+  color: color(brand, platinum);
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    color: color(brand, orange);
+  }
+}
