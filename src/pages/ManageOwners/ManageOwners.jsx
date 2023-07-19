@@ -1,49 +1,19 @@
-import PropTypes from "prop-types";
 import { useContext } from "react";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
-import CustomButton from "../../components/content/components/CustomButton/CustomButton";
-import Address from "../../components/content/components/Address/Address";
 import Form from "../../components/forms/Form/Form";
+import OwnersList from "../../components/content/mainContent/OwnersList/OwnersList";
 
 export default function ManageOwners() {
-  const {
-    account,
-    isOwner,
-    owners,
-    addressLimit,
-    deleteOwner,
-  } = useContext(RootContext);
+  const { owners, addressLimit } = useContext(RootContext);
 
   return (
     <>
-      <div>
-        <div>
-          <p>Owners:</p>
-          <ul>
-            {owners.map((owner, index) => {
-              return (
-                <li className="my-2" key={index}>
-                  <Address
-                    address={owner}
-                    variant={account === owner && "active"}
-                  />
-                  {isOwner && owner !== account ? (
-                    <CustomButton
-                      text="Remove Owner"
-                      classes="ms-2"
-                      icon="delete"
-                      action={() => {
-                        deleteOwner(account, index);
-                      }}
-                    />
-                  ) : null}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      <div className="row justify-content-center my-5">
+        <OwnersList col="8" />
+      </div>
+      <div className="row justify-content-center my-5">
         {owners.length >= addressLimit ? null : (
-          <Form title="Add a new owner" type="add" col="6" />
+          <Form title="Add a new owner" type="add" col="8" />
         )}
       </div>
     </>

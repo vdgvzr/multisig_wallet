@@ -3,6 +3,7 @@ import Form from "../../components/forms/Form/Form";
 import IconHero from "../../components/content/mainContent/IconHero/IconHero";
 import { useContext } from "react";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
+import OwnersList from "../../components/content/mainContent/OwnersList/OwnersList";
 
 export default function Home() {
   const { balance, getEth } = useContext(RootContext);
@@ -15,7 +16,10 @@ export default function Home() {
         icon="eth"
         text={`$${value.toLocaleString()}`}
       />
-      <Form title="Deposit to Contract" type="deposit" col="6" />
+      <div className="row my-5 py-5">
+        <Form title="Deposit to Contract" type="deposit" col="6" />
+        <OwnersList col="6" />
+      </div>
     </>
   );
 }

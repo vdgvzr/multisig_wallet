@@ -8,6 +8,6 @@
   font-weight: bold;
 
   &__active {
-    color: color(brand, orange);
+    color: color(brand, orange) !important;
   }
 }
