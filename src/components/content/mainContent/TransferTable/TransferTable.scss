@@ -1,0 +1,17 @@
+// Transfer table
+
+.transfer-table {
+  &__head {
+    th {
+      @extend %sourceCodePro;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+
+  &__body {
+    tr {
+      cursor: pointer;
+    }
+  }
+}

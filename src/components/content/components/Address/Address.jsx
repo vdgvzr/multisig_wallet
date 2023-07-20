@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { formatAddress } from "../../../../assets/js/utils";
 import PropTypes from "prop-types";
 
-export default function Address({ address, format, active, online = false }) {
+export default function Address({
+  address,
+  format,
+  active,
+  online = false,
+  clickable = true,
+}) {
   const [responsiveFormat, setResponsiveFormat] = useState(false);
 
   useEffect(() => {
@@ -28,7 +34,9 @@ export default function Address({ address, format, active, online = false }) {
           active ? "address__active" : ""
         }`}
         onClick={() => {
-          navigator.clipboard.writeText(address);
+          if (clickable) {
+            navigator.clipboard.writeText(address);
+          }
         }}
       >
         {format || responsiveFormat ? formatAddress(address) : address}
@@ -43,4 +51,5 @@ Address.propTypes = {
   format: PropTypes.bool,
   active: PropTypes.bool,
   online: PropTypes.bool,
+  clickable: PropTypes.bool,
 };
