@@ -29,6 +29,7 @@ contract Owner {
     }
 
     function changeOwner(address newOwner) public isOwner {
+        require(newOwner != msg.sender, "You are already the contract owner");
         emit OwnerSet(owner, newOwner);
         owner = newOwner;
     }

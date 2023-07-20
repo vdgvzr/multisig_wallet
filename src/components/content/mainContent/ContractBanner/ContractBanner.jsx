@@ -31,7 +31,12 @@ export default function ContractBanner() {
                   : "4"
               }
               title="Contract address"
-              element={<Address address={address} format={true} />}
+              element={
+                <Address
+                  address={address}
+                  format={window.location.pathname === "/manage-owners"}
+                />
+              }
             />
             <BannerItem
               col={
@@ -40,7 +45,12 @@ export default function ContractBanner() {
                   : "4"
               }
               title="Contract deployer"
-              element={<Address address={owner} format={true} />}
+              element={
+                <Address
+                  address={owner}
+                  format={window.location.pathname === "/manage-owners"}
+                />
+              }
             />
             <BannerItem
               col={

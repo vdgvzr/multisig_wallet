@@ -4,6 +4,7 @@ import AddOwnerForm from "../AddOwnerForm/AddOwnerForm";
 import TransferRequestForm from "../TransferRequestForm/TransferRequestForm";
 import FilterTableRowsForm from "../FilterTableRowsForm/FilterTableRowsForm";
 import { Col } from "react-bootstrap";
+import ChangeOwnerForm from "../ChangeOwnerForm/ChangeOwnerForm";
 
 export default function Form({ title, type, col, disabled, customFunction }) {
   return (
@@ -11,6 +12,7 @@ export default function Form({ title, type, col, disabled, customFunction }) {
       <Col xs={col} className="form py-4 px-5">
         {title ? <h2 className="mb-3">{title}</h2> : null}{" "}
         {type === "add" ? <AddOwnerForm disabled={disabled} /> : null}
+        {type === "change" ? <ChangeOwnerForm disabled={disabled} /> : null}
         {type === "deposit" ? <DepositToContractForm /> : null}
         {type === "transfer" ? <TransferRequestForm /> : null}
         {type === "filterRows" ? (

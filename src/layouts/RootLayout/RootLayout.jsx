@@ -172,6 +172,17 @@ function RootLayout() {
       });
   }
 
+  function changeContractOwner(from, newOwner) {
+    contract.methods
+      .changeOwner(newOwner)
+      .send({ from })
+      .once("receipt", (receipt) => {
+        // Logging for now, will change
+        console.log(receipt);
+        loadBlockchainData();
+      });
+  }
+
   function requestTransfer(from, to, value) {
     contract.methods
       .requestTransfer(to, value)
@@ -217,6 +228,7 @@ function RootLayout() {
         depositToContract,
         addOwner,
         deleteOwner,
+        changeContractOwner,
         requestTransfer,
         approveRequest,
       }}
