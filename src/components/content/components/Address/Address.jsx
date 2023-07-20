@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { formatAddress } from "../../../../assets/js/utils";
 import PropTypes from "prop-types";
+import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
 
 export default function Address({
   address,
@@ -9,6 +10,7 @@ export default function Address({
   online = false,
   clickable = true,
 }) {
+  const { toastMessage } = useContext(RootContext);
   const [responsiveFormat, setResponsiveFormat] = useState(false);
 
   useEffect(() => {
@@ -36,6 +38,10 @@ export default function Address({
         onClick={() => {
           if (clickable) {
             navigator.clipboard.writeText(address);
+            toastMessage({
+              variant: "success",
+              message: "Copied address!",
+            });
           }
         }}
       >

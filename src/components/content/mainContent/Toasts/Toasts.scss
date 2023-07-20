@@ -1,0 +1,38 @@
+// Toasts
+
+.toast-container {
+  top: 177px;
+  right: 0;
+
+  .toast {
+    @extend %sourceCodePro;
+    border-radius: 0%;
+    border: none;
+    position: relative;
+
+    .toast-header {
+      border-radius: 0%;
+      border: none;
+      background-color: color(brand, orange);
+      border-bottom: 1px solid color(brand, rich-black);
+    }
+
+    span {
+      position: absolute;
+      animation: countdown 3s;
+      height: 6px;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
+
+@keyframes countdown {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0;
+  }
+}

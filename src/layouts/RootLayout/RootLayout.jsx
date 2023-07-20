@@ -10,6 +10,7 @@ import AccessDeniedPage from "../../pages/staticPages/AccessDeniedPage/AccessDen
 import ContractBanner from "../../components/content/mainContent/ContractBanner/ContractBanner";
 import { getApi } from "../../api/api";
 import Footer from "../../components/global/Footer/Footer";
+import Toasts from "../../components/content/mainContent/Toasts/Toasts";
 
 export const RootContext = React.createContext(null);
 
@@ -29,6 +30,9 @@ function RootLayout() {
   const [transferRequests, setTransferRequests] = useState([]);
   const [approvals, setApprovals] = useState(false);
   const [loadContractError, setLoadContractError] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+
   const isOwner = account === owner;
   const isSignatory = owners.includes(account);
 
@@ -144,8 +148,11 @@ function RootLayout() {
       .depositToContract()
       .send({ from, value })
       .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
+        console.log(receipt.logs);
+        toastMessage({
+          variant: "success",
+          message: "Deposited to contract!",
+        });
         loadBlockchainData();
       });
   }
@@ -205,6 +212,11 @@ function RootLayout() {
       });
   }
 
+  function toastMessage(message) {
+    setMessages((prev) => [...prev, message]);
+    setShowMessage(true);
+  }
+
   return (
     <RootContext.Provider
       value={{
@@ -231,6 +243,7 @@ function RootLayout() {
         changeContractOwner,
         requestTransfer,
         approveRequest,
+        toastMessage,
       }}
     >
       <main className="main-content">
@@ -242,7 +255,15 @@ function RootLayout() {
           {loading ? (
             <LoadingPage />
           ) : isSignatory ? (
-            <Outlet />
+            <>
+              <Toasts
+                messages={messages}
+                showMessage={showMessage}
+                setShowMessage={setShowMessage}
+                setMessages={setMessages}
+              />
+              <Outlet />
+            </>
           ) : !account ? (
             <WelcomePage />
           ) : (

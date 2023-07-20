@@ -6,7 +6,7 @@ import { RootContext } from "../../../../../layouts/RootLayout/RootLayout";
 import Form from "../../../../forms/Form/Form";
 
 export default function OwnersListItem({ index, owner, account, isOwner }) {
-  const { deleteOwner, changeContractOwner } = useContext(RootContext);
+  const { deleteOwner } = useContext(RootContext);
   return (
     <>
       <li className="owners-list-item my-3">
@@ -44,7 +44,7 @@ export default function OwnersListItem({ index, owner, account, isOwner }) {
 }
 
 OwnersListItem.propTypes = {
-  index: PropTypes.string,
+  index: PropTypes.number,
   owner: PropTypes.string,
   account: PropTypes.string,
   isOwner: PropTypes.bool,

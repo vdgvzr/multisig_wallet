@@ -1,6 +1,3 @@
-// bootstrap
-@import "./bootstrap/bootstrap.scss";
-
 // config
 @import "../scss/config/variables.scss";
 
@@ -16,6 +13,9 @@
 // Mixins
 @import "./util/mixins/spaced.scss";
 
+// bootstrap
+@import "./bootstrap/bootstrap.scss";
+
 // Components
 // Content
 @import "../../components/content/components/CustomButton/customButton.scss";
@@ -26,6 +26,7 @@
 @import "../../components/content/mainContent/OwnersList/OwnersList.scss";
 @import "../../components/content/mainContent/OwnersList/OwnersListItem/OwnersListItem.scss";
 @import "../../components//content/mainContent/TransferTable/TransferTable.scss";
+@import "../../components/content/mainContent/Toasts/Toasts.scss";
 
 // Layouts
 @import "../../layouts/RootLayout/rootLayout.scss";
