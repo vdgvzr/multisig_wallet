@@ -143,49 +143,75 @@ function RootLayout() {
   }
 
   // Invoke contract methods
-  function depositToContract(from, value) {
+  /* function depositToContract(from, value) {
     contract.methods
       .depositToContract()
       .send({ from, value })
       .once("receipt", (receipt) => {
-        console.log(receipt.logs);
+        console.log(receipt);
         toastMessage({
           variant: "success",
           message: "Deposited to contract!",
         });
         loadBlockchainData();
       });
+  } */
+
+  function depositToContract(from, value) {
+    contract.methods
+      .depositToContract()
+      .send({ from, value })
+      .once("receipt", () => {
+        loadBlockchainData();
+      });
+
+    contract.events.depositComplete().on("data", function (e) {
+      const bigNumber = window.web3.utils.toNumber(e.returnValues.amount);
+      const amount = window.web3.utils.fromWei(bigNumber, "ether");
+      toastMessage({
+        variant: "success",
+        message: `Deposited ${amount} ETH to contract!`,
+      });
+    });
   }
 
   function addOwner(from, newOwner) {
     contract.methods
       .addOwner(newOwner)
       .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
+      .once("receipt", () => {
         loadBlockchainData();
       });
+
+    contract.events.addOwnerComplete().on("data", function (e) {
+      toastMessage({
+        variant: "success",
+        message: `Added ${e.returnValues.owner} to contract!`,
+      });
+    });
   }
 
   function deleteOwner(from, index) {
     contract.methods
       .deleteOwner(index)
       .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
+      .once("receipt", () => {
         loadBlockchainData();
       });
+
+    /* contract.events.addOwnerComplete().on("data", function (e) {
+        toastMessage({
+          variant: "success",
+          message: `Added ${e.returnValues.owner} to contract!`,
+        });
+      }); */
   }
 
   function changeContractOwner(from, newOwner) {
     contract.methods
       .changeOwner(newOwner)
       .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
+      .once("receipt", () => {
         loadBlockchainData();
       });
   }
@@ -194,11 +220,16 @@ function RootLayout() {
     contract.methods
       .requestTransfer(to, value)
       .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
+      .once("receipt", () => {
         loadBlockchainData();
       });
+
+    contract.events.transferRequestComplete().on("data", function (e) {
+      toastMessage({
+        variant: "success",
+        message: `Request transfer of ${e.returnValues.amount} to ${e.returnValues.to}!`,
+      });
+    });
   }
 
   function approveRequest(from, id, approved) {
@@ -210,6 +241,20 @@ function RootLayout() {
         console.log(receipt);
         loadBlockchainData();
       });
+
+    contract.events.requestApproved().on("data", function (e) {
+      toastMessage({
+        variant: "success",
+        message: `Transfer request #${e.returnValues.transferID} approved!`,
+      });
+    });
+
+    contract.events.transferComplete().on("data", function (e) {
+      toastMessage({
+        variant: "success",
+        message: `Transfer of ${e.returnValues.amount} to ${e.returnValues.to} from ${e.returnValues.from} complete!`,
+      });
+    });
   }
 
   function toastMessage(message) {
