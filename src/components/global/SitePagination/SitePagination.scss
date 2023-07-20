@@ -1,0 +1,14 @@
+// Site pagination
+
+.site-pagination {
+  .active > .page-link {
+    background-color: color(brand, orange);
+    border: none;
+    color: color(brand, rich-black);
+  }
+
+  .page-link {
+    padding: 12px 40px;
+    border-radius: 0%;
+  }
+}

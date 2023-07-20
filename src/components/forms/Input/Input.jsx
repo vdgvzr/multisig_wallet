@@ -14,6 +14,8 @@ export default function Input({
   controlId,
   setInput,
   transfer,
+  defaultValue,
+  options,
   disabled = false,
 }) {
   const { account, balance, connectedBalance } = useContext(RootContext);
@@ -59,14 +61,23 @@ export default function Input({
     <>
       <Form.Group className="mb-3 form-input" controlId={controlId}>
         <Form.Label>{type && label}</Form.Label>
-        <Form.Control
-          type={type && type}
-          placeholder={placeholder}
-          step={type && type === "number" ? (step != null ? step : null) : null}
-          ref={innerRef && innerRef}
-          onChange={() => setInput(true)}
-          disabled={disabled}
-        />
+        {type === "select" ? (
+          <Form.Select defaultValue={defaultValue} onChange={setInput}>
+            {options}
+          </Form.Select>
+        ) : (
+          <Form.Control
+            type={type && type}
+            placeholder={placeholder}
+            step={
+              type && type === "number" ? (step != null ? step : null) : null
+            }
+            ref={innerRef && innerRef}
+            onChange={() => setInput(true)}
+            disabled={disabled}
+          />
+        )}
+
         <Form.Text>{valueElement}</Form.Text>
       </Form.Group>
     </>
@@ -84,4 +95,6 @@ Input.propTypes = {
   setInput: PropTypes.func,
   transfer: PropTypes.bool,
   disabled: PropTypes.bool,
+  defaultValue: PropTypes.string,
+  options: PropTypes.any,
 };
