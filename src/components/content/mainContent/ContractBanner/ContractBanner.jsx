@@ -39,7 +39,7 @@ export default function ContractBanner() {
                   ? "3"
                   : "4"
               }
-              title="Contract owner"
+              title="Contract deployer"
               element={<Address address={owner} format={true} />}
             />
             <BannerItem
@@ -60,7 +60,7 @@ export default function ContractBanner() {
               <>
                 <BannerItem
                   col="2"
-                  title="Address limit"
+                  title="Owner limit"
                   element={<div>{addressLimit}</div>}
                 />
                 <BannerItem

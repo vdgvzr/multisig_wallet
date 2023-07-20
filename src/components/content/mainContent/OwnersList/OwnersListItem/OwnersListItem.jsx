@@ -10,19 +10,32 @@ export default function OwnersListItem({ index, owner, account, isOwner }) {
     <>
       <li className="owners-list-item my-3 d-flex justify-content-between">
         <div className="owners-list-item__address d-flex align-items-center">
-          <Address address={owner} active={account === owner} />
-        </div>
-        {isOwner &&
-        owner !== account &&
-        window.location.pathname === "/manage-owners" ? (
-          <CustomButton
-            text="Remove Owner"
-            classes="ms-2"
-            icon="delete"
-            action={() => {
-              deleteOwner(account, index);
-            }}
+          <Address
+            address={owner}
+            active={account === owner}
+            online={account === owner}
           />
+        </div>
+        {isOwner && window.location.pathname === "/manage-owners" ? (
+          owner !== account ? (
+            <CustomButton
+              text="Remove Owner"
+              classes="ms-2"
+              icon="delete"
+              action={() => {
+                deleteOwner(account, index);
+              }}
+            />
+          ) : (
+            <CustomButton
+              text="Change Owner"
+              classes="ms-2"
+              icon="chevron-down"
+              action={() => {
+                deleteOwner(account, index);
+              }}
+            />
+          )
         ) : null}
       </li>
     </>

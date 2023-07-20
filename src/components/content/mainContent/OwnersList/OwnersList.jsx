@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
 import PropTypes from "prop-types";
 import OwnersListItem from "./OwnersListItem/OwnersListItem";
+import { Col } from "react-bootstrap";
 
 export default function OwnersList({ col }) {
   const { owners, account, isOwner } = useContext(RootContext);
   return (
     <>
-      <div className={`col-lg-${col} col-12 py-4 px-5 owners-list`}>
+      <Col lg={col} className="py-4 px-5 owners-list">
         <h2>Owners</h2>
         <ul>
           {owners.map((owner, index) => {
@@ -22,7 +23,7 @@ export default function OwnersList({ col }) {
             );
           })}
         </ul>
-      </div>
+      </Col>
     </>
   );
 }

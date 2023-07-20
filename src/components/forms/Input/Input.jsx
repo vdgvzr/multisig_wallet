@@ -42,11 +42,13 @@ export default function Input({
             setInput(true);
           }}
         >
-          {type === "number"
-            ? transfer
-              ? balance
-              : formatConnectedBalance
-            : null}
+          {type === "number" ? (
+            transfer ? (
+              <span>Max: {balance} ETH</span>
+            ) : (
+              <span>Max: {formatConnectedBalance} ETH</span>
+            )
+          ) : null}
           {type === "text" ? (transfer ? formatAddress(account) : null) : null}
         </div>
       </div>

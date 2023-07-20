@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { formatAddress } from "../../../../assets/js/utils";
 import PropTypes from "prop-types";
 
-export default function Address({ address, format, active }) {
+export default function Address({ address, format, active, online = false }) {
   const [responsiveFormat, setResponsiveFormat] = useState(false);
 
   useEffect(() => {
@@ -24,12 +24,15 @@ export default function Address({ address, format, active }) {
   return (
     <>
       <div
-        className={`address ${active ? "address__active" : ""}`}
+        className={`address d-flex align-items-center ${
+          active ? "address__active" : ""
+        }`}
         onClick={() => {
           navigator.clipboard.writeText(address);
         }}
       >
         {format || responsiveFormat ? formatAddress(address) : address}
+        {online ? <div className="address__online ms-2"></div> : null}
       </div>
     </>
   );
@@ -39,4 +42,5 @@ Address.propTypes = {
   address: PropTypes.string,
   format: PropTypes.bool,
   active: PropTypes.bool,
+  online: PropTypes.bool,
 };

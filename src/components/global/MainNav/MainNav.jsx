@@ -52,8 +52,7 @@ export default function MainNav() {
                     "Loading"
                   ) : (
                     <>
-                      <div className="main-nav__online"></div>
-                      <Address address={account} format={true} />
+                      <Address address={account} format={true} online={true} />
                     </>
                   )}
                 </Nav.Link>

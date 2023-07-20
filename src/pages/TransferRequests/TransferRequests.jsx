@@ -2,15 +2,16 @@ import { useContext } from "react";
 import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import Address from "../../components/content/components/Address/Address";
 import Form from "../../components/forms/Form/Form";
+import { Row } from "react-bootstrap";
 
 export default function TransferRequests() {
   const { transferRequests, signaturesRequired } = useContext(RootContext);
 
   return (
     <>
-      <div className="row justify-content-center my-5">
+      <Row className="justify-content-center my-5">
         <Form title="Request a transfer" type="transfer" col="10" />
-      </div>
+      </Row>
       <ul>
         {transferRequests.map((transfer) => {
           const id = transfer.id.toString();
