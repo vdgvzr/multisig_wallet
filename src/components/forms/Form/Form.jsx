@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import DepositToContractForm from "../depositToContractForm/DepositToContractForm";
+import DepositToContractForm from "../DepositToContractForm/DepositToContractForm";
 import AddOwnerForm from "../AddOwnerForm/AddOwnerForm";
 import TransferRequestForm from "../TransferRequestForm/TransferRequestForm";
 import FilterTableRowsForm from "../FilterTableRowsForm/FilterTableRowsForm";
