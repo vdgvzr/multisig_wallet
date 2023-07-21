@@ -5,7 +5,6 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   define: { "process.env": process.env },
-  base: "/dist/",
   build: {
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
