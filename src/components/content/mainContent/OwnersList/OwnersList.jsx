@@ -8,7 +8,7 @@ export default function OwnersList({ col }) {
   const { owners, account, isOwner } = useContext(RootContext);
   return (
     <>
-      <Col lg={col} className="py-4 px-5 owners-list">
+      <Col xs={12} lg={col} className="py-4 px-5 owners-list">
         <h2>Owners</h2>
         <ul>
           {owners.map((owner, index) => {

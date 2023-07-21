@@ -31,10 +31,16 @@ function Transfer() {
 
   return (
     <>
-      <Row className="my-5 justify-content-center transfer py-4 px-5">
-        <Col xs={10}>
+      <Row className="my-5 justify-content-center transfer py-4 px-lg-5 px-4">
+        <Col xs={12} lg={10}>
           <h1>Transfer #{id}</h1>
-          <Table striped bordered hover className="my-3">
+          <Table
+            responsive
+            striped
+            bordered
+            hover
+            className="my-3 d-none d-lg-block"
+          >
             <thead className="transfer-table__head">
               <tr>
                 <th>Amount</th>
@@ -83,6 +89,58 @@ function Transfer() {
                 </td>
               </tr>
             </tbody>
+          </Table>
+          <Table striped bordered hover className="my-3 d-block d-lg-none">
+            <thead className="transfer-table__head">
+              <tr>
+                <th>Amount</th>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <span>{amount} ETH</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>To</th>
+                <td>
+                  <Address address={recipient} />
+                </td>
+              </tr>
+              <tr>
+                <th>Approvals</th>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <span>{approvalCount}</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>Approve</th>
+                <td className="text-center">
+                  {approvalCount < signaturesRequired ? (
+                    account != recipient ? (
+                      approvals[id].toString() !== "true" ? (
+                        <CustomButton
+                          text="Approve"
+                          icon="approve"
+                          action={() => {
+                            approveRequest(account, id, true);
+                          }}
+                        />
+                      ) : (
+                        <>{pending}</>
+                      )
+                    ) : (
+                      <>{pending}</>
+                    )
+                  ) : (
+                    <div className="d-flex align-items-center">
+                      <p className="text-success m-0">Transfer Complete</p>
+                    </div>
+                  )}
+                </td>
+              </tr>
+            </thead>
           </Table>
         </Col>
       </Row>

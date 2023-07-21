@@ -5,7 +5,9 @@
 
   td {
     div {
-      height: 48px;
+      @include media-breakpoint-up(lg) {
+        height: 48px;
+      }
     }
   }
 }

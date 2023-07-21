@@ -327,7 +327,7 @@ function RootLayout() {
         changeContractOwner,
         requestTransfer,
         approveRequest,
-        toastMessage,
+        toastMessage: toastMessage != null && toastMessage,
       }}
     >
       <main className="main-content">

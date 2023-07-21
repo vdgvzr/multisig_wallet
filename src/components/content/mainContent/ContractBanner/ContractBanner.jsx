@@ -74,8 +74,9 @@ export default function ContractBanner() {
                 title="Contract balance"
                 element={
                   <div>
-                    <span className="contract-banner__balance">{balance}</span>{" "}
-                    <Icon className="ms-1" icon="eth" />
+                    <span className="contract-banner__balance">
+                      {balance} ETH
+                    </span>
                   </div>
                 }
               />

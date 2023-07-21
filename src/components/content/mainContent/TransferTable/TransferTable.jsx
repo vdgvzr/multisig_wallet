@@ -26,7 +26,7 @@ export default function TransferTable() {
         </Col>
         <Form col="6" type="filterRows" customFunction={setRowsPerPage} />
       </Row>
-      <Table striped bordered hover className="transfer-table my-3">
+      <Table responsive striped bordered hover className="transfer-table my-3">
         <thead className="transfer-table__head">
           <tr>
             <th>Transfer ID</th>
