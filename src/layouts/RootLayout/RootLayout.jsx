@@ -30,16 +30,11 @@ function RootLayout() {
   const [signaturesRequired, setSignaturesRequired] = useState("0");
   const [transferRequests, setTransferRequests] = useState([]);
   const [approvals, setApprovals] = useState(false);
-  const [loadContractError, setLoadContractError] = useState("");
   const [messages, setMessages] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
 
   const isOwner = account === owner;
   const isSignatory = owners.includes(account);
-
-  useEffect(() => {
-    setMessages([]);
-  }, [setMessages]);
 
   useEffect(() => {
     async function load() {
@@ -72,7 +67,7 @@ function RootLayout() {
     if (provider && provider.isMetaMask) {
       provider.on("accountsChanged", handleAccountsChanged);
     } else {
-      console.log("Please install MetaMask!");
+      window.alert("Please install MetaMask!");
     }
   });
 
@@ -84,7 +79,7 @@ function RootLayout() {
 
   function handleAccountsChanged(accounts) {
     if (accounts.length === 0) {
-      console.log("You're not connected to MetaMask");
+      window.alert("You're not connected to MetaMask");
       window.location.reload();
     } else if (accounts[0] !== account) {
       setAccount(accounts[0]);
@@ -143,7 +138,10 @@ function RootLayout() {
       setApprovals(contractApprovals);
       setLoading(false);
     } else {
-      setLoadContractError("Contract not deployed to detected network");
+      toastMessage({
+        variant: "danger",
+        message: "Contract not deployed to detected network",
+      });
     }
   }
 
@@ -154,6 +152,12 @@ function RootLayout() {
       .send({ from, value })
       .once("receipt", () => {
         loadBlockchainData();
+      })
+      .catch((e) => {
+        toastMessage({
+          variant: "danger",
+          message: `${e}`,
+        });
       });
 
     contract.events.depositComplete().on("data", function (e) {
@@ -172,6 +176,12 @@ function RootLayout() {
       .send({ from })
       .once("receipt", () => {
         loadBlockchainData();
+      })
+      .catch((e) => {
+        toastMessage({
+          variant: "danger",
+          message: `${e}`,
+        });
       });
 
     contract.events.addOwnerComplete().on("data", function (e) {
@@ -190,6 +200,12 @@ function RootLayout() {
       .send({ from })
       .once("receipt", () => {
         loadBlockchainData();
+      })
+      .catch((e) => {
+        toastMessage({
+          variant: "danger",
+          message: `${e}`,
+        });
       });
 
     contract.events.deleteOwnerComplete().on("data", function () {
@@ -206,6 +222,12 @@ function RootLayout() {
       .send({ from })
       .once("receipt", () => {
         loadBlockchainData();
+      })
+      .catch((e) => {
+        toastMessage({
+          variant: "danger",
+          message: `${e}`,
+        });
       });
 
     contract.events.OwnerSet().on("data", function (e) {
@@ -224,6 +246,12 @@ function RootLayout() {
       .send({ from })
       .once("receipt", () => {
         loadBlockchainData();
+      })
+      .catch((e) => {
+        toastMessage({
+          variant: "danger",
+          message: `${e}`,
+        });
       });
 
     contract.events.transferRequestComplete().on("data", function (e) {
@@ -242,6 +270,12 @@ function RootLayout() {
       .send({ from })
       .once("receipt", () => {
         loadBlockchainData();
+      })
+      .catch((e) => {
+        toastMessage({
+          variant: "danger",
+          message: `${e}`,
+        });
       });
 
     contract.events.requestApproved().on("data", function (e) {
@@ -286,7 +320,6 @@ function RootLayout() {
         contract,
         transferRequests,
         approvals,
-        loadContractError,
         loadWeb3,
         depositToContract,
         addOwner,
