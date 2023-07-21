@@ -32,8 +32,8 @@ export default function Address({
   return (
     <>
       <div
-        className={`address d-flex align-items-center ${
-          active ? "address__active" : ""
+        className={`address ${
+          active ? "address__active d-flex align-items-center" : ""
         }`}
         onClick={() => {
           if (clickable) {
