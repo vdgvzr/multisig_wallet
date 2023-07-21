@@ -7,6 +7,10 @@
   font-size: rem(14);
   font-weight: bold;
 
+  @include media-breakpoint-down(md) {
+    justify-content: center;
+  }
+
   &__active {
     color: color(brand, orange) !important;
   }

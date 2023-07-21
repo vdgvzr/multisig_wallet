@@ -9,7 +9,7 @@ export default function BannerItem({ title, element, col }) {
   return (
     <>
       <div
-        className={`col-md-${col} col-12 text-md-start text-center my-md-0 my-3`}
+        className={`d-flex flex-column col-md-${col} col-12 text-md-start text-center my-3 justify-content-center`}
       >
         {title}:
         {isSignatory ? (

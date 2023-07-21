@@ -2,7 +2,9 @@
 
 .contract-banner {
   background-color: color(grey, mist);
-  height: 77px;
+  @include media-breakpoint-up(lg) {
+    height: 77px;
+  }
 
   &__balance {
     color: color(brand, ylmn-blue);

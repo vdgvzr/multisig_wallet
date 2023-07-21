@@ -21,9 +21,9 @@ export default function MainNav() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
             id="basic-navbar-nav"
-            className="d-flex justify-content-between"
+            className="d-lg-flex justify-content-between"
           >
-            <Nav className="me-auto d-flex w-100 align-items-center">
+            <Nav className="main-nav__nav me-auto d-lg-flex align-items-center">
               {isSignatory &&
                 PAGES.map((page, index) => {
                   if (page.name !== "Home") {
@@ -31,11 +31,9 @@ export default function MainNav() {
                       const path = window.location.pathname;
                       return (
                         <Nav.Link
-                          className={
-                            path === page.url
-                              ? "custom-active me-3 p-0 pb-1 mt-1"
-                              : "me-3 p-0 pb-1 mt-1"
-                          }
+                          className={`me-lg-3 p-lg-0 pb-lg-1 mt-lg-1 ${
+                            path === page.url ? "custom-active" : ""
+                          }`}
                           key={index}
                           href={page.url}
                         >
@@ -47,7 +45,7 @@ export default function MainNav() {
                   }
                 })}
               {account ? (
-                <Nav.Link className="ms-auto main-nav__account" disabled={true}>
+                <Nav.Link className="main-nav__account" disabled={true}>
                   {accountLoading ? (
                     "Loading"
                   ) : (
