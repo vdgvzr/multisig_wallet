@@ -4,6 +4,10 @@
   height: 33vh;
   position: relative;
 
+  @include media-breakpoint-down(lg) {
+    height: 25vh;
+  }
+
   .icon {
     fill: color(brand, silver-lake-blue);
     opacity: 0.2;
@@ -13,6 +17,10 @@
     height: 33vh;
     width: 300px;
     right: calc(50% - 150px);
+
+    @include media-breakpoint-down(lg) {
+      height: 25vh;
+    }
   }
 
   .spin {
@@ -25,6 +33,10 @@
   &__header {
     @include spaced(3px);
     font-size: rem(70);
+
+    @include media-breakpoint-down(lg) {
+      font-size: rem(40);
+    }
   }
 
   &__copy {
