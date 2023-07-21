@@ -7,17 +7,30 @@ import { Col } from "react-bootstrap";
 import ChangeOwnerForm from "../ChangeOwnerForm/ChangeOwnerForm";
 
 export default function Form({ title, type, col, disabled, customFunction }) {
+  let element;
+
+  switch (type) {
+    case "add":
+      element = <AddOwnerForm disabled={disabled} />;
+      break;
+    case "change":
+      element = <ChangeOwnerForm disabled={disabled} />;
+      break;
+    case "deposit":
+      element = <DepositToContractForm />;
+      break;
+    case "transfer":
+      element = <TransferRequestForm />;
+      break;
+    case "filterRows":
+      element = <FilterTableRowsForm setRowsPerPage={customFunction} />;
+      break;
+  }
+
   return (
     <>
       <Col xs={12} lg={col} className="form py-4 px-5">
-        {title ? <h2 className="mb-3">{title}</h2> : null}{" "}
-        {type === "add" ? <AddOwnerForm disabled={disabled} /> : null}
-        {type === "change" ? <ChangeOwnerForm disabled={disabled} /> : null}
-        {type === "deposit" ? <DepositToContractForm /> : null}
-        {type === "transfer" ? <TransferRequestForm /> : null}
-        {type === "filterRows" ? (
-          <FilterTableRowsForm setRowsPerPage={customFunction} />
-        ) : null}
+        {title ? <h2 className="mb-3">{title}</h2> : null} {element}
       </Col>
     </>
   );
