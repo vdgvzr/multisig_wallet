@@ -6,7 +6,7 @@ import { RootContext } from "../../../../../layouts/RootLayout/RootLayout";
 import Form from "../../../../forms/Form/Form";
 
 export default function OwnersListItem({ index, owner, account, isOwner }) {
-  const { deleteOwner } = useContext(RootContext);
+  const { deleteOwner, owners } = useContext(RootContext);
   return (
     <>
       <li className="owners-list-item my-3">
@@ -35,7 +35,7 @@ export default function OwnersListItem({ index, owner, account, isOwner }) {
           {isOwner &&
             owner === account &&
             window.location.pathname === "/manage-owners" && (
-              <Form type="change" />
+              <Form type="change" disabled={owners.length > 0} />
             )}
         </div>
       </li>

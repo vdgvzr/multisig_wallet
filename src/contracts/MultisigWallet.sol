@@ -4,10 +4,6 @@ pragma solidity >=0.5.0 <0.9.0;
 pragma experimental ABIEncoderV2;
 
 import "./Owner.sol";
-/**
- * @title MultisigWallet
- * dev: @vdgvzr
- */
 contract MultisigWallet is Owner {
     uint256 public addressLimit;
     uint public signaturesRequired;
@@ -33,11 +29,11 @@ contract MultisigWallet is Owner {
     }
 
     // Events
-    event addOwnerComplete(address owner, string message);
+    event addOwnerComplete(address owner);
+    event deleteOwnerComplete();
     event depositComplete(uint amount, address indexed depositedTo);
-    event transferRequestComplete(address to, uint amount, string message);
-    event requestApproved(uint transferId, bool approved);
-    event moreSignaturesRequired(string message);
+    event transferRequestComplete(address to, uint amount);
+    event requestApproved(uint transferId);
     event transferComplete(address indexed from, address indexed to, uint amount);
 
     // Add owner function
@@ -47,7 +43,7 @@ contract MultisigWallet is Owner {
             require(owners[i] != newOwner, "Owner already exists");
         }
         owners.push(newOwner); 
-        emit addOwnerComplete(newOwner, "Successfully added owner"); 
+        emit addOwnerComplete(newOwner); 
     }
 
     // Delete owner
@@ -57,6 +53,7 @@ contract MultisigWallet is Owner {
             owners[i] = owners[i+1];
         }
         owners.pop();
+        emit deleteOwnerComplete(); 
     }
 
     // Deposit to contract function
@@ -68,7 +65,7 @@ contract MultisigWallet is Owner {
     // Request transfer function
     function requestTransfer(address payable recipient, uint amount) public onlyOwners {
         transferRequests.push(Transfer(transferRequests.length, recipient, amount, 0));
-        emit transferRequestComplete(recipient, amount, "Transfer request successful");
+        emit transferRequestComplete(recipient, amount);
     }
 
     // Approve request function
@@ -76,12 +73,10 @@ contract MultisigWallet is Owner {
         require(approvals[msg.sender][transferId] != true, "Can't approve same transaction twice");
         approvals[msg.sender][transferId] = approved;
         transferRequests[transferId].approvalCount++;
+        emit requestApproved(transferId);
 
         if (transferRequests[transferId].approvalCount >= signaturesRequired) {
-            emit requestApproved(transferId, approved);
             _transfer(transferRequests[transferId].recipient, transferRequests[transferId].amount);
-        } else {
-            emit moreSignaturesRequired("More signatures required");
         }
     }
 

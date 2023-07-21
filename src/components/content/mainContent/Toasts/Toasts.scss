@@ -4,6 +4,11 @@
   top: 177px;
   right: 0;
 
+  &__fixed {
+    position: fixed;
+    top: 0;
+  }
+
   .toast {
     @extend %sourceCodePro;
     border-radius: 0%;
@@ -19,7 +24,7 @@
 
     span {
       position: absolute;
-      animation: countdown 3s;
+      animation: countdown 5s;
       height: 6px;
       bottom: 0;
       left: 0;

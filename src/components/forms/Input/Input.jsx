@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { RootContext } from "../../../layouts/RootLayout/RootLayout";
-import { formatAddress } from "../../../assets/js/utils";
+import { utils } from "../../../assets/js/utils";
 
 export default function Input({
   type,
@@ -51,7 +51,11 @@ export default function Input({
               <span>Max: {formatConnectedBalance} ETH</span>
             )
           ) : null}
-          {type === "text" ? (transfer ? formatAddress(account) : null) : null}
+          {type === "text"
+            ? transfer
+              ? utils.formatAddress(account)
+              : null
+            : null}
         </div>
       </div>
     </>

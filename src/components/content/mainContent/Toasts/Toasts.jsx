@@ -1,5 +1,6 @@
 import { Toast, ToastContainer } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { useRef } from "react";
 
 export default function Toasts({
   messages,
@@ -7,9 +8,23 @@ export default function Toasts({
   showMessage,
   setMessages,
 }) {
+  const containerRef = useRef();
+
+  window.addEventListener("scroll", () => {
+    fixedContainer(containerRef.current);
+  });
+
+  function fixedContainer(container) {
+    if (window.scrollY > 177) {
+      container.classList.add("toast-container__fixed");
+    } else {
+      container.classList.remove("toast-container__fixed");
+    }
+  }
+
   return (
     <>
-      <ToastContainer className="my-2" style={{ zIndex: 1 }}>
+      <ToastContainer ref={containerRef} className="my-2" style={{ zIndex: 1 }}>
         {messages.map((toast, index) => {
           return (
             <Toast
@@ -19,7 +34,7 @@ export default function Toasts({
                 setMessages([]);
               }}
               show={showMessage}
-              delay={3000}
+              delay={5000}
               bg="primary"
               className={`toast-${toast.variant}`}
               autohide

@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <>
       <IconHero
-        title={`${balance} ETH`}
+        title={balance > 0 ? `${balance} ETH` : "Deposit ETH"}
         icon="eth"
-        text={`$${value.toLocaleString()}`}
+        text={balance > 0 ? `$${value.toLocaleString()}` : null}
       />
       <Row className="my-5 py-5">
         <Form title="Deposit to Contract" type="deposit" col="6" />

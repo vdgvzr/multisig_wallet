@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { formatAddress } from "../../../../assets/js/utils";
+import { utils } from "../../../../assets/js/utils";
 import PropTypes from "prop-types";
 import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
 
@@ -45,7 +45,7 @@ export default function Address({
           }
         }}
       >
-        {format || responsiveFormat ? formatAddress(address) : address}
+        {format || responsiveFormat ? utils.formatAddress(address) : address}
         {online ? <div className="address__online ms-2"></div> : null}
       </div>
     </>

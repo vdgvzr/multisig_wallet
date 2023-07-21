@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
           { index: true, element: <Home /> },
           {
             path: "manage-owners",
-            children: [{ index: true, element: <ManageOwners /> }],
+            element: <ManageOwners />,
           },
           {
             path: "transfer-requests",

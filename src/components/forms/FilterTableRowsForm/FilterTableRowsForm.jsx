@@ -16,11 +16,13 @@ export default function FilterTableRowsForm({ setRowsPerPage }) {
           controlId="filterTableRowsId"
           setInput={(e) => setRowsPerPage(e.target.value)}
           transfer={false}
-          defaultValue="100"
+          defaultValue="10"
           options={
             <>
+              <option value="3">3</option>
+              <option value="5">5</option>
               <option value="10">10</option>
-              <option value="50">50</option>
+              <option value="20">20</option>
               <option value="100">100</option>
               <option value={transferRequests?.length}>All</option>
             </>

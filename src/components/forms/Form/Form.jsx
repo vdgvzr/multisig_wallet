@@ -27,6 +27,6 @@ Form.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   col: PropTypes.string,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.any,
   customFunction: PropTypes.func,
 };

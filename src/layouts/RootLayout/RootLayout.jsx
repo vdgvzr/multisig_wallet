@@ -11,6 +11,7 @@ import ContractBanner from "../../components/content/mainContent/ContractBanner/
 import { getApi } from "../../api/api";
 import Footer from "../../components/global/Footer/Footer";
 import Toasts from "../../components/content/mainContent/Toasts/Toasts";
+import { utils } from "../../assets/js/utils";
 
 export const RootContext = React.createContext(null);
 
@@ -35,6 +36,10 @@ function RootLayout() {
 
   const isOwner = account === owner;
   const isSignatory = owners.includes(account);
+
+  useEffect(() => {
+    setMessages([]);
+  }, [setMessages]);
 
   useEffect(() => {
     async function load() {
@@ -143,20 +148,6 @@ function RootLayout() {
   }
 
   // Invoke contract methods
-  /* function depositToContract(from, value) {
-    contract.methods
-      .depositToContract()
-      .send({ from, value })
-      .once("receipt", (receipt) => {
-        console.log(receipt);
-        toastMessage({
-          variant: "success",
-          message: "Deposited to contract!",
-        });
-        loadBlockchainData();
-      });
-  } */
-
   function depositToContract(from, value) {
     contract.methods
       .depositToContract()
@@ -166,11 +157,11 @@ function RootLayout() {
       });
 
     contract.events.depositComplete().on("data", function (e) {
-      const bigNumber = window.web3.utils.toNumber(e.returnValues.amount);
-      const amount = window.web3.utils.fromWei(bigNumber, "ether");
       toastMessage({
         variant: "success",
-        message: `Deposited ${amount} ETH to contract!`,
+        message: `Deposited ${utils.formatBigNumber(
+          e.returnValues.amount
+        )} ETH to contract!`,
       });
     });
   }
@@ -186,7 +177,9 @@ function RootLayout() {
     contract.events.addOwnerComplete().on("data", function (e) {
       toastMessage({
         variant: "success",
-        message: `Added ${e.returnValues.owner} to contract!`,
+        message: `Added ${utils.formatAddress(
+          e.returnValues.owner
+        )} to contract!`,
       });
     });
   }
@@ -199,12 +192,12 @@ function RootLayout() {
         loadBlockchainData();
       });
 
-    /* contract.events.addOwnerComplete().on("data", function (e) {
-        toastMessage({
-          variant: "success",
-          message: `Added ${e.returnValues.owner} to contract!`,
-        });
-      }); */
+    contract.events.deleteOwnerComplete().on("data", function () {
+      toastMessage({
+        variant: "success",
+        message: `Removed owner from contract!`,
+      });
+    });
   }
 
   function changeContractOwner(from, newOwner) {
@@ -214,6 +207,15 @@ function RootLayout() {
       .once("receipt", () => {
         loadBlockchainData();
       });
+
+    contract.events.OwnerSet().on("data", function (e) {
+      toastMessage({
+        variant: "success",
+        message: `Changed contract ownership from ${utils.formatAddress(
+          e.returnValues.oldOwner
+        )} to ${utils.formatAddress(e.returnValues.newOwner)}!`,
+      });
+    });
   }
 
   function requestTransfer(from, to, value) {
@@ -227,7 +229,9 @@ function RootLayout() {
     contract.events.transferRequestComplete().on("data", function (e) {
       toastMessage({
         variant: "success",
-        message: `Request transfer of ${e.returnValues.amount} to ${e.returnValues.to}!`,
+        message: `Request transfer of ${utils.formatBigNumber(
+          e.returnValues.amount
+        )} ETH to ${utils.formatAddress(e.returnValues.to)}!`,
       });
     });
   }
@@ -236,23 +240,25 @@ function RootLayout() {
     contract.methods
       .approveRequest(id, approved)
       .send({ from })
-      .once("receipt", (receipt) => {
-        // Logging for now, will change
-        console.log(receipt);
+      .once("receipt", () => {
         loadBlockchainData();
       });
 
     contract.events.requestApproved().on("data", function (e) {
       toastMessage({
         variant: "success",
-        message: `Transfer request #${e.returnValues.transferID} approved!`,
+        message: `Transfer request #${e.returnValues.transferId} approved!`,
       });
     });
 
     contract.events.transferComplete().on("data", function (e) {
       toastMessage({
         variant: "success",
-        message: `Transfer of ${e.returnValues.amount} to ${e.returnValues.to} from ${e.returnValues.from} complete!`,
+        message: `Transfer of ${utils.formatBigNumber(
+          e.returnValues.amount
+        )} ETH to ${e.returnValues.to} from ${utils.formatAddress(
+          e.returnValues.from
+        )} complete!`,
       });
     });
   }
@@ -322,12 +328,12 @@ function RootLayout() {
 }
 
 async function loader({ request: { signal } }) {
-  const getEth = await getApi({
+  const getEth = getApi({
     url: "tickers/eth-ethereum/",
     options: { signal },
   });
 
-  return { getEth };
+  return { getEth: await getEth };
 }
 
 export const rootRoute = {
