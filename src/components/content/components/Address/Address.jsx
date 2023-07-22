@@ -39,6 +39,7 @@ export default function Address({
           if (clickable) {
             navigator.clipboard.writeText(address);
             toastMessage({
+              id: crypto.randomUUID(),
               variant: "success",
               message: "Copied address!",
             });

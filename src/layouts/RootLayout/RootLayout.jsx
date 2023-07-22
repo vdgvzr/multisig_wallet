@@ -31,7 +31,7 @@ function RootLayout() {
   const [transferRequests, setTransferRequests] = useState([]);
   const [approvals, setApprovals] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [showMessage, setShowMessage] = useState(false);
+  // const [showMessage, setShowMessage] = useState(false);
 
   const isOwner = account === owner;
   const isSignatory = owners.includes(account);
@@ -139,6 +139,7 @@ function RootLayout() {
       setLoading(false);
     } else {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "danger",
         message: "Contract not deployed to detected network",
       });
@@ -155,6 +156,7 @@ function RootLayout() {
       })
       .catch((e) => {
         toastMessage({
+          id: crypto.randomUUID(),
           variant: "danger",
           message: `${e}`,
         });
@@ -162,6 +164,7 @@ function RootLayout() {
 
     contract.events.depositComplete().on("data", function (e) {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "success",
         message: `Deposited ${utils.formatBigNumber(
           e.returnValues.amount
@@ -179,6 +182,7 @@ function RootLayout() {
       })
       .catch((e) => {
         toastMessage({
+          id: crypto.randomUUID(),
           variant: "danger",
           message: `${e}`,
         });
@@ -186,6 +190,7 @@ function RootLayout() {
 
     contract.events.addOwnerComplete().on("data", function (e) {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "success",
         message: `Added ${utils.formatAddress(
           e.returnValues.owner
@@ -203,6 +208,7 @@ function RootLayout() {
       })
       .catch((e) => {
         toastMessage({
+          id: crypto.randomUUID(),
           variant: "danger",
           message: `${e}`,
         });
@@ -210,6 +216,7 @@ function RootLayout() {
 
     contract.events.deleteOwnerComplete().on("data", function () {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "success",
         message: `Removed owner from contract!`,
       });
@@ -225,6 +232,7 @@ function RootLayout() {
       })
       .catch((e) => {
         toastMessage({
+          id: crypto.randomUUID(),
           variant: "danger",
           message: `${e}`,
         });
@@ -232,6 +240,7 @@ function RootLayout() {
 
     contract.events.OwnerSet().on("data", function (e) {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "success",
         message: `Changed contract ownership from ${utils.formatAddress(
           e.returnValues.oldOwner
@@ -249,6 +258,7 @@ function RootLayout() {
       })
       .catch((e) => {
         toastMessage({
+          id: crypto.randomUUID(),
           variant: "danger",
           message: `${e}`,
         });
@@ -256,6 +266,7 @@ function RootLayout() {
 
     contract.events.transferRequestComplete().on("data", function (e) {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "success",
         message: `Request transfer of ${utils.formatBigNumber(
           e.returnValues.amount
@@ -273,6 +284,7 @@ function RootLayout() {
       })
       .catch((e) => {
         toastMessage({
+          id: crypto.randomUUID(),
           variant: "danger",
           message: `${e}`,
         });
@@ -280,6 +292,7 @@ function RootLayout() {
 
     contract.events.requestApproved().on("data", function (e) {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "success",
         message: `Transfer request #${e.returnValues.transferId} approved!`,
       });
@@ -287,6 +300,7 @@ function RootLayout() {
 
     contract.events.transferComplete().on("data", function (e) {
       toastMessage({
+        id: crypto.randomUUID(),
         variant: "success",
         message: `Transfer of ${utils.formatBigNumber(
           e.returnValues.amount
@@ -299,7 +313,7 @@ function RootLayout() {
 
   function toastMessage(message) {
     setMessages((prev) => [...prev, message]);
-    setShowMessage(true);
+    // setShowMessage(true);
   }
 
   return (
@@ -327,7 +341,7 @@ function RootLayout() {
         changeContractOwner,
         requestTransfer,
         approveRequest,
-        toastMessage: toastMessage != null && toastMessage,
+        toastMessage,
       }}
     >
       <main className="main-content">
@@ -340,12 +354,7 @@ function RootLayout() {
             <LoadingPage />
           ) : isSignatory ? (
             <>
-              <Toasts
-                messages={messages}
-                showMessage={showMessage}
-                setShowMessage={setShowMessage}
-                setMessages={setMessages}
-              />
+              <Toasts messages={messages} setMessages={setMessages} />
               <Outlet />
             </>
           ) : !account ? (

@@ -2,12 +2,7 @@ import { Toast, ToastContainer } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 
-export default function Toasts({
-  messages,
-  setShowMessage,
-  showMessage,
-  setMessages,
-}) {
+export default function Toasts({ messages, setMessages }) {
   const containerRef = useRef();
 
   window.addEventListener("scroll", () => {
@@ -30,10 +25,8 @@ export default function Toasts({
             <Toast
               key={index}
               onClose={() => {
-                setShowMessage(false);
-                setMessages([]);
+                setMessages(messages.filter((todo) => todo.id !== toast.id));
               }}
-              show={showMessage}
               delay={5000}
               bg="primary"
               className={`toast-${toast.variant}`}
@@ -56,7 +49,5 @@ export default function Toasts({
 
 Toasts.propTypes = {
   messages: PropTypes.array,
-  setShowMessage: PropTypes.func,
   setMessages: PropTypes.func,
-  showMessage: PropTypes.bool,
 };
