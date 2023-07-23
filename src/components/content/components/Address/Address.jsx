@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { utils } from "../../../../assets/js/utils";
 import PropTypes from "prop-types";
 import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
+import Message from "../../../../assets/js/customClasses/messageClasses";
 
 export default function Address({
   address,
@@ -38,11 +39,7 @@ export default function Address({
         onClick={() => {
           if (clickable) {
             navigator.clipboard.writeText(address);
-            toastMessage({
-              id: crypto.randomUUID(),
-              variant: "success",
-              message: "Copied address!",
-            });
+            toastMessage(new Message("success", "Copied address!"));
           }
         }}
       >

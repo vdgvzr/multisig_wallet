@@ -12,6 +12,7 @@ import { getApi } from "../../api/api";
 import Footer from "../../components/global/Footer/Footer";
 import Toasts from "../../components/content/mainContent/Toasts/Toasts";
 import { utils } from "../../assets/js/utils";
+import Message from "../../assets/js/customClasses/messageClasses";
 
 export const RootContext = React.createContext(null);
 
@@ -138,11 +139,9 @@ function RootLayout() {
       setApprovals(contractApprovals);
       setLoading(false);
     } else {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "danger",
-        message: "Contract not deployed to detected network",
-      });
+      toastMessage(
+        new Message("error", "Contract not deployed to detected network")
+      );
     }
   }
 
@@ -155,21 +154,18 @@ function RootLayout() {
         loadBlockchainData();
       })
       .catch((e) => {
-        toastMessage({
-          id: crypto.randomUUID(),
-          variant: "danger",
-          message: `${e}`,
-        });
+        toastMessage(new Message("error", `${e}`));
       });
 
     contract.events.depositComplete().on("data", function (e) {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "success",
-        message: `Deposited ${utils.formatBigNumber(
-          e.returnValues.amount
-        )} ETH to contract!`,
-      });
+      toastMessage(
+        new Message(
+          "success",
+          `Deposited ${utils.formatBigNumber(
+            e.returnValues.amount
+          )} ETH to contract!`
+        )
+      );
     });
   }
 
@@ -181,21 +177,16 @@ function RootLayout() {
         loadBlockchainData();
       })
       .catch((e) => {
-        toastMessage({
-          id: crypto.randomUUID(),
-          variant: "danger",
-          message: `${e}`,
-        });
+        toastMessage(new Message("error", `${e}`));
       });
 
     contract.events.addOwnerComplete().on("data", function (e) {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "success",
-        message: `Added ${utils.formatAddress(
-          e.returnValues.owner
-        )} to contract!`,
-      });
+      toastMessage(
+        new Message(
+          "success",
+          `Added ${utils.formatAddress(e.returnValues.owner)} to contract!`
+        )
+      );
     });
   }
 
@@ -207,19 +198,11 @@ function RootLayout() {
         loadBlockchainData();
       })
       .catch((e) => {
-        toastMessage({
-          id: crypto.randomUUID(),
-          variant: "danger",
-          message: `${e}`,
-        });
+        toastMessage(new Message("error", `${e}`));
       });
 
     contract.events.deleteOwnerComplete().on("data", function () {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "success",
-        message: `Removed owner from contract!`,
-      });
+      toastMessage(new Message("suceess", "Removed owner from contract!"));
     });
   }
 
@@ -231,21 +214,18 @@ function RootLayout() {
         loadBlockchainData();
       })
       .catch((e) => {
-        toastMessage({
-          id: crypto.randomUUID(),
-          variant: "danger",
-          message: `${e}`,
-        });
+        toastMessage(new Message("error", `${e}`));
       });
 
     contract.events.OwnerSet().on("data", function (e) {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "success",
-        message: `Changed contract ownership from ${utils.formatAddress(
-          e.returnValues.oldOwner
-        )} to ${utils.formatAddress(e.returnValues.newOwner)}!`,
-      });
+      toastMessage(
+        new Message(
+          "success",
+          `Changed contract ownership from ${utils.formatAddress(
+            e.returnValues.oldOwner
+          )} to ${utils.formatAddress(e.returnValues.newOwner)}!`
+        )
+      );
     });
   }
 
@@ -257,21 +237,18 @@ function RootLayout() {
         loadBlockchainData();
       })
       .catch((e) => {
-        toastMessage({
-          id: crypto.randomUUID(),
-          variant: "danger",
-          message: `${e}`,
-        });
+        toastMessage(new Message("error", `${e}`));
       });
 
     contract.events.transferRequestComplete().on("data", function (e) {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "success",
-        message: `Request transfer of ${utils.formatBigNumber(
-          e.returnValues.amount
-        )} ETH to ${utils.formatAddress(e.returnValues.to)}!`,
-      });
+      toastMessage(
+        new Message(
+          "success",
+          `Request transfer of ${utils.formatBigNumber(
+            e.returnValues.amount
+          )} ETH to ${utils.formatAddress(e.returnValues.to)}!`
+        )
+      );
     });
   }
 
@@ -283,31 +260,27 @@ function RootLayout() {
         loadBlockchainData();
       })
       .catch((e) => {
-        toastMessage({
-          id: crypto.randomUUID(),
-          variant: "danger",
-          message: `${e}`,
-        });
+        toastMessage(new Message("error", `${e}`));
       });
 
     contract.events.requestApproved().on("data", function (e) {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "success",
-        message: `Transfer request #${e.returnValues.transferId} approved!`,
-      });
+      toastMessage(
+        new Message(
+          "success",
+          `Transfer request #${e.returnValues.transferId} approved!`
+        )
+      );
     });
 
     contract.events.transferComplete().on("data", function (e) {
-      toastMessage({
-        id: crypto.randomUUID(),
-        variant: "success",
-        message: `Transfer of ${utils.formatBigNumber(
-          e.returnValues.amount
-        )} ETH to ${e.returnValues.to} from ${utils.formatAddress(
-          e.returnValues.from
-        )} complete!`,
-      });
+      toastMessage(
+        new Message(
+          "success",
+          `Transfer of ${utils.formatBigNumber(e.returnValues.amount)} ETH to ${
+            e.returnValues.to
+          } from ${utils.formatAddress(e.returnValues.from)} complete!`
+        )
+      );
     });
   }
 
