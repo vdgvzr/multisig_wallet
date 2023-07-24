@@ -4,7 +4,11 @@ pragma solidity >=0.5.0 <0.9.0;
 pragma experimental ABIEncoderV2;
 
 import "./Owner.sol";
+import "./utils/safemath.sol";
+
 contract MultisigWallet is Owner {
+    using SafeMath for uint;
+
     uint256 public addressLimit;
     uint public signaturesRequired;
     uint public contractBalance = 0;

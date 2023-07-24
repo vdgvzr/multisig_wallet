@@ -1527,12 +1527,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x3600eF13e46e9df6CB6B81AeB15E1C83d023bdd3",
-      "transactionHash": "0x345e66a38bae2b54368e097e04e99c1bc0fab5b91402d73c6e208496ac2eed88"
+      "address": "0x6575b4A6f7316C306Cf7dd64B9481F27F179BdF9",
+      "transactionHash": "0x368ec8e116499c4b9960782b0fc98142e63a5ce3144131f2bdbb9b27b0b7bca9"
     }
   },
   "schemaVersion": "3.4.14",
-  "updatedAt": "2023-07-24T11:51:26.269Z",
+  "updatedAt": "2023-07-24T13:26:15.550Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "Shaun Lindsley",
