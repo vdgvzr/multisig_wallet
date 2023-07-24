@@ -23,7 +23,7 @@ contract Owner {
         _;
     }
 
-    constructor() public {
+    constructor() {
         owner = msg.sender;
         emit OwnerSet(address(0), owner);
     }

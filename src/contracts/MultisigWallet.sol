@@ -19,7 +19,7 @@ contract MultisigWallet is Owner {
     Transfer[] public transferRequests;
     mapping(address => mapping(uint => bool)) public approvals;
 
-    constructor() public {
+    constructor() {
         // owners[] defaults to containing msg.sender
         owners.push(msg.sender);
         //  Address limit defaults to 3
@@ -81,13 +81,14 @@ contract MultisigWallet is Owner {
     }
 
     // Transfer function
-    function _transfer(address payable recipient, uint amount) private {
+    function _transfer(address payable recipient, uint amount) private returns(bool) {
         require(address(this).balance >= amount, "Insufficient balance");
         contractBalance -= amount;
         uint previousContractBalance = address(this).balance;
-        recipient.transfer(amount);
+        (bool success,) = recipient.call{value: amount}("");
         emit transferComplete(address(this), recipient, amount);
         assert(address(this).balance == previousContractBalance - amount);
+        return success;
     }
 
     function getTransferRequests() public view returns(Transfer[] memory) {

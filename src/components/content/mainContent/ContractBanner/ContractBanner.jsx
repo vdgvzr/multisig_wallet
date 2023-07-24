@@ -75,7 +75,7 @@ export default function ContractBanner() {
                 element={
                   <div>
                     <span className="contract-banner__balance">
-                      {balance} ETH
+                      {balance === "0." ? "0" : balance} ETH
                     </span>
                   </div>
                 }

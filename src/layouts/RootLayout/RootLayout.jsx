@@ -32,7 +32,6 @@ function RootLayout() {
   const [transferRequests, setTransferRequests] = useState([]);
   const [approvals, setApprovals] = useState(false);
   const [messages, setMessages] = useState([]);
-  // const [showMessage, setShowMessage] = useState(false);
 
   const isOwner = account === owner;
   const isSignatory = owners.includes(account);
