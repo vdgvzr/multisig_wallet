@@ -6,6 +6,7 @@ import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import { PAGES } from "../../../router";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
 import Address from "../../content/components/Address/Address";
+import { Link } from "react-router-dom";
 
 export default function MainNav() {
   const { siteName, account, isOwner, loadWeb3, accountLoading, isSignatory } =
@@ -15,9 +16,9 @@ export default function MainNav() {
     <div className="main-nav">
       <Navbar expand="lg" className="main-nav__navbar" variant="dark">
         <Container>
-          <Navbar.Brand className="me-5" href="/">
+          <Link className="navbar-brand me-5" to="/">
             {siteName ?? "Site Name"}
-          </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
             id="basic-navbar-nav"
@@ -30,22 +31,22 @@ export default function MainNav() {
                     if (page.name !== "Manage Owners" || isOwner) {
                       const path = window.location.pathname;
                       return (
-                        <Nav.Link
-                          className={`me-lg-3 p-lg-0 pb-lg-1 mt-lg-1 ${
+                        <Link
+                          className={`nav-link me-lg-3 p-lg-0 pb-lg-1 mt-lg-1 ${
                             path === page.url ? "custom-active" : ""
                           }`}
                           key={index}
-                          href={page.url}
+                          to={page.url}
                         >
                           {page.name}
                           <span></span>
-                        </Nav.Link>
+                        </Link>
                       );
                     }
                   }
                 })}
               {account ? (
-                <Nav.Link className="main-nav__account" disabled={true}>
+                <Link className="nav-link main-nav__account" disabled={true}>
                   {accountLoading ? (
                     "Loading"
                   ) : (
@@ -53,7 +54,7 @@ export default function MainNav() {
                       <Address address={account} format={true} />
                     </>
                   )}
-                </Nav.Link>
+                </Link>
               ) : (
                 <CustomButton
                   text={accountLoading ? "Loading..." : "Connect Wallet"}

@@ -79,7 +79,7 @@ function RootLayout() {
 
   function handleAccountsChanged(accounts) {
     if (accounts.length === 0) {
-      window.alert("You're not connected to MetaMask");
+      // window.alert("You're not connected to MetaMask");
       window.location.reload();
     } else if (accounts[0] !== account) {
       setAccount(accounts[0]);
