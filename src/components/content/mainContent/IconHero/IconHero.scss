@@ -17,6 +17,7 @@
     height: 33vh;
     width: 300px;
     right: calc(50% - 150px);
+    z-index: 9999999;
 
     @include media-breakpoint-down(lg) {
       height: 25vh;
