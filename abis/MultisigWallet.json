@@ -10609,10 +10609,16 @@
       "links": {},
       "address": "0x8d23A1d0f27c29f86cBa3cCdf3534797d42cD125",
       "transactionHash": "0xe9d8862890b9ee4d09ec2c6566c1455224081d00563b09d5cf68bde7fc6b5d97"
+    },
+    "11155111": {
+      "events": {},
+      "links": {},
+      "address": "0x1e4CBEe0D1B189C994F720f1835a8B92e9132094",
+      "transactionHash": "0xb94749fc5ff13a354223e7c398d77f75bdb265547a20d526b25173063446c8b8"
     }
   },
   "schemaVersion": "3.4.14",
-  "updatedAt": "2023-07-24T13:26:15.528Z",
+  "updatedAt": "2023-08-10T18:26:25.413Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

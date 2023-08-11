@@ -1529,10 +1529,16 @@
       "links": {},
       "address": "0x6575b4A6f7316C306Cf7dd64B9481F27F179BdF9",
       "transactionHash": "0x368ec8e116499c4b9960782b0fc98142e63a5ce3144131f2bdbb9b27b0b7bca9"
+    },
+    "11155111": {
+      "events": {},
+      "links": {},
+      "address": "0xA18d07Ef4A81db341C353cef0bA5D8DD66F52dbf",
+      "transactionHash": "0x379d1d4de4ddb1b63534c4a423ef958358b8085f7aa10d6bf387d201dd22d490"
     }
   },
   "schemaVersion": "3.4.14",
-  "updatedAt": "2023-07-24T13:26:15.550Z",
+  "updatedAt": "2023-08-10T18:26:25.421Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "Shaun Lindsley",
