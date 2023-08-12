@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import Form from "../../components/forms/Form/Form";
 import OwnersList from "../../components/content/mainContent/OwnersList/OwnersList";
 import { Row } from "react-bootstrap";
+import { useMetaMask } from "../../hooks/useMetamask";
 
 export default function ManageOwners() {
-  const { owners, addressLimit } = useContext(RootContext);
+  const { owners, addressLimit } = useMetaMask();
   const disabled = owners.length >= addressLimit;
 
   return (

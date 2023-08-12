@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
+import { useEffect, useState } from "react";
 import Address from "../../components/Address/Address";
 import SitePagination from "../../../global/SitePagination/SitePagination";
 import useTable from "../../../../assets/js/customHooks/useTable";
 import Form from "../../../forms/Form/Form";
 import { Col, Row, Table } from "react-bootstrap";
+import { useMetaMask } from "../../../../hooks/useMetamask";
 
 export default function TransferTable() {
-  const { transferRequests, signaturesRequired } = useContext(RootContext);
+  const { transferRequests, signaturesRequired } = useMetaMask();
   const [rowsPerPage, setRowsPerPage] = useState(100);
   const [page, setPage] = useState(1);
   const { slice, range } = useTable(transferRequests, page, rowsPerPage);

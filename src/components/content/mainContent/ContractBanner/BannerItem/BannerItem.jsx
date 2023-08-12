@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
-import { useContext } from "react";
-import { RootContext } from "../../../../../layouts/RootLayout/RootLayout";
 import Icon from "../../../Icon/Icon";
+import { useMetaMask } from "../../../../../hooks/useMetamask";
 
 export default function BannerItem({ title, element, col }) {
-  const { isSignatory } = useContext(RootContext);
+  const { isSignatory } = useMetaMask();
 
   return (
     <>
@@ -23,9 +21,3 @@ export default function BannerItem({ title, element, col }) {
     </>
   );
 }
-
-BannerItem.propTypes = {
-  title: PropTypes.string,
-  element: PropTypes.any,
-  col: PropTypes.string,
-};

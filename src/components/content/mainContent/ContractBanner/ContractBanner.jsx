@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
+import { useEffect, useState } from "react";
 import Address from "../../components/Address/Address";
-import Icon from "../../Icon/Icon";
 import BannerItem from "./BannerItem/BannerItem";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { useMetaMask } from "../../../../hooks/useMetamask";
 
 export default function ContractBanner() {
   const {
@@ -13,7 +12,7 @@ export default function ContractBanner() {
     addressLimit,
     signaturesRequired,
     isOwner,
-  } = useContext(RootContext);
+  } = useMetaMask();
   const [address, setAddress] = useState("Contract not lodaded");
 
   useEffect(() => {

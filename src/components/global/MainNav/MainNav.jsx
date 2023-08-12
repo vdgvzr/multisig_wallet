@@ -1,16 +1,23 @@
-import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import { PAGES } from "../../../router";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
 import Address from "../../content/components/Address/Address";
 import { Link } from "react-router-dom";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 export default function MainNav() {
-  const { siteName, account, isOwner, loadWeb3, accountLoading, isSignatory } =
-    useContext(RootContext);
+  const {
+    siteName,
+    isOwner,
+    accountLoading,
+    isSignatory,
+    hasProvider,
+    wallet,
+    isConnecting,
+    connectMetaMask,
+  } = useMetaMask();
 
   return (
     <div className="main-nav">
@@ -45,25 +52,24 @@ export default function MainNav() {
                     }
                   }
                 })}
-              {account ? (
-                <Link className="nav-link main-nav__account" disabled={true}>
-                  {accountLoading ? (
-                    "Loading"
-                  ) : (
-                    <>
-                      <Address address={account} format={true} />
-                    </>
-                  )}
-                </Link>
-              ) : (
+              {!hasProvider && (
+                <a href="https://metamask.io" target="_blank" rel="noreferrer">
+                  Install MetaMask
+                </a>
+              )}
+              {window.ethereum?.isMetaMask && wallet.accounts.length < 1 && (
                 <CustomButton
                   text={accountLoading ? "Loading..." : "Connect Wallet"}
                   classes="ms-auto"
                   icon="eth"
-                  action={() => {
-                    loadWeb3();
-                  }}
+                  action={connectMetaMask}
+                  disabled={isConnecting}
                 />
+              )}
+              {hasProvider && wallet.accounts.length > 0 && (
+                <Link className="nav-link main-nav__account" disabled={true}>
+                  <Address address={wallet.accounts[0]} format={true} />
+                </Link>
               )}
             </Nav>
           </Navbar.Collapse>

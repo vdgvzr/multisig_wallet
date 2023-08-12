@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Icons from "../../../assets/svg/icons.svg";
 import { useRef } from "react";
 
@@ -16,8 +15,3 @@ export default function Icon({ icon, classes }) {
     </>
   );
 }
-
-Icon.propTypes = {
-  icon: PropTypes.string,
-  classes: PropTypes.string,
-};

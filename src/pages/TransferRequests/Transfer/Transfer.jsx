@@ -1,33 +1,68 @@
-import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import CustomButton from "../../../components/content/components/CustomButton/CustomButton";
 import Address from "../../../components/content/components/Address/Address";
 import { Col, Row, Table } from "react-bootstrap";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 function Transfer() {
   const { transferId } = useLoaderData();
   const {
     transferRequests,
     signaturesRequired,
-    account,
+    wallet,
     approvals,
-    approveRequest,
-  } = useContext(RootContext);
+    contract,
+    loadWeb3,
+  } = useMetaMask();
 
-  const id = transferRequests[transferId].id.toString();
-  const recipient = transferRequests[transferId].recipient.toString();
-  const amount = window.web3.utils.fromWei(
-    transferRequests[transferId].amount.toString(),
-    "ether"
-  );
-  const approvalCount = transferRequests[transferId].approvalCount.toString();
+  const id = transferRequests[transferId]?.id.toString();
+  const recipient = transferRequests[transferId]?.recipient.toString();
+  const amount =
+    transferRequests[transferId] !== undefined &&
+    window.web3.utils.fromWei(
+      transferRequests[transferId]?.amount.toString(),
+      "ether"
+    );
+  const approvalCount = transferRequests[transferId]?.approvalCount.toString();
 
   const pending = (
     <div className="d-flex align-items-center">
       <p className="m-0">Pending Approval</p>
     </div>
   );
+
+  function approveRequest(from, id, approved) {
+    contract.methods
+      .approveRequest(id, approved)
+      .send({ from })
+      .once("receipt", () => {
+        loadWeb3();
+      })
+      .catch((e) => {
+        console.log(e.message);
+        // toastMessage(new Message("error", `${e}`));
+      });
+
+    /* contract.events.requestApproved().on("data", function (e) {
+      toastMessage(
+        new Message(
+          "success",
+          `Transfer request #${e.returnValues.transferId} approved!`
+        )
+      );
+    }); */
+
+    /* contract.events.transferComplete().on("data", function (e) {
+      toastMessage(
+        new Message(
+          "success",
+          `Transfer of ${utils.formatBigNumber(e.returnValues.amount)} ETH to ${
+            e.returnValues.to
+          } from ${utils.formatAddress(e.returnValues.from)} complete!`
+        )
+      );
+    }); */
+  }
 
   return (
     <>
@@ -66,13 +101,13 @@ function Transfer() {
                 </td>
                 <td className="text-center">
                   {approvalCount < signaturesRequired ? (
-                    account != recipient ? (
+                    wallet.accounts[0] != recipient ? (
                       approvals[id].toString() !== "true" ? (
                         <CustomButton
                           text="Approve"
                           icon="approve"
                           action={() => {
-                            approveRequest(account, id, true);
+                            approveRequest(wallet.accounts[0], id, true);
                           }}
                         />
                       ) : (
@@ -118,13 +153,13 @@ function Transfer() {
                 <th>Approve</th>
                 <td className="text-center">
                   {approvalCount < signaturesRequired ? (
-                    account != recipient ? (
+                    wallet.accounts[0] != recipient ? (
                       approvals[id].toString() !== "true" ? (
                         <CustomButton
                           text="Approve"
                           icon="approve"
                           action={() => {
-                            approveRequest(account, id, true);
+                            approveRequest(wallet.accounts[0], id, true);
                           }}
                         />
                       ) : (

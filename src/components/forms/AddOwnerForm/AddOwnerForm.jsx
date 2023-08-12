@@ -1,18 +1,39 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useEffect, useRef, useState } from "react";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
+import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
-import PropTypes from "prop-types";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 export default function AddOwnerForm({ disabled }) {
-  const { account, addOwner } = useContext(RootContext);
+  const { wallet, contract, loadWeb3 } = useMetaMask();
   const addOwnerRef = useRef();
   const [input, setInput] = useState("");
 
   useEffect(() => {
     setInput("");
   }, []);
+
+  function addOwner(from, newOwner) {
+    contract.methods
+      .addOwner(newOwner)
+      .send({ from })
+      .once("receipt", () => {
+        loadWeb3();
+      })
+      .catch((e) => {
+        console.log(e.message);
+        // toastMessage(new Message("error", `${e}`));
+      });
+
+    /* contract.events.addOwnerComplete().on("data", function (e) {
+      toastMessage(
+        new Message(
+          "success",
+          `Added ${utils.formatAddress(e.returnValues.owner)} to contract!`
+        )
+      );
+    }); */
+  }
 
   return (
     <>
@@ -21,7 +42,7 @@ export default function AddOwnerForm({ disabled }) {
           e.preventDefault();
           const address = addOwnerRef.current.value;
           if (window.web3.utils.isAddress(address)) {
-            addOwner(account, window.web3.utils.toChecksumAddress(address));
+            addOwner(wallet.accounts[0], window.web3.utils.toChecksumAddress(address));
           }
           addOwnerRef.current.value = null;
         }}
@@ -47,7 +68,3 @@ export default function AddOwnerForm({ disabled }) {
     </>
   );
 }
-
-AddOwnerForm.propTypes = {
-  disabled: PropTypes.bool,
-};

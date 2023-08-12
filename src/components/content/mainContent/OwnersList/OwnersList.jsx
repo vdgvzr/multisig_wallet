@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
-import PropTypes from "prop-types";
 import OwnersListItem from "./OwnersListItem/OwnersListItem";
 import { Col } from "react-bootstrap";
+import { useMetaMask } from "../../../../hooks/useMetamask";
 
 export default function OwnersList({ col }) {
-  const { owners, account, isOwner } = useContext(RootContext);
+  const { owners, isOwner } = useMetaMask();
   return (
     <>
       <Col xs={12} lg={col} className="py-4 px-5 owners-list">
@@ -17,7 +15,6 @@ export default function OwnersList({ col }) {
                 key={index}
                 index={index}
                 owner={owner}
-                account={account}
                 isOwner={isOwner}
               />
             );
@@ -27,7 +24,3 @@ export default function OwnersList({ col }) {
     </>
   );
 }
-
-OwnersList.propTypes = {
-  col: PropTypes.string,
-};

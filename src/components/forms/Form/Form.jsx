@@ -1,6 +1,4 @@
-import PropTypes from "prop-types";
-import DepositToContractForm from "../DepositToContractForm/DepositToContractForm";
-import AddOwnerForm from "../AddOwnerForm/AddOwnerForm";
+import DepositToContractForm from "../DepositToContractForm/DepositToContractForm";import AddOwnerForm from "../AddOwnerForm/AddOwnerForm";
 import TransferRequestForm from "../TransferRequestForm/TransferRequestForm";
 import FilterTableRowsForm from "../FilterTableRowsForm/FilterTableRowsForm";
 import { Col } from "react-bootstrap";
@@ -35,11 +33,3 @@ export default function Form({ title, type, col, disabled, customFunction }) {
     </>
   );
 }
-
-Form.propTypes = {
-  title: PropTypes.string,
-  type: PropTypes.string,
-  col: PropTypes.string,
-  disabled: PropTypes.any,
-  customFunction: PropTypes.func,
-};

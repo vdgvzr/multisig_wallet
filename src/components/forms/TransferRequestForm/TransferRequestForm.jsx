@@ -1,11 +1,11 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useEffect, useRef, useState } from "react";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
+import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 export default function TransferRequestForm() {
-  const { account, requestTransfer } = useContext(RootContext);
+  const { wallet, contract, loadWeb3 } = useMetaMask();
   const transferRequestAddressRef = useRef();
   const transferRequestValueRef = useRef();
   const [input, setInput] = useState("");
@@ -15,6 +15,30 @@ export default function TransferRequestForm() {
     setInput("");
     setInput2("");
   }, []);
+
+  function requestTransfer(from, to, value) {
+    contract.methods
+      .requestTransfer(to, value)
+      .send({ from })
+      .once("receipt", () => {
+        loadWeb3();
+      })
+      .catch((e) => {
+        console.log(e.message);
+        // toastMessage(new Message("error", `${e}`));
+      });
+
+    /* contract.events.transferRequestComplete().on("data", function (e) {
+      toastMessage(
+        new Message(
+          "success",
+          `Request transfer of ${utils.formatBigNumber(
+            e.returnValues.amount
+          )} ETH to ${utils.formatAddress(e.returnValues.to)}!`
+        )
+      );
+    }); */
+  }
 
   return (
     <>
@@ -28,7 +52,7 @@ export default function TransferRequestForm() {
           );
           if (window.web3.utils.isAddress(to)) {
             requestTransfer(
-              account,
+              wallet.accounts[0],
               window.web3.utils.toChecksumAddress(to),
               value
             );

@@ -1,18 +1,41 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useEffect, useRef, useState } from "react";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
+import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
-import PropTypes from "prop-types";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 export default function ChangeOwnerForm({ disabled }) {
-  const { account, changeContractOwner } = useContext(RootContext);
+  const { wallet, contract, loadWeb3 } = useMetaMask();
   const changeOwnerRef = useRef();
   const [input, setInput] = useState("");
 
   useEffect(() => {
     setInput("");
   }, []);
+
+  function changeContractOwner(from, newOwner) {
+    contract.methods
+      .changeOwner(newOwner)
+      .send({ from })
+      .once("receipt", () => {
+        loadWeb3();
+      })
+      .catch((e) => {
+        console.log(e.message);
+        //toastMessage(new Message("error", `${e}`));
+      });
+
+    /* contract.events.OwnerSet().on("data", function (e) {
+      toastMessage(
+        new Message(
+          "success",
+          `Changed contract ownership from ${utils.formatAddress(
+            e.returnValues.oldOwner
+          )} to ${utils.formatAddress(e.returnValues.newOwner)}!`
+        )
+      );
+    }); */
+  }
 
   return (
     <>
@@ -22,7 +45,7 @@ export default function ChangeOwnerForm({ disabled }) {
           const address = changeOwnerRef.current.value;
           if (window.web3.utils.isAddress(address)) {
             changeContractOwner(
-              account,
+              wallet.accounts[0],
               window.web3.utils.toChecksumAddress(address)
             );
           }
@@ -50,7 +73,3 @@ export default function ChangeOwnerForm({ disabled }) {
     </>
   );
 }
-
-ChangeOwnerForm.propTypes = {
-  disabled: PropTypes.bool,
-};

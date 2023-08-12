@@ -1,6 +1,5 @@
 import { Col, Row } from "react-bootstrap";
 import Icon from "../../Icon/Icon";
-import PropTypes from "prop-types";
 
 export default function IconHero({ icon, title, text }) {
   return (
@@ -15,9 +14,3 @@ export default function IconHero({ icon, title, text }) {
     </>
   );
 }
-
-IconHero.propTypes = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-  icon: PropTypes.string,
-};

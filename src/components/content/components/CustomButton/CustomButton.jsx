@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 import Icon from "../../Icon/Icon";
 
@@ -28,13 +27,3 @@ export default function CustomButton({
     </>
   );
 }
-
-CustomButton.propTypes = {
-  text: PropTypes.string,
-  classes: PropTypes.string,
-  variant: PropTypes.string,
-  type: PropTypes.string,
-  action: PropTypes.any,
-  disabled: PropTypes.bool,
-  icon: PropTypes.string,
-};

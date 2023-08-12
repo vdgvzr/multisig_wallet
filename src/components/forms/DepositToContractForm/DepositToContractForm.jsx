@@ -1,13 +1,37 @@
 import { Form } from "react-bootstrap";
 import CustomButton from "../../content/components/CustomButton/CustomButton";
-import { useContext, useEffect, useRef, useState } from "react";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
+import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 export default function DepositToContractForm() {
-  const { account, depositToContract } = useContext(RootContext);
+  const { wallet, contract, loadWeb3 } = useMetaMask();
   const depositToContractRef = useRef();
   const [input, setInput] = useState("");
+
+  function depositToContract(from, value) {
+    contract.methods
+      .depositToContract()
+      .send({ from, value })
+      .once("receipt", () => {
+        loadWeb3();
+      })
+      .catch((e) => {
+        console.log(e.message);
+        // toastMessage(new Message("error", `${e}`));
+      });
+
+    /* contract.events.depositComplete().on("data", function (e) {
+      toastMessage(
+        new Message(
+          "success",
+          `Deposited ${utils.formatBigNumber(
+            e.returnValues.amount
+          )} ETH to contract!`
+        )
+      );
+    }); */
+  }
 
   useEffect(() => {
     setInput("");
@@ -22,7 +46,7 @@ export default function DepositToContractForm() {
             depositToContractRef.current.value.toString(),
             "ether"
           );
-          depositToContract(account, value);
+          depositToContract(wallet.accounts[0], value);
           depositToContractRef.current.value = null;
         }}
       >

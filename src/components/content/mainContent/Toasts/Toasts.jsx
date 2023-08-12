@@ -1,5 +1,4 @@
 import { Toast, ToastContainer } from "react-bootstrap";
-import PropTypes from "prop-types";
 import { useRef } from "react";
 
 export default function Toasts({ messages, setMessages }) {
@@ -46,8 +45,3 @@ export default function Toasts({ messages, setMessages }) {
     </>
   );
 }
-
-Toasts.propTypes = {
-  messages: PropTypes.array,
-  setMessages: PropTypes.func,
-};

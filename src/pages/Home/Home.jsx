@@ -1,13 +1,14 @@
-import PropTypes from "prop-types";
 import Form from "../../components/forms/Form/Form";
 import IconHero from "../../components/content/mainContent/IconHero/IconHero";
-import { useContext } from "react";
-import { RootContext } from "../../layouts/RootLayout/RootLayout";
 import OwnersList from "../../components/content/mainContent/OwnersList/OwnersList";
 import { Row } from "react-bootstrap";
+import { useMetaMask } from "../../hooks/useMetamask";
+import { getApi } from "../../api/api";
+import { useLoaderData } from "react-router-dom";
 
-export default function Home() {
-  const { balance, getEth } = useContext(RootContext);
+function Home() {
+  const { balance } = useMetaMask();
+  const { getEth } = useLoaderData();
   const value = parseInt(balance) * getEth.quotes.USD.price;
 
   return (
@@ -25,6 +26,16 @@ export default function Home() {
   );
 }
 
-Home.propTypes = {
-  name: PropTypes.string,
+async function loader({ request: { signal } }) {
+  const getEth = getApi({
+    url: "tickers/eth-ethereum/",
+    options: { signal },
+  });
+
+  return { getEth: await getEth };
+}
+
+export const homeRoute = {
+  loader,
+  element: <Home />,
 };

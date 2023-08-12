@@ -1,11 +1,9 @@
 import { Form } from "react-bootstrap";
-import { useContext } from "react";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import Input from "../Input/Input";
-import PropTypes from "prop-types";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 export default function FilterTableRowsForm({ setRowsPerPage }) {
-  const { transferRequests } = useContext(RootContext);
+  const { transferRequests } = useMetaMask();
 
   return (
     <>
@@ -32,7 +30,3 @@ export default function FilterTableRowsForm({ setRowsPerPage }) {
     </>
   );
 }
-
-FilterTableRowsForm.propTypes = {
-  setRowsPerPage: PropTypes.func,
-};

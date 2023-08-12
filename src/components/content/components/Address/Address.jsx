@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { utils } from "../../../../assets/js/utils";
-import PropTypes from "prop-types";
-import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
 import Message from "../../../../assets/js/customClasses/messageClasses";
+import { useMetaMask } from "../../../../hooks/useMetamask";
 
 export default function Address({
   address,
@@ -11,7 +10,7 @@ export default function Address({
   online = false,
   clickable = true,
 }) {
-  const { toastMessage } = useContext(RootContext);
+  const { toastMessage } = useMetaMask();
   const [responsiveFormat, setResponsiveFormat] = useState(false);
 
   useEffect(() => {
@@ -49,11 +48,3 @@ export default function Address({
     </>
   );
 }
-
-Address.propTypes = {
-  address: PropTypes.string,
-  format: PropTypes.bool,
-  active: PropTypes.bool,
-  online: PropTypes.bool,
-  clickable: PropTypes.bool,
-};

@@ -1,8 +1,6 @@
 import { Form } from "react-bootstrap";
-import PropTypes from "prop-types";
-import { useContext } from "react";
-import { RootContext } from "../../../layouts/RootLayout/RootLayout";
 import { utils } from "../../../assets/js/utils";
+import { useMetaMask } from "../../../hooks/useMetamask";
 
 export default function Input({
   type,
@@ -18,11 +16,12 @@ export default function Input({
   options,
   disabled = false,
 }) {
-  const { account, balance, connectedBalance } = useContext(RootContext);
-  const formatConnectedBalance = window.web3.utils.fromWei(
+  const { wallet, balance, connectedBalance } = useMetaMask();
+  /* const formatConnectedBalance = window.web3.utils.fromWei(
     connectedBalance.toString(),
     "ether"
-  );
+  ); */
+  const formatConnectedBalance = connectedBalance;
 
   const valueElement = (
     <>
@@ -38,7 +37,7 @@ export default function Input({
               : null;
             type === "text"
               ? transfer
-                ? (innerRef.current.value = account)
+                ? (innerRef.current.value = wallet.accounts[0])
                 : null
               : null;
             setInput(true);
@@ -53,7 +52,7 @@ export default function Input({
           ) : null}
           {type === "text"
             ? transfer
-              ? utils.formatAddress(account)
+              ? utils.formatAddress(wallet.accounts[0])
               : null
             : null}
         </div>
@@ -87,18 +86,3 @@ export default function Input({
     </>
   );
 }
-
-Input.propTypes = {
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  step: PropTypes.string,
-  innerRef: PropTypes.any,
-  label: PropTypes.string,
-  text: PropTypes.string,
-  controlId: PropTypes.string,
-  setInput: PropTypes.func,
-  transfer: PropTypes.bool,
-  disabled: PropTypes.bool,
-  defaultValue: PropTypes.string,
-  options: PropTypes.any,
-};

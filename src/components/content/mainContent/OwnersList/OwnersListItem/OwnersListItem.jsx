@@ -1,12 +1,29 @@
-import { useContext } from "react";
 import Address from "../../../components/Address/Address";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import PropTypes from "prop-types";
-import { RootContext } from "../../../../../layouts/RootLayout/RootLayout";
 import Form from "../../../../forms/Form/Form";
+import { useMetaMask } from "../../../../../hooks/useMetamask";
 
-export default function OwnersListItem({ index, owner, account, isOwner }) {
-  const { deleteOwner, owners } = useContext(RootContext);
+export default function OwnersListItem({ index, owner, isOwner }) {
+  const { owners, contract, loadWeb3, wallet } = useMetaMask();
+  const account = window.web3.utils.toChecksumAddress(wallet.accounts[0]);
+
+  function deleteOwner(from, index) {
+    contract.methods
+      .deleteOwner(index)
+      .send({ from })
+      .once("receipt", () => {
+        loadWeb3();
+      })
+      .catch((e) => {
+        console.log(e.message);
+        // toastMessage(new Message("error", `${e}`));
+      });
+
+    /* contract.events.deleteOwnerComplete().on("data", function () {
+      toastMessage(new Message("suceess", "Removed owner from contract!"));
+    }); */
+  }
+
   return (
     <>
       <li className="owners-list-item my-3">
@@ -25,7 +42,7 @@ export default function OwnersListItem({ index, owner, account, isOwner }) {
                 classes="ms-2"
                 icon="delete"
                 action={() => {
-                  deleteOwner(account, index);
+                  deleteOwner(wallet.accounts[0], index);
                 }}
               />
             ) : null
@@ -42,10 +59,3 @@ export default function OwnersListItem({ index, owner, account, isOwner }) {
     </>
   );
 }
-
-OwnersListItem.propTypes = {
-  index: PropTypes.number,
-  owner: PropTypes.string,
-  account: PropTypes.string,
-  isOwner: PropTypes.bool,
-};

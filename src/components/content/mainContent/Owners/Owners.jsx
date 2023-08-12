@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { RootContext } from "../../../../layouts/RootLayout/RootLayout";
 import Address from "../../components/Address/Address";
+import { useMetaMask } from "../../../../hooks/useMetamask";
 
 export default function Owners() {
-  const { owners, account } = useContext(RootContext);
+  const { owners, wallet } = useMetaMask();
 
   return (
     <>
@@ -13,7 +12,10 @@ export default function Owners() {
           {owners.map((owner, index) => {
             return (
               <li className="my-2" key={index}>
-                <Address address={owner} active={account === owner} />
+                <Address
+                  address={owner}
+                  active={wallet.accounts[0] === owner}
+                />
               </li>
             );
           })}

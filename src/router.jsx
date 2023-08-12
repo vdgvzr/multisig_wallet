@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { rootRoute } from "./layouts/RootLayout/RootLayout";
-import Home from "./pages/Home/Home";
+import RootLayout from "./layouts/RootLayout/RootLayout";
+import { homeRoute } from "./pages/Home/Home";
 import ManageOwners from "./pages/ManageOwners/ManageOwners";
 import TransferRequests from "./pages/TransferRequests/TransferRequests";
 import { transferRoute } from "./pages/TransferRequests/Transfer/Transfer";
@@ -10,12 +10,12 @@ import PageNotFoundPage from "./pages/staticPages/PageNotFoundPage/PageNotFoundP
 export const router = createBrowserRouter([
   {
     path: "/",
-    ...rootRoute,
+    element: <RootLayout />,
     children: [
       {
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <Home /> },
+          { index: true, ...homeRoute },
           {
             path: "manage-owners",
             element: <ManageOwners />,

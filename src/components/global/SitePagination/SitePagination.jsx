@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Pagination } from "react-bootstrap";
 
 export default function SitePagination({ range, setPage, page }) {
@@ -100,9 +99,3 @@ export default function SitePagination({ range, setPage, page }) {
     </>
   );
 }
-
-SitePagination.propTypes = {
-  range: PropTypes.array,
-  setPage: PropTypes.func,
-  page: PropTypes.number,
-};
