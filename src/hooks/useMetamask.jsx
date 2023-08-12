@@ -26,7 +26,6 @@ export const MetaMaskContextProvider = ({ children }) => {
   const [isConnecting, setIsConnecting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [balance, setBalance] = useState("0");
-  const [connectedBalance, setConnectedBalance] = useState("0");
   const [contract, setContract] = useState([]);
   const [owner, setOwner] = useState("0x0");
   const [owners, setOwners] = useState([]);
@@ -34,7 +33,7 @@ export const MetaMaskContextProvider = ({ children }) => {
   const [signaturesRequired, setSignaturesRequired] = useState("0");
   const [transferRequests, setTransferRequests] = useState([]);
   const [approvals, setApprovals] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [isSignatory, setIsSignatory] = useState(false);
   const clearError = () => setErrorMessage("");
@@ -47,18 +46,22 @@ export const MetaMaskContextProvider = ({ children }) => {
         window.web3.utils.toChecksumAddress(wallet.accounts[0]) ===
           window.web3.utils.toChecksumAddress(owner)
       );
-      setIsSignatory(window.web3.utils.toChecksumAddress(wallet.accounts[0]));
+      setIsSignatory(
+        owners?.includes(
+          window.web3.utils.toChecksumAddress(wallet.accounts[0])
+        )
+      );
     }
   }, [wallet.accounts, owner, owners]);
 
   const _loadWeb3 = useCallback(async () => {
     window.web3 = new Web3(window.ethereum);
     const accounts = await window.web3.eth.getAccounts();
-    const balance = await window.web3.eth.getBalance(accounts[0]);
     const networkId = await window.web3.eth.net.getId();
     const networkData = MultisigWallet.networks[networkId];
 
     if (networkData) {
+      setLoading(true);
       const multisigWallet = new window.web3.eth.Contract(
         MultisigWallet.abi,
         networkData.address
@@ -82,9 +85,11 @@ export const MetaMaskContextProvider = ({ children }) => {
 
       let contractApprovals = [];
       for (let i = 0; i < contractTransferRequests.length; i++) {
-        contractApprovals.push(
-          await multisigWallet.methods.approvals(accounts[0], i).call()
-        );
+        if (accounts[0]) {
+          contractApprovals.push(
+            await multisigWallet.methods.approvals(accounts[0], i).call()
+          );
+        }
       }
 
       // Set state
@@ -94,7 +99,6 @@ export const MetaMaskContextProvider = ({ children }) => {
       setBalance(
         window.web3.utils.fromWei(contractBalance.toString(), "ether")
       );
-      setConnectedBalance(balance);
       setAddressLimit(contractAddressLimit.toString());
       setSignaturesRequired(contractSignaturesRequired.toString());
       setTransferRequests(contractTransferRequests);
@@ -103,6 +107,8 @@ export const MetaMaskContextProvider = ({ children }) => {
     } else {
       console.log("error", "Contract not deployed to detected network");
     }
+
+    setLoading(false);
   }, []);
 
   const loadWeb3 = useCallback(() => _loadWeb3(), [_loadWeb3]);
@@ -196,7 +202,6 @@ export const MetaMaskContextProvider = ({ children }) => {
         errorMessage,
         isConnecting,
         balance,
-        connectedBalance,
         contract,
         owner,
         owners,

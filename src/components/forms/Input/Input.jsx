@@ -16,13 +16,7 @@ export default function Input({
   options,
   disabled = false,
 }) {
-  const { wallet, balance, connectedBalance } = useMetaMask();
-  /* const formatConnectedBalance = window.web3.utils.fromWei(
-    connectedBalance.toString(),
-    "ether"
-  ); */
-  const formatConnectedBalance = connectedBalance;
-
+  const { wallet, balance } = useMetaMask();
   const valueElement = (
     <>
       <div className="form-input__balance-element d-flex justify-content-between">
@@ -31,9 +25,7 @@ export default function Input({
           className="form-input__balance-element-balance"
           onClick={() => {
             type === "number"
-              ? (innerRef.current.value = transfer
-                  ? balance
-                  : formatConnectedBalance)
+              ? (innerRef.current.value = transfer ? balance : wallet.balance)
               : null;
             type === "text"
               ? transfer
@@ -47,7 +39,7 @@ export default function Input({
             transfer ? (
               <span>Max: {balance} ETH</span>
             ) : (
-              <span>Max: {formatConnectedBalance} ETH</span>
+              <span>Max: {wallet.balance} ETH</span>
             )
           ) : null}
           {type === "text"

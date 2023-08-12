@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import RootLayout from "./layouts/RootLayout/RootLayout";
 import { homeRoute } from "./pages/Home/Home";
 import ManageOwners from "./pages/ManageOwners/ManageOwners";
 import TransferRequests from "./pages/TransferRequests/TransferRequests";
 import { transferRoute } from "./pages/TransferRequests/Transfer/Transfer";
 import ErrorPage from "./pages/staticPages/ErrorPage/ErrorPage";
 import PageNotFoundPage from "./pages/staticPages/PageNotFoundPage/PageNotFoundPage";
+import App from "./App";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <App />,
     children: [
       {
         errorElement: <ErrorPage />,
