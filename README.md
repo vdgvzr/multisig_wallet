@@ -40,3 +40,7 @@ and is currently deployed only to Sepolia testnet.
 4. Run `npm i` to install frontend libraries.
 5. Run `npm run build` to build transpiled frontend assets.
 6. Run `npm run dev` to start development server.
+
+## Dev notes
+
+In order to test this app, please get in touch with me [here](https://www.shaunlindsley.dev/) and I will provide you with the test deployer access keys.
