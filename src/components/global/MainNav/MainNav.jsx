@@ -6,6 +6,7 @@ import CustomButton from "../../content/components/CustomButton/CustomButton";
 import Address from "../../content/components/Address/Address";
 import { Link } from "react-router-dom";
 import { useMetaMask } from "../../../hooks/useMetamask";
+import { formatChainAsNum } from "../../../utils";
 
 export default function MainNav() {
   const {
@@ -67,9 +68,17 @@ export default function MainNav() {
                 />
               )}
               {hasProvider && wallet.accounts.length > 0 && (
-                <Link className="nav-link main-nav__account" disabled={true}>
-                  <Address address={wallet.accounts[0]} format={true} />
-                </Link>
+                <>
+                  <Link className="nav-link disabled main-nav__account" disabled={true}>
+                    Chain: {formatChainAsNum(wallet.chainId)}
+                  </Link>
+                  <Link className="nav-link disabled" disabled={true}>
+                    Balance: {wallet.balance} ETH
+                  </Link>
+                  <Link className="nav-link" disabled={true}>
+                    <Address address={wallet.accounts[0]} format={true} />
+                  </Link>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
