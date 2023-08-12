@@ -3,9 +3,10 @@ import CustomButton from "../../content/components/CustomButton/CustomButton";
 import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
 import { useMetaMask } from "../../../hooks/useMetamask";
+import Message from "../../../assets/js/customClasses/messageClasses";
 
 export default function AddOwnerForm({ disabled }) {
-  const { wallet, contract, loadWeb3 } = useMetaMask();
+  const { wallet, contract, loadWeb3, toastMessage } = useMetaMask();
   const addOwnerRef = useRef();
   const [input, setInput] = useState("");
 
@@ -21,18 +22,17 @@ export default function AddOwnerForm({ disabled }) {
         loadWeb3();
       })
       .catch((e) => {
-        console.log(e.message);
-        // toastMessage(new Message("error", `${e}`));
+        toastMessage(new Message("error", `${e}`));
       });
 
-    /* contract.events.addOwnerComplete().on("data", function (e) {
+    contract.events.addOwnerComplete().on("data", function (e) {
       toastMessage(
         new Message(
           "success",
           `Added ${utils.formatAddress(e.returnValues.owner)} to contract!`
         )
       );
-    }); */
+    });
   }
 
   return (
@@ -42,7 +42,10 @@ export default function AddOwnerForm({ disabled }) {
           e.preventDefault();
           const address = addOwnerRef.current.value;
           if (window.web3.utils.isAddress(address)) {
-            addOwner(wallet.accounts[0], window.web3.utils.toChecksumAddress(address));
+            addOwner(
+              wallet.accounts[0],
+              window.web3.utils.toChecksumAddress(address)
+            );
           }
           addOwnerRef.current.value = null;
         }}

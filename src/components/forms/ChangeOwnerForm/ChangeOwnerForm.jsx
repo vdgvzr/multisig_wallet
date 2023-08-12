@@ -3,9 +3,11 @@ import CustomButton from "../../content/components/CustomButton/CustomButton";
 import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
 import { useMetaMask } from "../../../hooks/useMetamask";
+import Message from "../../../assets/js/customClasses/messageClasses";
+import { formatAddress } from "../../../utils";
 
 export default function ChangeOwnerForm({ disabled }) {
-  const { wallet, contract, loadWeb3 } = useMetaMask();
+  const { wallet, contract, loadWeb3, toastMessage } = useMetaMask();
   const changeOwnerRef = useRef();
   const [input, setInput] = useState("");
 
@@ -21,20 +23,19 @@ export default function ChangeOwnerForm({ disabled }) {
         loadWeb3();
       })
       .catch((e) => {
-        console.log(e.message);
-        //toastMessage(new Message("error", `${e}`));
+        toastMessage(new Message("error", `${e}`));
       });
 
-    /* contract.events.OwnerSet().on("data", function (e) {
+    contract.events.OwnerSet().on("data", function (e) {
       toastMessage(
         new Message(
           "success",
-          `Changed contract ownership from ${utils.formatAddress(
+          `Changed contract ownership from ${formatAddress(
             e.returnValues.oldOwner
-          )} to ${utils.formatAddress(e.returnValues.newOwner)}!`
+          )} to ${formatAddress(e.returnValues.newOwner)}!`
         )
       );
-    }); */
+    });
   }
 
   return (

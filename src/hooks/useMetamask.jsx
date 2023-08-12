@@ -10,6 +10,7 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import { formatBalance } from "../utils/index";
 import MultisigWallet from "/abis/MultisigWallet.json";
 import Web3 from "web3";
+import Message from "../assets/js/customClasses/messageClasses";
 
 const disconnectedState = {
   accounts: [],
@@ -24,7 +25,7 @@ export const MetaMaskContextProvider = ({ children }) => {
   // Global state
   const [hasProvider, setHasProvider] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState([]);
   const [balance, setBalance] = useState("0");
   const [contract, setContract] = useState([]);
   const [owner, setOwner] = useState("0x0");
@@ -36,7 +37,10 @@ export const MetaMaskContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [isSignatory, setIsSignatory] = useState(false);
-  const clearError = () => setErrorMessage("");
+
+  function clearError(id) {
+    setErrorMessage(errorMessage.filter((message) => message.id !== id));
+  }
 
   const [wallet, setWallet] = useState(disconnectedState);
 
@@ -105,7 +109,9 @@ export const MetaMaskContextProvider = ({ children }) => {
       setApprovals(contractApprovals);
       setLoading(false);
     } else {
-      console.log("error", "Contract not deployed to detected network");
+      toastMessage(
+        new Message("error", "Contract not deployed to detected network")
+      );
     }
 
     setLoading(false);
@@ -188,10 +194,14 @@ export const MetaMaskContextProvider = ({ children }) => {
       clearError();
       updateWallet(accounts);
     } catch (err) {
-      setErrorMessage(err.message);
+      setErrorMessage((prev) => [...prev, err.message]);
     }
     setIsConnecting(false);
   };
+
+  function toastMessage(message) {
+    setErrorMessage((prev) => [...prev, message]);
+  }
 
   return (
     <MetaMaskContext.Provider
@@ -216,6 +226,7 @@ export const MetaMaskContextProvider = ({ children }) => {
         connectMetaMask,
         clearError,
         loadWeb3,
+        toastMessage,
       }}
     >
       {children}

@@ -3,9 +3,11 @@ import CustomButton from "../../content/components/CustomButton/CustomButton";
 import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
 import { useMetaMask } from "../../../hooks/useMetamask";
+import Message from "../../../assets/js/customClasses/messageClasses";
+import { utils } from "../../../assets/js/utils";
 
 export default function TransferRequestForm() {
-  const { wallet, contract, loadWeb3 } = useMetaMask();
+  const { wallet, contract, loadWeb3, toastMessage } = useMetaMask();
   const transferRequestAddressRef = useRef();
   const transferRequestValueRef = useRef();
   const [input, setInput] = useState("");
@@ -24,11 +26,10 @@ export default function TransferRequestForm() {
         loadWeb3();
       })
       .catch((e) => {
-        console.log(e.message);
-        // toastMessage(new Message("error", `${e}`));
+        toastMessage(new Message("error", `${e}`));
       });
 
-    /* contract.events.transferRequestComplete().on("data", function (e) {
+    contract.events.transferRequestComplete().on("data", function (e) {
       toastMessage(
         new Message(
           "success",
@@ -37,7 +38,7 @@ export default function TransferRequestForm() {
           )} ETH to ${utils.formatAddress(e.returnValues.to)}!`
         )
       );
-    }); */
+    });
   }
 
   return (

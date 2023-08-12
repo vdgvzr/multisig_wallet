@@ -7,14 +7,10 @@ import ContractBanner from "../../components/content/mainContent/ContractBanner/
 import Footer from "../../components/global/Footer/Footer";
 import { useMetaMask } from "../../hooks/useMetamask";
 import { Container } from "react-bootstrap";
+import Toasts from "../../components/content/mainContent/Toasts/Toasts";
 
 export default function RootLayout() {
   const { loading, isSignatory, wallet } = useMetaMask();
-  /* function toastMessage(message) {
-    setMessages((prev) => [...prev, message]);
-    setShowMessage(true);
-  } */
-
   return (
     <>
       <main className="main-content">
@@ -22,6 +18,7 @@ export default function RootLayout() {
         <ContractBanner />
         <ScrollRestoration />
         <Container>
+          <Toasts />
           {loading ? (
             <LoadingPage />
           ) : isSignatory ? (

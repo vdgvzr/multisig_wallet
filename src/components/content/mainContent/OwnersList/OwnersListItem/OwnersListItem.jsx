@@ -2,9 +2,10 @@ import Address from "../../../components/Address/Address";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import Form from "../../../../forms/Form/Form";
 import { useMetaMask } from "../../../../../hooks/useMetamask";
+import Message from "../../../../../assets/js/customClasses/messageClasses";
 
 export default function OwnersListItem({ index, owner, isOwner }) {
-  const { owners, contract, loadWeb3, wallet } = useMetaMask();
+  const { owners, contract, loadWeb3, wallet, toastMessage } = useMetaMask();
   const account = window.web3.utils.toChecksumAddress(wallet.accounts[0]);
 
   function deleteOwner(from, index) {
@@ -15,13 +16,12 @@ export default function OwnersListItem({ index, owner, isOwner }) {
         loadWeb3();
       })
       .catch((e) => {
-        console.log(e.message);
-        // toastMessage(new Message("error", `${e}`));
+        toastMessage(new Message("error", `${e}`));
       });
 
-    /* contract.events.deleteOwnerComplete().on("data", function () {
+    contract.events.deleteOwnerComplete().on("data", function () {
       toastMessage(new Message("suceess", "Removed owner from contract!"));
-    }); */
+    });
   }
 
   return (

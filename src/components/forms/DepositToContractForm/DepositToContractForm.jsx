@@ -3,9 +3,11 @@ import CustomButton from "../../content/components/CustomButton/CustomButton";
 import { useEffect, useRef, useState } from "react";
 import Input from "../Input/Input";
 import { useMetaMask } from "../../../hooks/useMetamask";
+import Message from "../../../assets/js/customClasses/messageClasses";
+import { utils } from "../../../assets/js/utils";
 
 export default function DepositToContractForm() {
-  const { wallet, contract, loadWeb3 } = useMetaMask();
+  const { wallet, contract, loadWeb3, toastMessage } = useMetaMask();
   const depositToContractRef = useRef();
   const [input, setInput] = useState("");
 
@@ -17,11 +19,10 @@ export default function DepositToContractForm() {
         loadWeb3();
       })
       .catch((e) => {
-        console.log(e.message);
-        // toastMessage(new Message("error", `${e}`));
+        toastMessage(new Message("error", `${e}`));
       });
 
-    /* contract.events.depositComplete().on("data", function (e) {
+    contract.events.depositComplete().on("data", function (e) {
       toastMessage(
         new Message(
           "success",
@@ -30,7 +31,7 @@ export default function DepositToContractForm() {
           )} ETH to contract!`
         )
       );
-    }); */
+    });
   }
 
   useEffect(() => {

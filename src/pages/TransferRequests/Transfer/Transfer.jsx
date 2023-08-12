@@ -3,6 +3,8 @@ import CustomButton from "../../../components/content/components/CustomButton/Cu
 import Address from "../../../components/content/components/Address/Address";
 import { Col, Row, Table } from "react-bootstrap";
 import { useMetaMask } from "../../../hooks/useMetamask";
+import Message from "../../../assets/js/customClasses/messageClasses";
+import { utils } from "../../../assets/js/utils";
 
 function Transfer() {
   const { transferId } = useLoaderData();
@@ -13,6 +15,7 @@ function Transfer() {
     approvals,
     contract,
     loadWeb3,
+    toastMessage,
   } = useMetaMask();
 
   const id = transferRequests[transferId]?.id.toString();
@@ -39,20 +42,19 @@ function Transfer() {
         loadWeb3();
       })
       .catch((e) => {
-        console.log(e.message);
-        // toastMessage(new Message("error", `${e}`));
+        toastMessage(new Message("error", `${e}`));
       });
 
-    /* contract.events.requestApproved().on("data", function (e) {
+    contract.events.requestApproved().on("data", function (e) {
       toastMessage(
         new Message(
           "success",
           `Transfer request #${e.returnValues.transferId} approved!`
         )
       );
-    }); */
+    });
 
-    /* contract.events.transferComplete().on("data", function (e) {
+    contract.events.transferComplete().on("data", function (e) {
       toastMessage(
         new Message(
           "success",
@@ -61,7 +63,7 @@ function Transfer() {
           } from ${utils.formatAddress(e.returnValues.from)} complete!`
         )
       );
-    }); */
+    });
   }
 
   return (
